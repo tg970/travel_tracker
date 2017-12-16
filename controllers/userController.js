@@ -23,7 +23,7 @@ router.get('/:id', async (req, res) => {
 router.post('/', async (req, res) => {
   try {
     const user = await User.create(req.body);
-    req.session.user = user;
+    //req.session.user = user;
     res.status(201).json(user);
   } catch (err) {
     console.log(err);
@@ -31,7 +31,7 @@ router.post('/', async (req, res) => {
   }
 });
 
-router.delete(':/id', async (req, res) => {
+router.delete('/:id', async (req, res) => {
   try {
     const user = await User.findByIdAndRemove(req.params.id);
     await Place.remove({ user: user.id });
@@ -40,6 +40,7 @@ router.delete(':/id', async (req, res) => {
     console.log(err);
     res.status(400).json({ err: err.message });
   }
+  //res.send('delete route running')
 });
 
 module.exports = router;
