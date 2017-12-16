@@ -43,7 +43,7 @@ router.get('/byUser', async (req, res) => {
 router.get('/userBeen', async (req, res) => {
   try {
     const loggedUser = await User.find({username: req.session.username});
-    const userBeenToPlaces = await Place.find( {$and [ {user: loggedUser._id}, {beenTo: true} ] } );
+    const userBeenToPlaces = await Place.find(  ); //{$and [ {user: loggedUser._id}, {beenTo: true} ] }
     res.status(200).json(userBeenToPlaces);
   } catch (e) {
     console.log(e);
@@ -55,7 +55,7 @@ router.get('/userBeen', async (req, res) => {
 router.get('/userNotBeen', async (req, res) => {
   try {
     const loggedUser = await User.find({username: req.session.username});
-    const userBeenToPlaces = await Place.find( {$and [ {user: loggedUser._id}, {beenTo: false} ] } );
+    const userBeenToPlaces = await Place.find( ); // {$and [ {user: loggedUser._id}, {beenTo: false} ] }
     res.status(200).json(userBeenToPlaces);
   } catch (e) {
     console.log(e);
@@ -78,7 +78,7 @@ router.post('/', async (req, res) => {
 //EDIT
 router.put('/:id', async (req, res) => {
   try {
-    const updatedPlace = await Place.findByIdAndUpdate(req.params.id), req.body, {new: true};
+    const updatedPlace = await Place.findByIdAndUpdate(req.params.id, req.body, {new: true}); // moved one paren
     res.status(200).json(updatedPlace);
   } catch (e) {
     console.log(e);
