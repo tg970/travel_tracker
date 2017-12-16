@@ -22,7 +22,7 @@ mongoose.Promise = global.Promise;
 // db.on( 'open' , ()=>{});
 
 // Controllers
-// const itemController = require( './controllers/itemController' );
+const placeController = require( './controllers/placeController' );
 // const seedController = require( './controllers/seedController' );
 
 // Middleware
@@ -30,7 +30,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use( express.static( 'public' ));
 app.use(morgan('dev'));
-//app.use( '/items', itemController );
+app.use( '/places', placeController );
 // app.use( '/seed', seedController );
 
 app.get('/', (req, res) => res.send('Welcome to Travel_Tracker'));
