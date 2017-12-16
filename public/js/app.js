@@ -6,8 +6,10 @@ app.controller('MainController', ['$http', function($http) {
   this.test = 'What!';
 
   this.newForm = {};
+  this.newUserForm = {};
   this.edit = false;
   this.currentEdit = {};
+
 
   // Routes
 
@@ -89,7 +91,55 @@ this.updateModal = ( place ) => {
       this.currentEdit = {};
    }
 
-   // User Routes
+
+
+   // User Routes -----------------------------------
+
+// Register
+  this.registerUser = () => {
+   console.log('register: ', this.newUserForm);
+   $http({ url: '/users', method: 'post', data: this.newUserForm })
+   .then(response => {
+      console.log('Register successful!');
+      this.user = response.data;
+      this.newUserForm = {};
+      this.error = null;
+   }, ex => {
+      console.log(ex.data.err);
+      this.error = ex.statusText;
+   })
+   .catch(err => this.error = 'Server broke?' );
+   };
+
+// Login
+   this.loginUser = () => {
+      console.log('log in: ', this.loginForm);
+      $http({ url: '/sessions/login', method: 'post', data: this.loginForm })
+      .then(response =>  {
+         console.log('Log in successful!');
+         this.user = response.data;
+         this.loginForm = {};
+         this.error = null;
+      }, ex => {
+         console.log(ex.data.err);
+         this.error = ex.statusText;
+      })
+      .catch(err => this.error = 'Server broke?' );
+   };
+
+// Logout
+   this.logout = () => {
+      $http({ url: '/sessions/logout', method: 'delete' })
+      .then((response) => {
+         console.log(response.data);
+         this.user = null;
+      });
+   }
+
+
+
+
+
 
 
 
