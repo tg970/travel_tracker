@@ -3,7 +3,7 @@ const app = angular.module('traveler_tracker_App', []);
 
 app.controller('MainController', ['$http', function($http) {
   // console.log('Hey');
-  // this.test = 'What!';
+  this.test = 'What!';
 
   this.newForm = {};
   this.edit = false;
@@ -31,7 +31,7 @@ app.controller('MainController', ['$http', function($http) {
   this.getPlaces = () => {
      $http({
        method: 'GET',
-       url: '/items'
+       url: '/places'
      }).then(response => {
        console.table(response.data);
        this.places = response.data;
@@ -41,7 +41,7 @@ app.controller('MainController', ['$http', function($http) {
      }).catch(err => console.error('Catch', err));
    }
    // Load immediately on page load
-   this.getItems();
+   this.getPlaces();
 
 // Delete Item
    this.deletePlace = (id) => {
@@ -49,7 +49,7 @@ app.controller('MainController', ['$http', function($http) {
 
     $http({
       method: 'DELETE',
-      url: '/items/' + id
+      url: '/places/' + id
     }).then(response => {
       // console.table(response.data)
 
@@ -91,6 +91,6 @@ this.updateModal = ( place ) => {
 
    // User Routes
 
-   
+
 
 }]);
