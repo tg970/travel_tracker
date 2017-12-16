@@ -18,7 +18,7 @@ app.controller('MainController', ['$http', function($http) {
     // console.log('Submit button calls createHoliday function');
     $http({
       method: 'POST',
-      url: '/items',
+      url: '/places',
       data: this.newForm
     }).then(response => {
       this.places.push(response.data);
