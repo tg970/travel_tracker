@@ -2,13 +2,13 @@ const express = require('express');
 const router = express.Router();
 
 const Place = require('../models/placeModel.js');
-const User = require('../models/users.js');
+//const User = require('../models/users.js');
 
 
 //ALL PLACES
 router.get('/', async (req, res) => {
   try {
-    const allPlaces = await Place.find().populate('user');
+    const allPlaces = await Place.find() //.populate('user');
     res.status(200).json(allPlaces);
   } catch (e) {
     console.log(e);
@@ -96,3 +96,5 @@ router.delete('/:id', async (req, res) => {
     res.status(400).json({err: e.message});
   }
 })
+
+module.exports = router; // need to export the router
