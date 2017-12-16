@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 
 const Place = require('../models/placeModel.js');
-//const User = require('../models/users.js');
+const User = require('../models/users.js');
 
 
 //ALL PLACES
@@ -16,16 +16,16 @@ router.get('/', async (req, res) => {
   }
 });
 
-//ALL PUBLIC PLACES
-router.get('/', async (req, res) => {
-  try {
-    const publicPlaces = await Place.find({public: true}).populate('user');
-    res.status(200).json(publicPlaces);
-  } catch (e) {
-    console.log(e);
-    res.status(400).json({err: e.message});
-  }
-});
+//ALL PUBLIC PLACES (Dupl route, needs new URI)
+// router.get('/', async (req, res) => {
+//   try {
+//     const publicPlaces = await Place.find({public: true}).populate('user');
+//     res.status(200).json(publicPlaces);
+//   } catch (e) {
+//     console.log(e);
+//     res.status(400).json({err: e.message});
+//   }
+// });
 
 //USER PLACES
 router.get('/byUser', async (req, res) => {

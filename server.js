@@ -23,7 +23,8 @@ mongoose.Promise = global.Promise;
 
 // Controllers
 const placeController = require( './controllers/placeController' );
-// const seedController = require( './controllers/seedController' );
+const userController = require( './controllers/userController' );
+const sessionController = require( './controllers/sessionController' );
 
 // Middleware
 app.use(express.urlencoded({ extended: false }));
@@ -31,7 +32,8 @@ app.use(express.json());
 app.use( express.static( 'public' ));
 app.use(morgan('dev'));
 app.use( '/places', placeController );
-// app.use( '/seed', seedController );
+app.use( '/users', userController );
+app.use('/sessions', sessionController);
 
 app.get('/', (req, res) => res.send('Welcome to Travel_Tracker'));
 
