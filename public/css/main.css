@@ -1,0 +1,15 @@
+@import url('https://fonts.googleapis.com/css?family=Barlow|Oxygen');
+/*font-family: 'Barlow', sans-serif;*/
+/*font-family: 'Oxygen', sans-serif;*/
+
+* {
+  font-family: 'Oxygen', sans-serif;
+}
+h1, h2, h3, h4, h4 {
+  font-family: 'Barlow', sans-serif;
+}
+.container {
+  margin: 0 auto;
+  max-width: 960px;
+  /*border: 1px solid red;*/
+}
