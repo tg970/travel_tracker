@@ -108,10 +108,10 @@ this.updateModal = ( place ) => {
       this.newUserForm = {};
       this.error = null;
    }, ex => {
-      console.log(ex.data.err);
-      this.error = ex.statusText;
+      console.log(ex.data.err, ex.statusText);
+      this.registerError = 'Hmm, maybe try a different username...';
    })
-   .catch(err => this.error = 'Server broke?' );
+   .catch(err => this.registerError = 'Something went wrong' );
    };
 
 // Login
@@ -128,9 +128,9 @@ this.updateModal = ( place ) => {
          this.error = null;
       }, ex => {
          console.log('ex', ex.data.err);
-         this.error = ex.statusText;
+         this.loginError = ex.statusText;
       })
-      .catch(err => this.error = 'Something went wrong' );
+      .catch(err => this.loginError = 'Something went wrong' );
    };
 
 // Logout
