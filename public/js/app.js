@@ -98,33 +98,39 @@ this.updateModal = ( place ) => {
 // Register
   this.registerUser = () => {
    console.log('register: ', this.newUserForm);
-   $http({ url: '/users', method: 'post', data: this.newUserForm })
+   $http({
+     url: '/users',
+     method: 'post',
+     data: this.newUserForm })
    .then(response => {
-      console.log('Register successful!');
+      console.log('RegisterResponce:', response.data);
       this.user = response.data;
       this.newUserForm = {};
       this.error = null;
    }, ex => {
-      console.log(ex.data.err);
-      this.error = ex.statusText;
+      console.log(ex.data.err, ex.statusText);
+      this.registerError = 'Hmm, maybe try a different username...';
    })
-   .catch(err => this.error = 'Server broke?' );
+   .catch(err => this.registerError = 'Something went wrong' );
    };
 
 // Login
    this.loginUser = () => {
-      console.log('log in: ', this.loginForm);
-      $http({ url: '/sessions/login', method: 'post', data: this.loginForm })
+      $http({
+        url: '/sessions/login',
+        method: 'post',
+        data: this.loginForm })
       .then(response =>  {
-         console.log('Log in successful!');
+         console.log('LoginResponce:', response.data);
+         //console.log('SessionClient:', req.session);
          this.user = response.data;
          this.loginForm = {};
          this.error = null;
       }, ex => {
-         console.log(ex.data.err);
-         this.error = ex.statusText;
+         console.log('ex', ex.data.err);
+         this.loginError = ex.statusText;
       })
-      .catch(err => this.error = 'Server broke?' );
+      .catch(err => this.loginError = 'Something went wrong' );
    };
 
 // Logout
