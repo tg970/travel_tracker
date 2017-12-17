@@ -23,7 +23,7 @@ router.get('/:id', async (req, res) => {
 router.post('/', async (req, res) => {
   try {
     const user = await User.create(req.body);
-    //req.session.user = user;
+    req.session.user = user;
     res.status(201).json(user);
   } catch (err) {
     console.log(err);

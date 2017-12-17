@@ -5,9 +5,13 @@ const User = require('../models/users.js');
 
 router.post('/login', async (req, res) => {
    try {
-     const user = await User.findOne({ username: req.body.username }); // a document
+     const user = await User.findOne({ username: req.body.username });
+     //console.log('userFound:', user);
      if (user.auth(req.body.password)) {
+       //console.log('userAuth true');
        req.session.user = user;
+       //req.session.logged = true;
+       //console.log('sessionControlr:', req.session);
        res.status(200).json(user);
      } else {
        res.status(403).json({ err: 'Forbidden' })
