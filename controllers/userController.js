@@ -56,13 +56,9 @@ router.delete('/:id', async (req, res) => {
 router.get('/addWant/:userId/:placeId', async (req, res) => {
   try {
     const updatingUser = await User.findById(req.params.userId);
-    console.log('updatingUser:',updatingUser);
     const userPlacesWant = updatingUser.placesWant
-    console.log('userPlacesWant before:',userPlacesWant);
     userPlacesWant.push(req.params.placeId)
-    console.log('userPlacesWant after:',userPlacesWant);
     const updatedUser = await User.findByIdAndUpdate(req.params.userId, {$set: {placesWant: userPlacesWant}}, {new: true});
-    console.log('updatedUser',updatedUser);
     res.status(200).json(updatedUser);
   } catch (e) {
     console.log(e);
