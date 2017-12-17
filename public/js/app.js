@@ -146,14 +146,12 @@ app.controller('MainController', ['$http', function($http) {
 
   //Open place show modal
   this.openShow = (place) => {
-    const wantTo = this.user.placesWant.findIndex(i => i === place._id)
-    console.log('wantTo',wantTo);
-    if (wantTo >= 0) {
-      console.log('wantTo',true);
-      this.wantTo = true
-    } else {
-      console.log('wantTo',false);
-      this.wantTo = false
+    if (this.user) {
+      console.log('this.user: true');
+      this.wantTo = this.user.placesWant.includes(place._id)
+      this.beenTo = this.user.placesBeen.includes(place._id)
+      console.log('wantTo:',this.wantTo);
+      console.log('beenTo:',this.beenTo);
     }
     this.showModal = true;
     //console.log(this.showModal);
