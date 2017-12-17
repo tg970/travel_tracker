@@ -26,7 +26,8 @@
         <p>Been there: <i>{{ctrl.place.beenThere}}</i></p>
         <p>Public: <i>{{ctrl.place.public}}</i></p>
         <p><button class="showBtn"><i class="fa fa-heart" aria-hidden="true"></i></button>&nbsp; &nbsp; Likes: <i>{{ctrl.place.likes}}</i></p>
-
+        <button ng-class="(ctrl.wantTo ? 'hideMeBtn' : '')" class="showBtn" ng-click='ctrl.addWant(ctrl.place)'>Add this place to your 'Want to Go' List</button>
+        <button class="showBtn" ng-click='ctrl.addBeen(ctrl.place)'>Add this place to your 'Been To' List</button>
         <button class="showBtn" ng-click='ctrl.updateModal(ctrl.place)'><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
         <button class="showBtn" ng-click="ctrl.deletePlace(ctrl.place._id)"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
       </div>

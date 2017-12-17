@@ -6,6 +6,8 @@ app.controller('MainController', ['$http', function($http) {
   this.test = 'What!';
   this.showModal = false;
   this.place = {};
+  this.wantTo = null;
+  this.beenTo = null;
 
   this.newForm = {};
   this.newUserForm = {};
@@ -144,17 +146,57 @@ app.controller('MainController', ['$http', function($http) {
 
   //Open place show modal
   this.openShow = (place) => {
+    const wantTo = this.user.placesWant.findIndex(i => i === place._id)
+    console.log('wantTo',wantTo);
+    if (wantTo >= 0) {
+      console.log('wantTo',true);
+      this.wantTo = true
+    } else {
+      console.log('wantTo',false);
+      this.wantTo = false
+    }
     this.showModal = true;
-    console.log(this.showModal);
+    //console.log(this.showModal);
     this.place = place;
-    console.log(this.place);
+    //console.log(this.place);
   }
 
   this.closeShow = () => {
     this.showModal = false;
     this.edit = false;
-  }
+    this.place = {};
+    this.wantTo = null;
+    this.beenTo = null;
+  };
 
+  this.addWant = (place) => {
+    $http({
+      url: `/users/addWant/${this.user._id}/${place._id}`,
+      method: 'get'
+    }).then(response =>  {
+      console.log('LoginResponce:', response.data);
+      //console.log('SessionClient:', req.session);
+      this.user = response.data;
+      this.error = null;
+    }, ex => {
+        console.log('ex', ex.data.err);
+        this.loginError = ex.statusText;
+    }).catch(err => this.loginError = 'Something went wrong' );
+  };
 
+  this.addBeen = (place) => {
+    $http({
+      url: `/users/addBeen/${this.user._id}/${place._id}`,
+      method: 'get'
+    }).then(response =>  {
+      console.log('LoginResponce:', response.data);
+      //console.log('SessionClient:', req.session);
+      this.user = response.data;
+      this.error = null;
+    }, ex => {
+        console.log('ex', ex.data.err);
+        this.loginError = ex.statusText;
+    }).catch(err => this.loginError = 'Something went wrong' );
+  };
 
 }]);
