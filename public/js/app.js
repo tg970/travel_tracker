@@ -1,7 +1,7 @@
-const app = angular.module('traveler_tracker_App', []);
+const app = angular.module('traveler_tracker_App', ['ngRoute']);
 
 
-app.controller('MainController', ['$http', function($http) {
+app.controller('MainController', ['$http', '$route', function($http, $route) {
   // console.log('Hey');
   this.test = 'What!';
   this.showModal = false;
@@ -230,5 +230,52 @@ app.controller('MainController', ['$http', function($http) {
         this.loginError = ex.statusText;
     }).catch(err => this.loginError = 'Something went wrong' );
   };
+
+}]);
+
+app.config(['$routeProvider','$locationProvider', function($routeProvider,$locationProvider) {
+  // Enables Push State
+  $locationProvider.html5Mode({ enabled: true });
+
+  $routeProvider.when('/', {
+    templateUrl: 'partials/places.html', // render http://localhost:3000/contact.html
+    controller: 'MainController as ctrl', // attach controller ContactController
+    controllerAs: 'ctrl' // alias for ContactController (like ng-controller="ContactController as ctrl")
+  });
+
+  $routeProvider.when('/about', {
+    templateUrl: 'partials/userLogin.html'
+    controller: 'UserController as user',
+    controllerAs: 'user'
+  });
+  //
+  // $routeProvider.when('/pets/:id', {  // when http://localhost:3000/pets/:id
+  //   templateUrl: 'pets.html',
+  //   controller: 'PetController',
+  //   controllerAs: 'ctrl'
+  // });
+  //
+  // $routeProvider.when('/pricing', {
+  //   templateUrl: 'pricing.html',
+  //   controller: 'PricingController',
+  //   controllerAs: 'ctrl',
+  //   price: '$1 trillion dollars'
+  // });
+  //
+  // $routeProvider.when('/joke', {
+  //   templateUrl: 'joke.html',
+  //   controller: 'JokeController',
+  //   controllerAs: 'ctrl'
+  // });
+  //
+  // $routeProvider.when('/all', {
+  //   templateUrl: 'all.html',
+  //   controller: 'AllController',
+  //   controllerAs: 'ctrl'
+  // });
+  //
+  // $routeProvider.otherwise({
+  //   redirectTo: '/'
+  // });
 
 }]);
