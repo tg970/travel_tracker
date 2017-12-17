@@ -4,11 +4,14 @@ const app = angular.module('traveler_tracker_App', []);
 app.controller('MainController', ['$http', function($http) {
   // console.log('Hey');
   this.test = 'What!';
+  this.showModal = false;
+  this.place = {};
 
   this.newForm = {};
   this.newUserForm = {};
   this.edit = false;
   this.currentEdit = {};
+
 
 
   // Routes
@@ -138,8 +141,18 @@ this.updateModal = ( place ) => {
 
 
 
+   //Open place show modal
+   this.openShow = (place) => {
+     this.showModal = true;
+     console.log(this.showModal);
+     this.place = place;
+     console.log(this.place);
+   }
 
-
+   this.closeShow = () => {
+     this.showModal = false;
+     this.edit = false;
+   }
 
 
 
