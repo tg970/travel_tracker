@@ -31,6 +31,16 @@ router.post('/', async (req, res) => {
   }
 });
 
+router.put('/:id', async (req, res) => {
+  try {
+    const updatedUser = await User.findByIdAndUpdate(req.params.id, req.body, {new: true});
+    res.status(200).json(updatedUser);
+  } catch (e) {
+    console.log(e);
+    res.status(400).json({err: e.message});
+  }
+})
+
 router.delete('/:id', async (req, res) => {
   try {
     const user = await User.findByIdAndRemove(req.params.id);
@@ -42,5 +52,22 @@ router.delete('/:id', async (req, res) => {
   }
   //res.send('delete route running')
 });
+
+router.get('/addWant/:userId/:placeId', async (req, res) => {
+  try {
+    const updatingUser = await User.findById(req.params.userId);
+    console.log('updatingUser:',updatingUser);
+    const userPlacesWant = updatingUser.placesWant
+    console.log('userPlacesWant before:',userPlacesWant);
+    userPlacesWant.push(req.params.placeId)
+    console.log('userPlacesWant after:',userPlacesWant);
+    const updatedUser = await User.findByIdAndUpdate(req.params.userId, {$set: {placesWant: userPlacesWant}}, {new: true});
+    console.log('updatedUser',updatedUser);
+    res.status(200).json(updatedUser);
+  } catch (e) {
+    console.log(e);
+    res.status(400).json({err: e.message});
+  }
+})
 
 module.exports = router;
