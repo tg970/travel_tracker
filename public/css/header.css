@@ -76,23 +76,23 @@
 }
 
 .orange:hover {
-  background: #b5683e;
+  /*background: #b5683e;*/
   color: #FFFFFF;
 }
 .lightBlue:hover {
-  background: #e8f7fd;
+  /*background: #e8f7fd;*/
   color: #FFFFFF;
 }
 .blue:hover {
-  background: #34adbf;
+  /*background: #34adbf;*/
   color: #FFFFFF;
 }
 .brown:hover {
-  background: #230500;
+  /*background: #230500;*/
   color: #FFFFFF;
 }
 .creme:hover {
-  background: #ded6cd;
+  /*background: #ded6cd;*/
   color: #000000;
 }
 
