@@ -1,1 +1,36 @@
-
+a {
+    margin: 0;
+    text-decoration: none;
+}
+.menu {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    background: #EEEEEE ;
+    text-align: center;
+    /* border: 1px solid red; */
+    border-radius: 5px;
+    padding: 0;
+/*     max-height: 40px; */
+}
+.menuItem {
+    /* border: 1px solid blue; */
+    height: 40px;
+    /* width: 50px; */
+    padding: 2px 5px 2px 5px;
+}
+.menuTitle {
+    display: inline-block;
+    margin: 0 auto;
+}
+.titleBox {
+    margin-left: 10px;
+    margin-right: 10px;
+}
+.menuContents {
+    margin-right: 5px;
+}
+.slogan {
+    display: inline-block;
+}
