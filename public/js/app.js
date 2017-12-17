@@ -172,9 +172,10 @@ app.controller('MainController', ['$http', function($http) {
       url: `/users/addWant/${this.user._id}/${place._id}`,
       method: 'get'
     }).then(response =>  {
-      console.log('LoginResponce:', response.data);
+      console.log('addWant Resp:', response.data);
       //console.log('SessionClient:', req.session);
       this.user = response.data;
+      this.wantTo = true;
       this.error = null;
     }, ex => {
         console.log('ex', ex.data.err);
@@ -187,9 +188,42 @@ app.controller('MainController', ['$http', function($http) {
       url: `/users/addBeen/${this.user._id}/${place._id}`,
       method: 'get'
     }).then(response =>  {
-      console.log('LoginResponce:', response.data);
+      console.log('addWant Resp:', response.data);
       //console.log('SessionClient:', req.session);
       this.user = response.data;
+      this.beenTo = true;
+      this.error = null;
+    }, ex => {
+        console.log('ex', ex.data.err);
+        this.loginError = ex.statusText;
+    }).catch(err => this.loginError = 'Something went wrong' );
+  };
+
+  this.removeWant = (place) => {
+    $http({
+      url: `/users/removeWant/${this.user._id}/${place._id}`,
+      method: 'get'
+    }).then(response =>  {
+      console.log('removeWant Resp:', response.data);
+      //console.log('SessionClient:', req.session);
+      this.user = response.data;
+      this.wantTo = false;
+      this.error = null;
+    }, ex => {
+        console.log('ex', ex.data.err);
+        this.loginError = ex.statusText;
+    }).catch(err => this.loginError = 'Something went wrong' );
+  };
+
+  this.removeBeen = (place) => {
+    $http({
+      url: `/users/removeBeen/${this.user._id}/${place._id}`,
+      method: 'get'
+    }).then(response =>  {
+      console.log('removeBeen Resp:', response.data);
+      //console.log('SessionClient:', req.session);
+      this.user = response.data;
+      this.beenTo = false;
       this.error = null;
     }, ex => {
         console.log('ex', ex.data.err);
