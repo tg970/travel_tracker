@@ -3,11 +3,13 @@
   <head>
     <meta charset="utf-8">
     <title></title>
+    <script src="https://use.fontawesome.com/a71821b06b.js"></script> <!--  favicon font cdn -->
     <link rel="stylesheet" href="/css/main.css">
     <link rel="stylesheet" href="/css/form.css">
     <link rel="stylesheet" href="/css/header.css">
     <link rel="stylesheet" href="/css/list.css">
     <link rel="stylesheet" href="/css/footer.css">
+    <link rel="stylesheet" href="/css/places.css">
     <link rel="stylesheet" href="/css/loginRegister.css">
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular.min.js"></script>
     <script type="text/javascript" src="/js/app.js"></script>
@@ -23,6 +25,10 @@
 
       {{ctrl.test}}
     </div>
+
+    <div class="placesIndex-Show" ng-include="'partials/places.html'">
+    </div>
+
     <footer>
     <!-- include footer -->
     </footer>
