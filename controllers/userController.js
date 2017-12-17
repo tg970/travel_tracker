@@ -83,7 +83,7 @@ router.get('/removeWant/:userId/:placeId', async (req, res) => {
   try {
     const updatingUser = await User.findById(req.params.userId);
     const userPlacesWant = updatingUser.placesWant
-    const removeIndex = userPlacesWant.findIndex(i => i === req.params.placeId)
+    const removeIndex = userPlacesWant.findIndex(i => i == req.params.placeId)
     console.log('removeIndex Want:', removeIndex);
     userPlacesWant.splice(removeIndex, 1);
     const updatedUser = await User.findByIdAndUpdate(req.params.userId, {$set: {placesWant: userPlacesWant}}, {new: true});
@@ -98,7 +98,7 @@ router.get('/removeBeen/:userId/:placeId', async (req, res) => {
   try {
     const updatingUser = await User.findById(req.params.userId);
     const userPlacesBeen = updatingUser.placesBeen
-    const removeIndex = userPlacesBeen.findIndex(i => i === req.params.placeId)
+    const removeIndex = userPlacesBeen.findIndex(i => i == req.params.placeId)
     userPlacesBeen.splice(removeIndex, 1);
     console.log('removeIndex Want:', removeIndex);
     const updatedUser = await User.findByIdAndUpdate(req.params.userId, {$set: {placesBeen: userPlacesBeen}}, {new: true});
