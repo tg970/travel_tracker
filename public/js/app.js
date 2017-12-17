@@ -61,6 +61,8 @@ app.controller('MainController', ['$http', function($http) {
       const removeByIndex = this.places.findIndex(p => p._id === id)
       // console.log('I want to delete this one!', removeByIndex)
       this.places.splice(removeByIndex, 1);
+      this.showModal = false;
+      this.edit = false;
     }, error => {console.error(error.message)
     }).catch(err => console.error('Catch', err));
   }
