@@ -66,4 +66,17 @@ router.get('/addWant/:userId/:placeId', async (req, res) => {
   }
 })
 
+router.get('/addBeen/:userId/:placeId', async (req, res) => {
+  try {
+    const updatingUser = await User.findById(req.params.userId);
+    const userPlacesBeen = updatingUser.placesBeen
+    userPlacesBeen.push(req.params.placeId)
+    const updatedUser = await User.findByIdAndUpdate(req.params.userId, {$set: {placesBeen: userPlacesBeen}}, {new: true});
+    res.status(200).json(updatedUser);
+  } catch (e) {
+    console.log(e);
+    res.status(400).json({err: e.message});
+  }
+})
+
 module.exports = router;
