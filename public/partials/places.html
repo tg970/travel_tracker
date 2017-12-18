@@ -41,7 +41,7 @@
 
         <div class = "editModal" ng-if="ctrl.edit">
           <p id="closeModal" ng-click="ctrl.dontUpdate()"><i class="fa fa-window-close" aria-hidden="true"></i></p>
-          <form class="editForm" ng-submit="ctrl.updatePlace(ctrl.place)">
+          <form class="editForm" ng-submit="ctrl.updatePlace()">
             <label for="place">Place:</label>
             <input id="place" type="text" ng-model="ctrl.currentEdit.place"/>
             <label for="img">Image URL:</label>

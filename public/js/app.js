@@ -79,7 +79,7 @@ app.controller('MainController', ['$http', '$route', function($http, $route) {
     this.currentEdit = angular.copy(place);
   }
 
-  this.updatePlace = (place) => {
+  this.updatePlace = () => {
     console.log('edit submit...', this.currentEdit);
     $http({
       method: 'PUT',
@@ -271,12 +271,12 @@ app.config(['$routeProvider','$locationProvider', function($routeProvider,$locat
     controllerAs: 'user'
   });
   //
-  // $routeProvider.when('/pets/:id', {  // when http://localhost:3000/pets/:id
-  //   templateUrl: 'pets.html',
-  //   controller: 'PetController',
-  //   controllerAs: 'ctrl'
-  // });
-  //
+  $routeProvider.when('/myTracker', {  // when http://localhost:3000/pets/:id
+    templateUrl: 'partials/places.html',
+    controller: 'MyTrackerController as ctrl',
+    controllerAs: 'ctrl'
+  });
+
   // $routeProvider.when('/pricing', {
   //   templateUrl: 'pricing.html',
   //   controller: 'PricingController',
