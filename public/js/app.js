@@ -93,55 +93,6 @@ app.controller('MainController', ['$http', '$route', function($http, $route) {
     this.currentEdit = {};
   }
 
-  // // User Routes ---------------
-  //
-  // // Register
-  // this.registerUser = () => {
-  //   console.log('register: ', this.newUserForm);
-  //   $http({
-  //     url: '/users',
-  //     method: 'post',
-  //     data: this.newUserForm
-  //   }).then(response => {
-  //     console.log('RegisterResponce:', response.data);
-  //     this.user = response.data;
-  //     this.newUserForm = {};
-  //     this.error = null;
-  //   }, ex => {
-  //     console.log(ex.data.err, ex.statusText);
-  //     this.registerError = 'Hmm, maybe try a different username...';
-  //   }).catch(err => this.registerError = 'Something went wrong' );
-  // };
-  //
-  // // Login
-  // this.loginUser = () => {
-  //   $http({
-  //     url: '/sessions/login',
-  //     method: 'post',
-  //     data: this.loginForm
-  //   }).then(response =>  {
-  //     console.log('LoginResponce:', response.data);
-  //     //console.log('SessionClient:', req.session);
-  //     this.user = response.data;
-  //     this.loginForm = {};
-  //     this.error = null;
-  //   }, ex => {
-  //       console.log('ex', ex.data.err);
-  //       this.loginError = ex.statusText;
-  //   }).catch(err => this.loginError = 'Something went wrong' );
-  // };
-  //
-  // // Logout
-  // this.logout = () => {
-  //   $http({
-  //     url: '/sessions/logout',
-  //     method: 'delete'
-  //   }).then((response) => {
-  //     console.log(response.data);
-  //     this.user = null;
-  //   });
-  // }
-
   // Show Modal Logic ---------------
 
   //Open place show modal
