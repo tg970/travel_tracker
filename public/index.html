@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html ng-app='traveler_tracker_App'>
+<html >
   <head>
     <meta charset="utf-8">
     <title></title>
@@ -11,24 +11,44 @@
     <link rel="stylesheet" href="/css/footer.css">
     <link rel="stylesheet" href="/css/places.css">
     <link rel="stylesheet" href="/css/loginRegister.css">
-    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js" charset="utf-8"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-route.min.js" charset="utf-8"></script>
     <script type="text/javascript" src="/js/app.js"></script>
+    <base href="/" target="_blank">
   </head>
-  <body ng-controller='MainController as ctrl'>
-    <header>
-      <div ng-include="'partials/header.html'"></div>
-    </header>
-    <div class="container">
+  <body ng-app='traveler_tracker_App'>
+    <!-- <header> -->
+      <!-- <nav ng-include="'partials/header.html'"></nav> -->
+      <nav>
+        <div class="menu">
+
+          <div class="titleBox">
+            <h2><span class="orange">t</span>ravel <span class="blue">t</span>racker</h2>
+          </div>
+
+          <div class="menuContents">
+            <a class="menuItem menuLink" href="/">Home</a>
+            <a class="menuItem menuLink" href="#">My Places</a>
+            <a class="menuItem menuLink" href="/signin">Login/SignUp</a>
+          </div>
+
+          <div class="menuUserName">
+            <a class="menuLink orange" href="#">username</a>
+          </div>
+
+        </div>
+      </nav>
+    <!-- </header> -->
+    <!-- <div class="container" ng-controller='MainController as ctrl'>
       <div ng-include="'partials/userLogin.html'"></div>
-      <!-- include list -->
-      <!-- include form -->
+
 
       {{ctrl.test}}
-    </div>
+    </div> -->
 
-    <div class="placesIndex-Show" ng-include="'partials/places.html'">
-    </div>
-
+    <!-- <div class="placesIndex-Show" ng-include="'partials/places.html'">
+    </div> -->
+    <main ng-view></main>
     <footer>
     <!-- include footer -->
     </footer>

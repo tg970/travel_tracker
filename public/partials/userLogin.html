@@ -1,27 +1,31 @@
-<div ng-if='!ctrl.user'>
+<h1>user page</h1>
+
+
+<div ng-if='!user.user'>
+  <!-- ng-if='!user.user' -->
   <div class="login">
     <small>Log in</small>
-    <form ng-submit='ctrl.loginUser()'>
-       <input type="text" placeholder="username" autocomplete="username" ng-model="ctrl.loginForm.username" />
-       <input type="password" autocomplete="current-password" placeholder="password" ng-model="ctrl.loginForm.password" />
+    <form ng-submit='user.loginUser()'>
+       <input type="text" placeholder="username" autocomplete="username" ng-model="user.loginForm.username" />
+       <input type="password" autocomplete="current-password" placeholder="password" ng-model="user.loginForm.password" />
        <input type="submit" />
     </form>
-    <p>{{ ctrl.loginError }}</p>
+    <p>{{ user.loginError }}</p>
   </div>
   <div class="register">
     <small>Register</small>
-    <form ng-submit='ctrl.registerUser()'>
-       <input type="text" placeholder="username" autocomplete="username" ng-model="ctrl.newUserForm.username" required/>
-       <input type="password" autocomplete="current-password" placeholder="password" ng-model="ctrl.newUserForm.password" required/>
-       <input type="text" placeholder="First Name" ng-model="ctrl.newUserForm.first" required/>
-       <input type="text" placeholder="Last Name" ng-model="ctrl.newUserForm.last" />
-       <input type="text" placeholder="Profile Pic URL" ng-model="ctrl.newUserForm.pic" />
-       <input type="text" placeholder="Email Address" ng-model="ctrl.newUserForm.email" />
+    <form ng-submit='user.registerUser()'>
+       <input type="text" placeholder="username" autocomplete="username" ng-model="user.newUserForm.username" required/>
+       <input type="password" autocomplete="current-password" placeholder="password" ng-model="user.newUserForm.password" required/>
+       <input type="text" placeholder="First Name" ng-model="user.newUserForm.first" required/>
+       <input type="text" placeholder="Last Name" ng-model="user.newUserForm.last" />
+       <input type="text" placeholder="Profile Pic URL" ng-model="user.newUserForm.pic" />
+       <input type="text" placeholder="Email Address" ng-model="user.newUserForm.email" />
        <input type="submit" />
     </form>
-    <p>{{ ctrl.registerError }}</p>
+    <p>{{ user.registerError }}</p>
   </div>
 </div>
-<form ng-if='ctrl.user' ng-submit='ctrl.logout()'>
+<form ng-if='user.user' ng-submit='user.logout()'>
   <input type='submit' value='logout' />
 </form>
