@@ -92,32 +92,6 @@ body {
 }
 
 /*=========================================
-        MEDIA QUERIES
-=========================================*/
-
-@media(max-width: 800px) {
-  .indexh2 {
-    font-size: 20px;
-  }
-}
-
-@media(max-width: 550px) {
-  .indexh2 {
-    font-size: 14px;
-  }
-
-  .showContainer > p{
-    font-size: 14px;
-  }
-}
-
-@media(max-width: 450px) {
-  .indexh2 {
-    font-size: 11px;
-  }
-}
-
-/*=========================================
         SHOW PAGE MODAL
 =========================================*/
 .showModal {
@@ -201,7 +175,142 @@ body {
   padding: 10px;
 }
 
+.editForm > input, .editForm > label, .editForm > textarea {
+  margin-bottom: 5px;
+}
+
 .submitBtn {
   color: #230500;
   width: 20%;
+}
+
+
+
+/*=========================================
+        CREATE PAGE MODAL
+=========================================*/
+.createRowOne {
+  display: flex;
+  flex-direction: row;
+  width: 60%;
+  margin: auto;
+}
+
+.rowItem {
+  width: 49%;
+  padding: 0 20px;
+}
+
+#VR {
+  border-right: 3px solid #34adbf;
+  padding: 0 10px;
+}
+
+
+.create {
+  display: inline-block;
+  height: 28px;
+  padding: 0 30px;
+  color: #34adbf;
+  text-align: center;
+  letter-spacing: .1rem;
+  text-transform: uppercase;
+  text-decoration: none;
+  background-color: transparent;
+  border-radius: 4px;
+  border: 1px solid #34adbf;
+  cursor: pointer;
+}
+
+.create:hover, .create:focus {
+  color: #b5683e;
+  border-color: #b5683e;
+  outline: 0;
+}
+
+textarea {
+  min-height: 75px;
+}
+.openQuote {
+  float: left;
+  font-size: 100px;
+  line-height: 30px;
+  padding-top: 4px;
+  padding-right: 8px;
+  padding-left: 3px;
+  color: #34adbf;
+  font-family: Georgia;
+}
+
+.closeQuote {
+  float: right;
+  font-size: 100px;
+  line-height: 80px;
+  padding-top: 4px;
+  padding-right: 8px;
+  padding-left: 0;
+  color: #34adbf;
+  font-family: Georgia;
+}
+
+#quoteP {
+  padding-top: 5%;
+}
+
+
+/*=========================================
+        MEDIA QUERIES
+=========================================*/
+
+
+@media(max-width: 850px) {
+  .createRowOne{
+    width: 90%;
+  }
+}
+
+@media(max-width: 800px) {
+  .indexh2 {
+    font-size: 20px;
+  }
+}
+
+@media(max-width: 600px) {
+  .createRowOne{
+    width: 70%;
+    flex-direction: column;
+  }
+
+  .indexh2 {
+    font-size: 14px;
+  }
+
+  .rowItem {
+    width: 100%;
+    padding: 20px 0;
+  }
+
+  #VR {
+    border-right: none;
+    border-bottom: 3px solid #34adbf;
+    padding: 10px 0px;
+  }
+}
+
+@media(max-width: 550px) {
+  .indexh2 {
+    font-size: 18px;
+  }
+
+  .showContainer > p{
+    font-size: 14px;
+  }
+
+  .quote {
+    padding-top: 5px;
+  }
+
+  .imageBox {
+    width: 45%;
+  }
 }
