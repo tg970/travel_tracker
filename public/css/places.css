@@ -180,6 +180,10 @@ body {
   font-size: 22px;
 }
 
+.addRmvBtn {
+  display: block;
+}
+
 .editModal {
   background: #34adbf;
   border-radius: 4px;
