@@ -88,6 +88,7 @@ app.controller('MainController', ['$http', '$route', function($http, $route) {
     this.currentEdit = {};
   };
 
+
   this.dontUpdate = () => {
     this.edit = false;
     this.currentEdit = {};
@@ -236,6 +237,16 @@ app.controller('MainController', ['$http', '$route', function($http, $route) {
 app.controller('UserController', ['$http', '$route', function($http, $route) {
   // User Routes ---------------
 
+
+
+  this.dontUpdate = () => {
+    this.edit = false;
+    this.currentEdit = {};
+  }
+
+  // User Routes ---------------
+
+
   // Register
   this.registerUser = () => {
     console.log('register: ', this.newUserForm);
@@ -282,6 +293,7 @@ app.controller('UserController', ['$http', '$route', function($http, $route) {
       this.user = null;
     });
   }
+  
 }]);
 
 app.config(['$routeProvider','$locationProvider', function($routeProvider,$locationProvider) {
@@ -328,5 +340,95 @@ app.config(['$routeProvider','$locationProvider', function($routeProvider,$locat
   $routeProvider.otherwise({
     redirectTo: '/'
   });
+
+  // Show Modal Logic ---------------
+
+  //Open place show modal
+  this.openShow = (place) => {
+    if (this.user) {
+      console.log('this.user: true');
+      this.wantTo = this.user.placesWant.includes(place._id)
+      this.beenTo = this.user.placesBeen.includes(place._id)
+      console.log('wantTo:',this.wantTo);
+      console.log('beenTo:',this.beenTo);
+    }
+    this.showModal = true;
+    //console.log(this.showModal);
+    this.place = place;
+    //console.log(this.place);
+  }
+
+  this.closeShow = () => {
+    this.showModal = false;
+    this.edit = false;
+    this.place = {};
+    this.wantTo = null;
+    this.beenTo = null;
+  };
+
+  this.addWant = (place) => {
+    $http({
+      url: `/users/addWant/${this.user._id}/${place._id}`,
+      method: 'get'
+    }).then(response =>  {
+      console.log('addWant Resp:', response.data);
+      //console.log('SessionClient:', req.session);
+      this.user = response.data;
+      this.wantTo = true;
+      this.error = null;
+    }, ex => {
+        console.log('ex', ex.data.err);
+        this.loginError = ex.statusText;
+    }).catch(err => this.loginError = 'Something went wrong' );
+  };
+
+  this.addBeen = (place) => {
+    $http({
+      url: `/users/addBeen/${this.user._id}/${place._id}`,
+      method: 'get'
+    }).then(response =>  {
+      console.log('addWant Resp:', response.data);
+      //console.log('SessionClient:', req.session);
+      this.user = response.data;
+      this.beenTo = true;
+      this.error = null;
+    }, ex => {
+        console.log('ex', ex.data.err);
+        this.loginError = ex.statusText;
+    }).catch(err => this.loginError = 'Something went wrong' );
+  };
+
+  this.removeWant = (place) => {
+    $http({
+      url: `/users/removeWant/${this.user._id}/${place._id}`,
+      method: 'get'
+    }).then(response =>  {
+      console.log('removeWant Resp:', response.data);
+      //console.log('SessionClient:', req.session);
+      this.user = response.data;
+      this.wantTo = false;
+      this.error = null;
+    }, ex => {
+        console.log('ex', ex.data.err);
+        this.loginError = ex.statusText;
+    }).catch(err => this.loginError = 'Something went wrong' );
+  };
+
+  this.removeBeen = (place) => {
+    $http({
+      url: `/users/removeBeen/${this.user._id}/${place._id}`,
+      method: 'get'
+    }).then(response =>  {
+      console.log('removeBeen Resp:', response.data);
+      //console.log('SessionClient:', req.session);
+      this.user = response.data;
+      this.beenTo = false;
+      this.error = null;
+    }, ex => {
+        console.log('ex', ex.data.err);
+        this.loginError = ex.statusText;
+    }).catch(err => this.loginError = 'Something went wrong' );
+  };
+
 
 }]);
