@@ -29,6 +29,24 @@
 
         <button class="showBtn" ng-click='ctrl.updateModal(ctrl.place)'><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
         <button class="showBtn" ng-click="ctrl.deletePlace(ctrl.place._id)"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
+
+
+        <div class = "editModal" ng-if="ctrl.edit">
+          <p id="closeModal" ng-click="ctrl.dontUpdate()"><i class="fa fa-window-close" aria-hidden="true"></i></p>
+          <form class="editForm" ng-submit="ctrl.updatePlace()">
+            <label for="name">Place:</label>
+            <input id="place" type="text" value="{{ctrl.place.place}}"/>
+            <label for="img">Image URL:</label>
+            <input type="text" value="{{ctrl.place.img}}"/>
+            <label for="beenThere">Been there:</label>
+            <input id="beenThere" type="text" value="{{ctrl.place.beenThere}}"/>
+            <label for="public">Public:</label>
+            <input id="public" type="text" value="{{ctrl.place.public}}"/>
+            <label for="desc">Description:</label>
+            <textarea id="desc">{{ctrl.place.description}}</textarea>
+            <button class="submitBtn" type="submit">Save changes</button>
+          </form>
+        </div>
       </div>
     </div>
   </div>

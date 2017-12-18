@@ -179,3 +179,25 @@ body {
 .fa-window-close {
   font-size: 22px;
 }
+
+.editModal {
+  background: #34adbf;
+  border-radius: 4px;
+}
+
+.submitBtn:focus, .submitBtn:hover  {
+  color: #b5683e;
+  border-color: #b5683e;
+  outline: 0;
+}
+
+.editForm {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+}
+
+.submitBtn {
+  color: #230500;
+  width: 20%;
+}

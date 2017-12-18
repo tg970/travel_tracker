@@ -71,7 +71,7 @@ app.controller('MainController', ['$http', function($http) {
 this.updateModal = ( place ) => {
    console.log('full edit running...', place);
    this.edit = true;
-   this.currentEdit = angular.copy(place)
+   this.currentEdit = angular.copy(place);
 }
 
   this.updatePlace = () => {
@@ -152,9 +152,9 @@ this.updateModal = ( place ) => {
    //Open place show modal
    this.openShow = (place) => {
      this.showModal = true;
-     console.log(this.showModal);
+     // console.log(this.showModal);
      this.place = place;
-     console.log(this.place);
+     // console.log(this.place);
    }
 
    this.closeShow = () => {
