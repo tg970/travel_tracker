@@ -79,7 +79,7 @@ app.controller('MainController', ['$http', '$route', function($http, $route) {
     this.currentEdit = angular.copy(place);
   }
 
-  this.updatePlace = () => {
+  this.updatePlace = (place) => {
     console.log('edit submit...', this.currentEdit);
     $http({
       method: 'PUT',
@@ -90,7 +90,9 @@ app.controller('MainController', ['$http', '$route', function($http, $route) {
       //console.table(this.places);
       const updateByIndex = this.places.findIndex(place => place._id === response.data._id)
       console.log('update ind:', updateByIndex);
-      this.places.splice(updateByIndex , 1, response.data)
+      // this.places.splice(updateByIndex , 1, response.data)
+      this.places[updateByIndex] = response.data;
+      this.openShow(this.places[updateByIndex]);
     }).catch(err => console.error('Catch', err));
     this.edit = false;
     this.currentEdit = {};

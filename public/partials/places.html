@@ -41,17 +41,17 @@
 
         <div class = "editModal" ng-if="ctrl.edit">
           <p id="closeModal" ng-click="ctrl.dontUpdate()"><i class="fa fa-window-close" aria-hidden="true"></i></p>
-          <form class="editForm" ng-submit="ctrl.updatePlace()">
-            <label for="name">Place:</label>
-            <input id="place" type="text" ng-model="ctrl.place.place"/>
+          <form class="editForm" ng-submit="ctrl.updatePlace(ctrl.place)">
+            <label for="place">Place:</label>
+            <input id="place" type="text" ng-model="ctrl.currentEdit.place"/>
             <label for="img">Image URL:</label>
-            <input type="text" ng-model="ctrl.place.img"/>
+            <input type="text" ng-model="ctrl.currentEdit.img"/>
             <label for="beenThere">Been there:</label>
-            <input id="beenThere" type="text" ng-model="ctrl.place.beenThere"/>
+            <input id="beenThere" type="text" ng-model="ctrl.currentEdit.beenThere"/>
             <label for="public">Public:</label>
-            <input id="public" type="text" ng-model="ctrl.place.public"/>
+            <input id="public" type="text" ng-model="ctrl.currentEdit.public"/>
             <label for="desc">Description:</label>
-            <textarea id="desc" ng-model="ctrl.place.description"></textarea>
+            <textarea id="desc" ng-model="ctrl.currentEdit.description"></textarea>
             <button class="submitBtn" type="submit">Save changes</button>
           </form>
         </div>
