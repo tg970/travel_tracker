@@ -1,0 +1,25 @@
+.userList {
+  /*border: 1px solid red;*/
+  width: 250px;
+  height: 500px;
+  background: #230500;
+  border-radius: 5px;
+}
+.listTitle {
+  margin: 0;
+  padding: 3px 0 3px 0;
+  text-align: center;
+  color: #FFFFFF;
+  background: #34ADBF;
+  border-bottom: 2px solid #230500;
+  border-radius: 5px 5px 0 0;
+}
+.listTitle p {
+  margin: 0;
+}
+.listItem {
+  margin: 10px auto;
+  width: 75%;
+  height: 200px;
+  background: rgba(100, 100, 100, .8);
+}
