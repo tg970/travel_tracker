@@ -80,14 +80,14 @@ app.controller('MainController', ['$http', '$route', function($http, $route) {
   }
 
   this.updatePlace = () => {
-    //console.log('edit submit...', this.currentEdit);
+    console.log('edit submit...', this.currentEdit);
     $http({
       method: 'PUT',
       url: '/places/' + this.currentEdit._id,
       data: this.currentEdit
     }).then(response => {
       console.log('responce:', response.data);
-      console.table(this.places);
+      //console.table(this.places);
       const updateByIndex = this.places.findIndex(place => place._id === response.data._id)
       console.log('update ind:', updateByIndex);
       this.places.splice(updateByIndex , 1, response.data)
