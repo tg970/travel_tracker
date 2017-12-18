@@ -93,54 +93,54 @@ app.controller('MainController', ['$http', '$route', function($http, $route) {
     this.currentEdit = {};
   }
 
-  // User Routes ---------------
-
-  // Register
-  this.registerUser = () => {
-    console.log('register: ', this.newUserForm);
-    $http({
-      url: '/users',
-      method: 'post',
-      data: this.newUserForm
-    }).then(response => {
-      console.log('RegisterResponce:', response.data);
-      this.user = response.data;
-      this.newUserForm = {};
-      this.error = null;
-    }, ex => {
-      console.log(ex.data.err, ex.statusText);
-      this.registerError = 'Hmm, maybe try a different username...';
-    }).catch(err => this.registerError = 'Something went wrong' );
-  };
-
-  // Login
-  this.loginUser = () => {
-    $http({
-      url: '/sessions/login',
-      method: 'post',
-      data: this.loginForm
-    }).then(response =>  {
-      console.log('LoginResponce:', response.data);
-      //console.log('SessionClient:', req.session);
-      this.user = response.data;
-      this.loginForm = {};
-      this.error = null;
-    }, ex => {
-        console.log('ex', ex.data.err);
-        this.loginError = ex.statusText;
-    }).catch(err => this.loginError = 'Something went wrong' );
-  };
-
-  // Logout
-  this.logout = () => {
-    $http({
-      url: '/sessions/logout',
-      method: 'delete'
-    }).then((response) => {
-      console.log(response.data);
-      this.user = null;
-    });
-  }
+  // // User Routes ---------------
+  //
+  // // Register
+  // this.registerUser = () => {
+  //   console.log('register: ', this.newUserForm);
+  //   $http({
+  //     url: '/users',
+  //     method: 'post',
+  //     data: this.newUserForm
+  //   }).then(response => {
+  //     console.log('RegisterResponce:', response.data);
+  //     this.user = response.data;
+  //     this.newUserForm = {};
+  //     this.error = null;
+  //   }, ex => {
+  //     console.log(ex.data.err, ex.statusText);
+  //     this.registerError = 'Hmm, maybe try a different username...';
+  //   }).catch(err => this.registerError = 'Something went wrong' );
+  // };
+  //
+  // // Login
+  // this.loginUser = () => {
+  //   $http({
+  //     url: '/sessions/login',
+  //     method: 'post',
+  //     data: this.loginForm
+  //   }).then(response =>  {
+  //     console.log('LoginResponce:', response.data);
+  //     //console.log('SessionClient:', req.session);
+  //     this.user = response.data;
+  //     this.loginForm = {};
+  //     this.error = null;
+  //   }, ex => {
+  //       console.log('ex', ex.data.err);
+  //       this.loginError = ex.statusText;
+  //   }).catch(err => this.loginError = 'Something went wrong' );
+  // };
+  //
+  // // Logout
+  // this.logout = () => {
+  //   $http({
+  //     url: '/sessions/logout',
+  //     method: 'delete'
+  //   }).then((response) => {
+  //     console.log(response.data);
+  //     this.user = null;
+  //   });
+  // }
 
   // Show Modal Logic ---------------
 
@@ -233,6 +233,57 @@ app.controller('MainController', ['$http', '$route', function($http, $route) {
 
 }]);
 
+app.controller('UserController', ['$http', '$route', function($http, $route) {
+  // User Routes ---------------
+
+  // Register
+  this.registerUser = () => {
+    console.log('register: ', this.newUserForm);
+    $http({
+      url: '/users',
+      method: 'post',
+      data: this.newUserForm
+    }).then(response => {
+      console.log('RegisterResponce:', response.data);
+      this.user = response.data;
+      this.newUserForm = {};
+      this.error = null;
+    }, ex => {
+      console.log(ex.data.err, ex.statusText);
+      this.registerError = 'Hmm, maybe try a different username...';
+    }).catch(err => this.registerError = 'Something went wrong' );
+  };
+
+  // Login
+  this.loginUser = () => {
+    $http({
+      url: '/sessions/login',
+      method: 'post',
+      data: this.loginForm
+    }).then(response =>  {
+      console.log('LoginResponce:', response.data);
+      //console.log('SessionClient:', req.session);
+      this.user = response.data;
+      this.loginForm = {};
+      this.error = null;
+    }, ex => {
+        console.log('ex', ex.data.err);
+        this.loginError = ex.statusText;
+    }).catch(err => this.loginError = 'Something went wrong' );
+  };
+
+  // Logout
+  this.logout = () => {
+    $http({
+      url: '/sessions/logout',
+      method: 'delete'
+    }).then((response) => {
+      console.log(response.data);
+      this.user = null;
+    });
+  }
+}]);
+
 app.config(['$routeProvider','$locationProvider', function($routeProvider,$locationProvider) {
   // Enables Push State
   $locationProvider.html5Mode({ enabled: true });
@@ -243,8 +294,8 @@ app.config(['$routeProvider','$locationProvider', function($routeProvider,$locat
     controllerAs: 'ctrl' // alias for ContactController (like ng-controller="ContactController as ctrl")
   });
 
-  $routeProvider.when('/about', {
-    templateUrl: 'partials/userLogin.html'
+  $routeProvider.when('/signin', {
+    templateUrl: 'partials/userLogin.html',
     controller: 'UserController as user',
     controllerAs: 'user'
   });
@@ -274,8 +325,8 @@ app.config(['$routeProvider','$locationProvider', function($routeProvider,$locat
   //   controllerAs: 'ctrl'
   // });
   //
-  // $routeProvider.otherwise({
-  //   redirectTo: '/'
-  // });
+  $routeProvider.otherwise({
+    redirectTo: '/'
+  });
 
 }]);
