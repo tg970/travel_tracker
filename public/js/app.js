@@ -259,6 +259,32 @@ app.controller('UserController', ['$http', '$route', function($http, $route) {
 
 }]);
 
+app.controller('MyTrackerController', ['$http', '$route', function($http, $route) {
+  this.test = "MyTrackerController"
+  this.user = user
+  this.beenTo = [];
+  this.wantTo = []
+
+  this.getMyPlaces = () => {
+    $http({
+      url: `/users/${user._id}`,
+      method: 'get'
+    }).then(response => {
+      console.log(response.data.myPlaces);
+      updateUser(response.data.user);
+      this.beenTo = response.data.myPlaces.beenTo
+      this.wantTo = response.data.myPlaces.wantTo
+      console.log('beenTo:', this.beenTo);
+      console.log('wantTo:', this.wantTo);
+    }, ex => {
+      console.log(ex.data.err, ex.statusText);
+   }).catch(err => console.log(err));
+  };
+  this.getMyPlaces();
+
+
+}]);
+
 app.config(['$routeProvider','$locationProvider', function($routeProvider,$locationProvider) {
   // Enables Push State
   $locationProvider.html5Mode({ enabled: true });
@@ -274,9 +300,9 @@ app.config(['$routeProvider','$locationProvider', function($routeProvider,$locat
     controller: 'UserController as user',
     controllerAs: 'user'
   });
-  
+
   $routeProvider.when('/myTracker', {  // when http://localhost:3000/pets/:id
-    templateUrl: 'partials/places.html',
+    templateUrl: 'partials/userShow.html',
     controller: 'MyTrackerController as ctrl',
     controllerAs: 'ctrl'
   });
