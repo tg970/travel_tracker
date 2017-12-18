@@ -26,16 +26,17 @@
             <a href="/"><h2><span class="orange">t</span>ravel <span class="blue">t</span>racker</h2></a>
           </div>
 
-          <div class="menuContents">
-            <a class="menuItem menuLink" href="/">Home</a>
-            <a class="menuItem menuLink" href="#">My Places</a>
-            <a class="menuItem menuLink" href="/signin">Login/SignUp</a>
-          </div>
+          <!-- <div class="menuSide1"> -->
+            <div class="menuContents">
+              <a class="menuItem menuLink" href="/">Home</a>
+              <a class="menuItem menuLink" href="#">My Places</a>
+              <a class="menuItem menuLink" href="/signin">Login</a>
+            </div>
 
-          <div class="menuUserName">
-            <a class="menuLink orange" href="#">username</a>
-          </div>
-
+            <div class="menuUserName">
+              <a class="menuLink orange" href="#">username</a>
+            </div>
+          <!-- </div> -->
         </div>
       </nav>
     <!-- </header> -->
@@ -48,8 +49,10 @@
 
     <!-- <div class="placesIndex-Show" ng-include="'partials/places.html'">
     </div> -->
+    <div class="container">
+      <main ng-view></main>
+    </div>
 
-    <main ng-view></main>
 
     <footer>
     <!-- include footer -->
