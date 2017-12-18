@@ -274,12 +274,12 @@ app.config(['$routeProvider','$locationProvider', function($routeProvider,$locat
     controller: 'UserController as user',
     controllerAs: 'user'
   });
-  //
-  // $routeProvider.when('/myTracker', {  // when http://localhost:3000/pets/:id
-  //   templateUrl: 'partials/places.html',
-  //   controller: 'MyTrackerController as ctrl',
-  //   controllerAs: 'ctrl'
-  // });
+  
+  $routeProvider.when('/myTracker', {  // when http://localhost:3000/pets/:id
+    templateUrl: 'partials/places.html',
+    controller: 'MyTrackerController as ctrl',
+    controllerAs: 'ctrl'
+  });
 
   // $routeProvider.when('/pricing', {
   //   templateUrl: 'pricing.html',
