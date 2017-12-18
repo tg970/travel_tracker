@@ -202,37 +202,37 @@ app.controller('UserController', ['$http', '$route', function($http, $route) {
     }, ex => {
       console.log(ex.data.err, ex.statusText);
       this.registerError = 'Hmm, maybe try a different username...';
-    }).catch(err => this.registerError = 'Something went wrong' );
-  };
+   })
+   .catch(err => this.registerError = 'Something went wrong' );
+   };
 
-  // Login
-  this.loginUser = () => {
-    $http({
-      url: '/sessions/login',
-      method: 'post',
-      data: this.loginForm
-    }).then(response =>  {
-      console.log('LoginResponce:', response.data);
-      //console.log('SessionClient:', req.session);
-      this.user = response.data;
-      this.loginForm = {};
-      this.error = null;
-    }, ex => {
-        console.log('ex', ex.data.err);
-        this.loginError = ex.statusText;
-    }).catch(err => this.loginError = 'Something went wrong' );
-  };
+// Login
+   this.loginUser = () => {
+      $http({
+        url: '/sessions/login',
+        method: 'post',
+        data: this.loginForm })
+      .then(response =>  {
+         console.log('LoginResponce:', response.data);
+         //console.log('SessionClient:', req.session);
+         this.user = response.data;
+         this.loginForm = {};
+         this.error = null;
+      }, ex => {
+         console.log('ex', ex.data.err);
+         this.loginError = ex.statusText;
+      })
+      .catch(err => this.loginError = 'Something went wrong' );
+   };
 
-  // Logout
-  this.logout = () => {
-    $http({
-      url: '/sessions/logout',
-      method: 'delete'
-    }).then((response) => {
-      console.log(response.data);
-      this.user = null;
-    });
-  }
+// Logout
+   this.logout = () => {
+      $http({ url: '/sessions/logout', method: 'delete' })
+      .then((response) => {
+         console.log(response.data);
+         this.user = null;
+      });
+   }
   
 }]);
 
