@@ -200,11 +200,12 @@ app.controller('MainController', ['$http', '$route', function($http, $route) {
 }]);
 
 app.controller('UserController', ['$http', '$route', function($http, $route) {
-  // User Routes ---------------
+  // User States:
+  this.user = user
 
   // Register
   this.registerUser = () => {
-    console.log('register: ', this.newUserForm);
+    //console.log('register: ', this.newUserForm);
     $http({
       url: '/users',
       method: 'post',
@@ -212,7 +213,7 @@ app.controller('UserController', ['$http', '$route', function($http, $route) {
     }).then(response => {
       console.log('RegisterResponce:', response.data);
       updateUser(response.data);
-      console.log(user);
+      this.user = user
       this.newUserForm = {};
       this.error = null;
     }, ex => {
@@ -232,9 +233,7 @@ app.controller('UserController', ['$http', '$route', function($http, $route) {
       console.log('LoginResponce:', response.data);
       //console.log('SessionClient:', req.session);
       updateUser(response.data);
-      this.user = true
-      console.log(user);
-      //this.user = response.data;
+      this.user = user
       this.loginForm = {};
       this.error = null;
     }, ex => {
@@ -249,8 +248,13 @@ app.controller('UserController', ['$http', '$route', function($http, $route) {
     $http({ url: '/sessions/logout', method: 'delete' })
     .then((response) => {
        console.log(response.data);
+       user = {};
        this.user = null;
-    });
+    }, ex => {
+       console.log('ex', ex.data.err);
+       this.loginError = ex.statusText;
+    })
+    .catch(err => this.loginError = 'Something went wrong' );
   }
 
 }]);
@@ -271,11 +275,11 @@ app.config(['$routeProvider','$locationProvider', function($routeProvider,$locat
     controllerAs: 'user'
   });
   //
-  $routeProvider.when('/myTracker', {  // when http://localhost:3000/pets/:id
-    templateUrl: 'partials/places.html',
-    controller: 'MyTrackerController as ctrl',
-    controllerAs: 'ctrl'
-  });
+  // $routeProvider.when('/myTracker', {  // when http://localhost:3000/pets/:id
+  //   templateUrl: 'partials/places.html',
+  //   controller: 'MyTrackerController as ctrl',
+  //   controllerAs: 'ctrl'
+  // });
 
   // $routeProvider.when('/pricing', {
   //   templateUrl: 'pricing.html',

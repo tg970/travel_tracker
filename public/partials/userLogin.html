@@ -1,7 +1,7 @@
 <h1>user page</h1>
 
 
-<div ng-if='!user.user'>
+<div ng-if='!user.user.logged'>
   <!-- ng-if='!user.user' -->
   <div class="login">
     <small>Log in</small>
@@ -26,6 +26,6 @@
     <p>{{ user.registerError }}</p>
   </div>
 </div>
-<form ng-if='user.user' ng-submit='user.logout()'>
+<form ng-if='user.user.logged' ng-submit='user.logout()'>
   <input type='submit' value='logout' />
 </form>
