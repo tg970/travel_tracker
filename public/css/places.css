@@ -179,3 +179,7 @@ body {
 .fa-window-close {
   font-size: 22px;
 }
+
+.addRmvBtn {
+  display: block;
+}
