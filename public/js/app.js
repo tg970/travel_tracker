@@ -87,10 +87,10 @@ app.controller('MainController', ['$http', '$route', function($http, $route) {
       data: this.currentEdit
     }).then(response => {
       console.log('responce:', response.data);
-      //console.table(this.places);
       const updateByIndex = this.places.findIndex(place => place._id === response.data._id)
       console.log('update ind:', updateByIndex);
       this.places.splice(updateByIndex , 1, response.data)
+      console.table(this.places);
     }).catch(err => console.error('Catch', err));
     this.edit = false;
     this.currentEdit = {};
@@ -268,13 +268,13 @@ app.config(['$routeProvider','$locationProvider', function($routeProvider,$locat
     controller: 'UserController as user',
     controllerAs: 'user'
   });
-  //
-  // $routeProvider.when('/pets/:id', {  // when http://localhost:3000/pets/:id
-  //   templateUrl: 'pets.html',
-  //   controller: 'PetController',
-  //   controllerAs: 'ctrl'
-  // });
-  //
+
+  $routeProvider.when('/myTracker', {  // when http://localhost:3000/pets/:id
+    templateUrl: 'partials/places.html',
+    controller: 'MyTrackerController as ctrl',
+    controllerAs: 'ctrl'
+  });
+
   // $routeProvider.when('/pricing', {
   //   templateUrl: 'pricing.html',
   //   controller: 'PricingController',
