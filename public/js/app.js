@@ -1,5 +1,13 @@
 const app = angular.module('traveler_tracker_App', ['ngRoute']);
 
+// Global Varibles?
+let user = {};
+
+const updateUser = (data) => {
+  user = data;
+  user.logged = true;
+  return
+}
 
 app.controller('MainController', ['$http', '$route', function($http, $route) {
   // console.log('Hey');
@@ -97,12 +105,13 @@ app.controller('MainController', ['$http', '$route', function($http, $route) {
 
   //Open place show modal
   this.openShow = (place) => {
-    if (this.user) {
-      console.log('this.user: true');
-      this.wantTo = this.user.placesWant.includes(place._id)
-      this.beenTo = this.user.placesBeen.includes(place._id)
+    if (user.logged) {
+      //console.log('this.user: true');
+      this.wantTo = user.placesWant.includes(place._id)
+      this.beenTo = user.placesBeen.includes(place._id)
       console.log('wantTo:',this.wantTo);
       console.log('beenTo:',this.beenTo);
+      this.user = true;
     }
     this.showModal = true;
     //console.log(this.showModal);
@@ -120,12 +129,13 @@ app.controller('MainController', ['$http', '$route', function($http, $route) {
 
   this.addWant = (place) => {
     $http({
-      url: `/users/addWant/${this.user._id}/${place._id}`,
+      url: `/users/addWant/${user._id}/${place._id}`,
       method: 'get'
     }).then(response =>  {
-      console.log('addWant Resp:', response.data);
+      //console.log('addWant Resp:', response.data);
       //console.log('SessionClient:', req.session);
-      this.user = response.data;
+      updateUser(response.data);
+      console.log('addWant:',user);
       this.wantTo = true;
       this.error = null;
     }, ex => {
@@ -136,12 +146,13 @@ app.controller('MainController', ['$http', '$route', function($http, $route) {
 
   this.addBeen = (place) => {
     $http({
-      url: `/users/addBeen/${this.user._id}/${place._id}`,
+      url: `/users/addBeen/${user._id}/${place._id}`,
       method: 'get'
     }).then(response =>  {
-      console.log('addWant Resp:', response.data);
+      //console.log('addWant Resp:', response.data);
       //console.log('SessionClient:', req.session);
-      this.user = response.data;
+      updateUser(response.data);
+      console.log('addBeen:',user);
       this.beenTo = true;
       this.error = null;
     }, ex => {
@@ -152,12 +163,13 @@ app.controller('MainController', ['$http', '$route', function($http, $route) {
 
   this.removeWant = (place) => {
     $http({
-      url: `/users/removeWant/${this.user._id}/${place._id}`,
+      url: `/users/removeWant/${user._id}/${place._id}`,
       method: 'get'
     }).then(response =>  {
-      console.log('removeWant Resp:', response.data);
+      //console.log('removeWant Resp:', response.data);
       //console.log('SessionClient:', req.session);
-      this.user = response.data;
+      updateUser(response.data);
+      console.log('removeWant:',user);
       this.wantTo = false;
       this.error = null;
     }, ex => {
@@ -168,12 +180,13 @@ app.controller('MainController', ['$http', '$route', function($http, $route) {
 
   this.removeBeen = (place) => {
     $http({
-      url: `/users/removeBeen/${this.user._id}/${place._id}`,
+      url: `/users/removeBeen/${user._id}/${place._id}`,
       method: 'get'
     }).then(response =>  {
-      console.log('removeBeen Resp:', response.data);
+      //console.log('removeBeen Resp:', response.data);
       //console.log('SessionClient:', req.session);
-      this.user = response.data;
+      updateUser(response.data);
+      console.log('removeBeen:',user);
       this.beenTo = false;
       this.error = null;
     }, ex => {
@@ -196,7 +209,8 @@ app.controller('UserController', ['$http', '$route', function($http, $route) {
       data: this.newUserForm
     }).then(response => {
       console.log('RegisterResponce:', response.data);
-      this.user = response.data;
+      updateUser(response.data);
+      console.log(user);
       this.newUserForm = {};
       this.error = null;
     }, ex => {
@@ -211,13 +225,16 @@ app.controller('UserController', ['$http', '$route', function($http, $route) {
     $http({
       url: '/sessions/login',
       method: 'post',
-      data: this.loginForm })
-    .then(response =>  {
-       console.log('LoginResponce:', response.data);
-       //console.log('SessionClient:', req.session);
-       this.user = response.data;
-       this.loginForm = {};
-       this.error = null;
+      data: this.loginForm
+    }).then(response =>  {
+      console.log('LoginResponce:', response.data);
+      //console.log('SessionClient:', req.session);
+      updateUser(response.data);
+      this.user = true
+      console.log(user);
+      //this.user = response.data;
+      this.loginForm = {};
+      this.error = null;
     }, ex => {
        console.log('ex', ex.data.err);
        this.loginError = ex.statusText;
@@ -232,7 +249,7 @@ app.controller('UserController', ['$http', '$route', function($http, $route) {
        console.log(response.data);
        this.user = null;
     });
-}
+  }
 
 }]);
 
