@@ -1,0 +1,207 @@
+body {
+  margin: 0;
+}
+
+/*=========================================
+        INDEX PAGE
+=========================================*/
+/*This is the div that contains all of the index/show html.. */
+.placesIndex-Show {
+  margin: 0;
+}
+
+
+.search {
+  color: #230500;
+}
+
+.searchbox, button {
+  display: inline-block;
+  height: 28px;
+  padding: 0 30px;
+  color: #34adbf;
+  text-align: center;
+  letter-spacing: .1rem;
+  text-transform: uppercase;
+  text-decoration: none;
+  background-color: transparent;
+  border-radius: 4px;
+  border: 1px solid #230500;
+  cursor: pointer;
+}
+
+.showBtn {
+  border: 1px solid #34adbf;
+}
+
+.searchbox:hover, .searchbox:focus, button:focus, button:hover  {
+  color: #34adbf;
+  border-color: #34adbf;
+  outline: 0;
+}
+
+.showBtn:hover, .showBtn:focus {
+  border-color: #b5683e;
+  color: #b5683e;
+  outline: 0;
+}
+
+.searchContainer {
+  margin: auto;
+  text-align: center;
+  justify-content: center;
+}
+
+.imagesContainer {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 90%;
+  margin: auto;
+}
+
+.imageBox {
+  position: relative;
+  width: 25%;
+  margin: 2%;
+}
+
+.imageBox:hover{
+  opacity: 0.6;
+  transform: scale(.95);
+}
+
+.indexh2 {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  text-align: center;
+  border-radius: 3px;
+  text-shadow: 2px 2px rgba(0,0,0, .9);
+}
+
+.indexImg {
+  opacity: 0.7;
+  margin-bottom: auto;
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+/*=========================================
+        MEDIA QUERIES
+=========================================*/
+
+@media(max-width: 800px) {
+  .indexh2 {
+    font-size: 20px;
+  }
+}
+
+@media(max-width: 550px) {
+  .indexh2 {
+    font-size: 14px;
+  }
+
+  .showContainer > p{
+    font-size: 14px;
+  }
+}
+
+@media(max-width: 450px) {
+  .indexh2 {
+    font-size: 11px;
+  }
+}
+
+/*=========================================
+        SHOW PAGE MODAL
+=========================================*/
+.showModal {
+  position: fixed;
+  overflow: auto;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: 3000;
+  background: #230500;
+  color: #ded6cd;
+}
+
+
+.showImg {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+
+#closeModal {
+  text-align: right;
+  color: #e8f7fd;
+  font-size: 20px;
+  margin: 5%;
+  cursor: pointer;
+}
+
+#closeModal:hover {
+  color: #34adbf;
+}
+
+
+.showColumns {
+  display: flex;
+  flex-direction: column;
+  width: 90%;
+  margin: 5% auto;
+}
+
+.showRow {
+  display: flex;
+  flex-direction: column;
+  width: 60%;
+  margin: 2% auto;
+  padding: 2%;
+  border-left: 3px solid #34adbf;
+}
+
+.showContainer {
+  padding: 5px;
+}
+
+.fa-trash-o, .fa-pencil-square-o{
+  font-size: 15px;
+}
+
+.fa-window-close {
+  font-size: 22px;
+}
+
+.addRmvBtn {
+  display: block;
+}
+
+.editModal {
+  background: #34adbf;
+  border-radius: 4px;
+}
+
+.submitBtn:focus, .submitBtn:hover  {
+  color: #b5683e;
+  border-color: #b5683e;
+  outline: 0;
+}
+
+.editForm {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+}
+
+.submitBtn {
+  color: #230500;
+  width: 20%;
+}

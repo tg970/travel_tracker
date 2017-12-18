@@ -1,0 +1,101 @@
+/** {
+  border: 1px solid red;
+}*/
+.menu {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(0, 0, 0, .8);
+  /*background: rgba(255, 255, 255, .8);*/
+  /*text-align: center;*/
+  border-radius: 5px;
+  padding: 0;
+  width: 100%;
+}
+.menu div:nth-child(1) {
+  text-align: left;
+  margin-left: 10px;
+  /*border: 1px solid red;*/
+}
+.menu div:nth-child(2) {
+  text-align: center;
+  /*border: 1px solid blue;*/
+}
+.menu div:nth-child(3) {
+  text-align: right;
+  margin-right: 10px;
+  /*border: 1px solid black;*/
+}
+.titleBox {
+  display: inline-block;
+  color: #FFFFFF;
+  /*color: #000000;*/
+}
+.titleBox h2{
+  margin: 0;
+}
+.menuTitle {
+  display: inline-block;
+}
+.menuLink {
+  margin: 0;
+  text-decoration: none;
+  /*color: #000000;*/
+  color: #FFFFFF;
+}
+.menuLink:hover {
+  color: #34adbf;
+}
+.menuContents {
+  /*border: 1px solid blue;*/
+  display: inline-block;
+  margin: 0 auto;
+  text-align: center;
+}
+.menuItem {
+  margin: 0 5px 0 5px;
+}
+.menuUserName {
+  display: inline-block;
+}
+
+.orange {
+  color: #b5683e;
+}
+.lightBlue {
+  color: #e8f7fd;
+}
+.blue {
+  color: #34adbf;
+}
+.brown {
+  color: #230500;
+}
+.creme {
+  color: #ded6cd;
+}
+
+.orange:hover {
+  /*background: #b5683e;*/
+  color: #FFFFFF;
+}
+.lightBlue:hover {
+  /*background: #e8f7fd;*/
+  color: #FFFFFF;
+}
+.blue:hover {
+  /*background: #34adbf;*/
+  color: #FFFFFF;
+}
+.brown:hover {
+  /*background: #230500;*/
+  color: #FFFFFF;
+}
+.creme:hover {
+  /*background: #ded6cd;*/
+  color: #000000;
+}
+
+/*@media (max-width: 649px) {
+
+}*/

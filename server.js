@@ -1,5 +1,6 @@
 // DEPENDENCIES
 const express    = require('express');
+const session    = require('express-session');
 const mongoose   = require('mongoose');
 const morgan     = require('morgan');
 const app        = express();
@@ -22,16 +23,23 @@ mongoose.Promise = global.Promise;
 // db.on( 'open' , ()=>{});
 
 // Controllers
-// const itemController = require( './controllers/itemController' );
-// const seedController = require( './controllers/seedController' );
+const placeController = require( './controllers/placeController' );
+const userController = require( './controllers/userController' );
+const sessionController = require( './controllers/sessionController' );
 
 // Middleware
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
-app.use( express.static( 'public' ));
+app.use(express.static( 'public' ));
 app.use(morgan('dev'));
-//app.use( '/items', itemController );
-// app.use( '/seed', seedController );
+app.use(session({
+	 secret: "kickass",
+	 resave: false,
+	 saveUninitialized: false
+}));
+app.use('/places', placeController );
+app.use('/users', userController );
+app.use('/sessions', sessionController);
 
 app.get('/', (req, res) => res.send('Welcome to Travel_Tracker'));
 
