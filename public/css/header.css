@@ -29,6 +29,9 @@
 .titleBox {
   display: inline-block;
   color: #FFFFFF;
+}
+.titleBox a {
+  color: #FFFFFF;
   /*color: #000000;*/
 }
 .titleBox h2{
