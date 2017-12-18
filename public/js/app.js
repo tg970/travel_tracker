@@ -233,6 +233,7 @@ app.controller('UserController', ['$http', '$route', function($http, $route) {
       this.user = null;
     });
   }
+  
 }]);
 
 app.config(['$routeProvider','$locationProvider', function($routeProvider,$locationProvider) {
