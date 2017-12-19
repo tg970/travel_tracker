@@ -1,14 +1,28 @@
 <!-- <div class="showModal" ng-include="'partials/addPlace.html'"> -->
 <div ng-include="'partials/addPlace.html'"></div>
 <div ng-include="'partials/showPlaceModal.html'"></div>
-  <div class="userList">
-    <div class="listTitle">
+<div class="allListFlex">
+  <div class="listBoxBeen">
+    <div class="listTitleBeen">
       <p>Where You've Been</p>
     </div>
-
-    <div class="listItem" ng-repeat="place in ctrl.beenToArr">
-
-      <img ng-click="ctrl.openShow(place)" ng-src="{{place.img}}" alt="">
-      <h2 class="userShowh2">{{place.place}}</h2>
-    </div>
+      <div class="userListFlex">
+        <div class="listItem" ng-repeat="place in ctrl.beenToArr">
+          <img ng-click="ctrl.openShow(place)" ng-src="{{place.img}}" alt="">
+          <h2 class="userShowh2">{{place.place}}</h2>
+        </div>
+      </div>
   </div>
+
+  <div class="listBoxWant">
+    <div class="listTitleWant">
+      <p>Where You Want to Go</p>
+    </div>
+      <div class="userListFlex">
+        <div class="listItem" ng-repeat="place in ctrl.wantToArr">
+          <img ng-click="ctrl.openShow(place)" ng-src="{{place.img}}" alt="">
+          <h2 class="userShowh2">{{place.place}}</h2>
+        </div>
+      </div>
+  </div>
+</div>
