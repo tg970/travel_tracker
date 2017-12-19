@@ -140,6 +140,7 @@ app.controller('MainController', ['$http', '$route', function($http, $route) {
     this.place = {};
     this.wantTo = null;
     this.beenTo = null;
+    this.getMyPlaces();
   };
 
   this.addWant = (place) => {
