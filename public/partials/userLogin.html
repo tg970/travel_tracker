@@ -1,31 +1,36 @@
 <h1>user page</h1>
 
 
-<div ng-if='!ctrl.user.logged'>
+<div ng-if='!ctrl.user.logged' class="loginModal">
   <!-- ng-if='!user.user' -->
-  <div class="login">
-    <small>Log in</small>
-    <form ng-submit='ctrl.loginUser()'>
-       <input type="text" placeholder="username" autocomplete="username" ng-model="ctrl.loginForm.username" />
-       <input type="password" autocomplete="current-password" placeholder="password" ng-model="ctrl.loginForm.password" />
-       <input type="submit" />
-    </form>
-    <p>{{ user.loginError }}</p>
+  <div>
+    <button class="closeEditBtn" id="closeLogin">X</button>
   </div>
-  <div class="register">
-    <small>Register</small>
-    <form ng-submit='ctrl.registerUser()'>
-       <input type="text" placeholder="username" autocomplete="username" ng-model="ctrl.newUserForm.username" required/>
-       <input type="password" autocomplete="current-password" placeholder="password" ng-model="ctrl.newUserForm.password" required/>
-       <input type="text" placeholder="First Name" ng-model="ctrl.newUserForm.first" required/>
-       <input type="text" placeholder="Last Name" ng-model="ctrl.newUserForm.last" />
-       <input type="text" placeholder="Profile Pic URL" ng-model="ctrl.newUserForm.pic" />
-       <input type="text" placeholder="Email Address" ng-model="ctrl.newUserForm.email" />
-       <input type="submit" />
-    </form>
-    <p>{{ ctrl.registerError }}</p>
+  <div class="loginContainer">
+    <div class="login">
+      <small>Log in</small>
+      <form class="loginForm" ng-submit='ctrl.loginUser()'>
+         <input class="searchbox" type="text" placeholder="username" autocomplete="username" ng-model="ctrl.loginForm.username" />
+         <input class="searchbox" type="password" autocomplete="current-password" placeholder="password" ng-model="ctrl.loginForm.password" />
+         <input class="searchbox closeBtn" type="submit" />
+      </form>
+      <p>{{ user.loginError }}</p>
+    </div>
+    <div class="register">
+      <small>Register</small>
+      <form class="loginForm" ng-submit='ctrl.registerUser()'>
+         <input class="searchbox" type="text" placeholder="username" autocomplete="username" ng-model="ctrl.newUserForm.username" required/>
+         <input class="searchbox" type="password" autocomplete="current-password" placeholder="password" ng-model="ctrl.newUserForm.password" required/>
+         <input class="searchbox" type="text" placeholder="First Name" ng-model="ctrl.newUserForm.first" required/>
+         <input class="searchbox" type="text" placeholder="Last Name" ng-model="ctrl.newUserForm.last" />
+         <input class="searchbox" type="text" placeholder="Profile Pic URL" ng-model="ctrl.newUserForm.pic" />
+         <input class="searchbox" type="text" placeholder="Email Address" ng-model="ctrl.newUserForm.email" />
+         <input class="searchbox closeBtn" type="submit" />
+      </form>
+      <p>{{ ctrl.registerError }}</p>
+    </div>
   </div>
-</div>
+  </div>
 <form ng-if='ctrl.user.logged' ng-submit='user.logout()'>
   <input type='submit' value='logout' />
 </form>
