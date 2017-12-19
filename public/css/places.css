@@ -108,6 +108,10 @@ body {
   color: #ded6cd;
 }
 
+.showModal::-webkit-scrollbar {
+    display: none;
+}
+
 
 .showImg {
   max-width: 100%;
@@ -176,14 +180,17 @@ body {
 .editModal {
   background: #34adbf;
   border-radius: 4px;
+  margin-top: 5%;
 }
 
 .closeEditBtn {
   color: white;
   background-color: #b5683e;
   border: 1px solid white;
-  margin-top: 3%;
-  margin-left: 80%;
+  }
+
+  #closeEdit {
+    margin: 1% 1%;
   }
 
  .closeEditBtn:hover, .closeEditBtn:focus  {
@@ -213,6 +220,27 @@ body {
   width: 20%;
 }
 
+
+.editInput {
+  display: inline-block;
+  height: 28px;
+  padding: 0 30px;
+  color: #b5683e;
+  letter-spacing: .1rem;
+  /*text-transform: uppercase;*/
+  text-decoration: none;
+  background-color: white;
+  border-radius: 4px;
+  border: 1px solid #b5683e;
+  cursor: pointer;
+}
+
+
+.editInput:hover, .editInput:focus  {
+  color: #230500;
+  border-color: #230500;
+  outline: 0;
+}
 
 
 /*=========================================

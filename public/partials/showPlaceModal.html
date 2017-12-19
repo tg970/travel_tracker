@@ -21,17 +21,17 @@
 
 
         <div class = "editModal" ng-if="ctrl.edit">
-          <button class="closeEditBtn" ng-click="ctrl.dontUpdate()">close</button>
+          <button class="closeEditBtn" id="closeEdit" ng-click="ctrl.dontUpdate()">close</button>
           <form class="editForm" ng-submit="ctrl.updatePlace()">
             <label for="place">Place:</label>
-            <input id="place" type="text" ng-model="ctrl.currentEdit.place"/>
+            <input class="editInput" id="place" type="text" ng-model="ctrl.currentEdit.place"/>
             <label for="img">Image URL:</label>
-            <input type="text" ng-model="ctrl.currentEdit.img"/>
+            <input class="editInput" type="text" ng-model="ctrl.currentEdit.img"/>
             <label for="public">Public:</label>
-            <input id="public" type="checkbox" ng-model="ctrl.currentEdit.public"/>
+            <input class="editInput" id="public" type="checkbox" ng-model="ctrl.currentEdit.public"/>
             <label for="desc">Description:</label>
-            <textarea id="desc" ng-model="ctrl.currentEdit.description"></textarea>
-            <button class="submitBtn" type="submit" ng-click="!ctrl.edit">Save </button>
+            <textarea class="editInput" id="desc" ng-model="ctrl.currentEdit.description"></textarea>
+            <button class="closeEditBtn" type="submit" ng-click="!ctrl.edit">Save </button>
           </form>
         </div>
       </div>
