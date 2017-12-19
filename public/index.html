@@ -20,8 +20,8 @@
   <body ng-app='traveler_tracker_App'>
     <!-- <header> -->
       <!-- <nav ng-include="'partials/header.html'"></nav> -->
-      <nav>
-        <div class="menu">
+      <nav ng-controller='NaviController as ctrl'>
+        <div class="menu" >
 
           <div class="titleBox">
             <a href="/"><h2><span class="orange">t</span>ravel <span class="blue">t</span>racker</h2></a>
@@ -30,14 +30,18 @@
           <!-- <div class="menuSide1"> -->
             <div class="menuContents">
               <a class="menuItem menuLink" href="/">Home</a>
-              <a class="menuItem menuLink" href="/myTracker">My Places</a>
-              <a class="menuItem menuLink" href="/signin">Login</a>
+              <a ng-if="ctrl.user.logged" class="menuItem menuLink" href="/myTracker">My Places</a>
+              <a ng-if="!ctrl.user.logged" ng-click="ctrl.openLogin()" class="menuItem menuLink" href="#">Login</a>
+              <a ng-if="ctrl.user.logged" ng-click="ctrl.logout()" class="menuItem menuLink" href="#">Logout</a>
             </div>
 
             <div class="menuUserName">
-              <a class="menuLink orange" href="#">username</a>
+              <a class="menuLink orange" href="#">{{ctrl.userName}}</a>
             </div>
           <!-- </div> -->
+        </div>
+        <div ng-if="ctrl.showLogin">
+          <div ng-include="'partials/userLogin.html'"></div>
         </div>
       </nav>
 
