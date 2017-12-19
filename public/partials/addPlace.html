@@ -1,8 +1,8 @@
 
       <!--INCLUDE THIS IN THE USER SHOW <div class="showModal" ng-include="'partials/addPlace.html'"></div> -->
 
-<div ng-if="ctrl.addShow">
-  <p id="closeModal" ng-click="ctrl.closeAdd()"><i class="fa fa-window-close" aria-hidden="true"></i></p>
+<div class="showModal" ng-if="ctrl.addShow">
+  <button class="closeBtn" ng-click="ctrl.closeAdd()">close</button>
   <div class="showColumns">
       <div class="createRowOne">
         <div class="rowItem" id="VR">

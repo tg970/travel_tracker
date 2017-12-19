@@ -1,41 +1,37 @@
 <div ng-if="ctrl.showModal" ng-class="(ctrl.showModal ? 'showModal' : '')">
-  <p id="closeModal" ng-click="ctrl.closeShow()"><i class="fa fa-window-close" aria-hidden="true"></i></p>
+  <button class="closeBtn" ng-click="ctrl.closeShow()">close</button>
   <div class="showColumns">
     <div class="showRow">
       <div class="showContainer">
         <h2>{{ctrl.place.place}}</h2>
         <img class="showImg" ng-src="{{ctrl.place.img}}">
         <p>{{ctrl.place.description}}</p>
-        <p>Been There: <i>{{ctrl.place.beenThere}}</i></p>
-        <p>Public: <i>{{ctrl.place.public}}</i></p>
         <p><button class="showBtn"><i class="fa fa-heart" aria-hidden="true"></i></button>&nbsp; &nbsp; Likes: <i>{{ctrl.place.likes}}</i></p>
         <div ng-if="ctrl.user" class="">
-          <button ng-if="!ctrl.wantTo" class="showBtn addRmvBtn" ng-click='ctrl.addWant(ctrl.place)'>ADD this place to your 'Want to Go' List</button>
-          <button ng-if="ctrl.wantTo" class="showBtn addRmvBtn" ng-click='ctrl.removeWant(ctrl.place)'>REMOVE this place to your 'Want to Go' List</button>
-          <button ng-if="!ctrl.beenTo" class="showBtn addRmvBtn" ng-click='ctrl.addBeen(ctrl.place)'>ADD this place to your 'Been To' List</button>
-          <button ng-if="ctrl.beenTo" class="showBtn addRmvBtn" ng-click='ctrl.removeBeen(ctrl.place)'>REMOVE this place to your 'Been To' List</button>
+          <button ng-if="!ctrl.wantTo" class="showBtn addRmvBtn" ng-click='ctrl.addWant(ctrl.place)'><i class="fa fa-plus" aria-hidden="true"></i> My "Want To"</button>
+          <button ng-if="ctrl.wantTo" class="showBtn addRmvBtn" ng-click='ctrl.removeWant(ctrl.place)'><i class="fa fa-minus" aria-hidden="true"></i> My "Want To"</button>
+          <button ng-if="!ctrl.beenTo" class="showBtn addRmvBtn" ng-click='ctrl.addBeen(ctrl.place)'><i class="fa fa-plus" aria-hidden="true"></i> My "Been To"</button>
+          <button ng-if="ctrl.beenTo" class="showBtn addRmvBtn" ng-click='ctrl.removeBeen(ctrl.place)'><i class="fa fa-minus" aria-hidden="true"></i> My "Been To"</button>
         </div>
         <div ng-if="!ctrl.user" class="">
-          <button class="showBtn addRmvBtn">Login to add this to your 'Want to Go' or 'Been To' list</button>
+          <button class="showBtn addRmvBtn">Login to add to your lists</button>
         </div>
         <button ng-if="ctrl.editDelete" class="showBtn" ng-click='ctrl.updateModal(ctrl.place)'><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
         <button ng-if="ctrl.editDelete" class="showBtn" ng-click="ctrl.deletePlace(ctrl.place._id)"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
 
 
         <div class = "editModal" ng-if="ctrl.edit">
-          <p id="closeModal" ng-click="ctrl.dontUpdate()"><i class="fa fa-window-close" aria-hidden="true"></i></p>
+          <button class="closeEditBtn" id="closeEdit" ng-click="ctrl.dontUpdate()">close</button>
           <form class="editForm" ng-submit="ctrl.updatePlace()">
             <label for="place">Place:</label>
-            <input id="place" type="text" ng-model="ctrl.currentEdit.place"/>
+            <input class="editInput" id="place" type="text" ng-model="ctrl.currentEdit.place"/>
             <label for="img">Image URL:</label>
-            <input type="text" ng-model="ctrl.currentEdit.img"/>
-            <label for="beenThere">Been there:</label>
-            <input id="beenThere" type="checkbox" ng-model="ctrl.currentEdit.beenThere"/>
+            <input class="editInput" type="text" ng-model="ctrl.currentEdit.img"/>
             <label for="public">Public:</label>
-            <input id="public" type="checkbox" ng-model="ctrl.currentEdit.public"/>
+            <input class="editInput" id="public" type="checkbox" ng-model="ctrl.currentEdit.public"/>
             <label for="desc">Description:</label>
-            <textarea id="desc" ng-model="ctrl.currentEdit.description"></textarea>
-            <button class="submitBtn" type="submit">Save changes</button>
+            <textarea class="editInput" id="desc" ng-model="ctrl.currentEdit.description"></textarea>
+            <button class="closeEditBtn" type="submit" ng-click="!ctrl.edit">Save </button>
           </form>
         </div>
       </div>
