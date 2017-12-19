@@ -1,7 +1,6 @@
 <!-- <div class="showModal" ng-include="'partials/addPlace.html'"> -->
-<div ng-include="'partials/addPlace.html'">
-<!-- <div ng-include="'partials/showPlaceModal.html'"> -->
-</div>
+<div ng-include="'partials/addPlace.html'"></div>
+<div ng-include="'partials/showPlaceModal.html'"></div>
   <div class="userList">
     <div class="listTitle">
       <p>Where You've Been</p>
@@ -9,7 +8,7 @@
 
     <div class="listItem" ng-repeat="place in ctrl.beenTo">
 
-      <img ng-click="place.openShow(place)" ng-src="{{place.img}}" alt="">
+      <img ng-click="ctrl.openShow(place)" ng-src="{{place.img}}" alt="">
       <h2 class="userShowh2">{{place.place}}</h2>
     </div>
   </div>

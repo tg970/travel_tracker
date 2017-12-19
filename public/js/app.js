@@ -263,7 +263,9 @@ app.controller('MyTrackerController', ['$http', '$route', function($http, $route
   this.test = "MyTrackerController"
   this.user = user
   this.beenTo = [];
-  this.wantTo = []
+  this.wantTo = [];
+  this.showModal = false;
+  this.edit = false;
 
   this.getMyPlaces = () => {
     $http({
@@ -282,6 +284,30 @@ app.controller('MyTrackerController', ['$http', '$route', function($http, $route
   };
   this.getMyPlaces();
 
+
+  //Open place show modal
+  this.openShow = (place) => {
+    if (user.logged) {
+      //console.log('this.user: true');
+      this.wantTo = user.placesWant.includes(place._id)
+      this.beenTo = user.placesBeen.includes(place._id)
+      console.log('wantTo:',this.wantTo);
+      console.log('beenTo:',this.beenTo);
+      this.user = true;
+    }
+    this.showModal = true;
+    //console.log(this.showModal);
+    this.place = place;
+    //console.log(this.place);
+  }
+
+  this.closeShow = () => {
+    this.showModal = false;
+    this.edit = false;
+    this.place = {};
+    this.wantTo = null;
+    this.beenTo = null;
+  };
 
 }]);
 
