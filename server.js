@@ -41,7 +41,8 @@ app.use('/places', placeController );
 app.use('/users', userController );
 app.use('/sessions', sessionController);
 
-app.get('/', (req, res) => res.send('Welcome to Travel_Tracker'));
+//app.get('/', (req, res) => res.send('Welcome to Travel_Tracker'));
+app.get('/:whatever', (req, res) => res.redirect('/'))
 
 app.listen(PORT, () => {
    console.log('Server OK: ' + PORT);

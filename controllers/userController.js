@@ -16,13 +16,11 @@ router.get('/:id', async (req, res) => {
     //console.log(user);
     for (let i = 0; i < user.placesBeen.length; i++ ) {
       let place = await Place.findById(user.placesBeen[i]);
-      myPlaces.beenTo.push(place)
-
+      myPlaces.beenTo.unshift(place)
     }
     for (let i = 0; i < user.placesWant.length; i++ ) {
       let place = await Place.findById(user.placesWant[i]);
-      myPlaces.wantTo.push(place)
-
+      myPlaces.wantTo.unshift(place)
     }
     // console.log('=================');
     // console.log(myPlaces);
