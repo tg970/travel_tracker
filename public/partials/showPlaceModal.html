@@ -18,8 +18,8 @@
         <div ng-if="!ctrl.user" class="">
           <button class="showBtn addRmvBtn">Login to add this to your 'Want to Go' or 'Been To' list</button>
         </div>
-        <button class="showBtn" ng-click='ctrl.updateModal(ctrl.place)'><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
-        <button class="showBtn" ng-click="ctrl.deletePlace(ctrl.place._id)"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
+        <button ng-if="ctrl.editDelete" class="showBtn" ng-click='ctrl.updateModal(ctrl.place)'><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
+        <button ng-if="ctrl.editDelete" class="showBtn" ng-click="ctrl.deletePlace(ctrl.place._id)"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
 
 
         <div class = "editModal" ng-if="ctrl.edit">
