@@ -199,6 +199,8 @@ app.controller('MainController', ['$http', '$route', function($http, $route) {
     }).catch(err => this.loginError = 'Something went wrong' );
   };
 
+  // myTracker ---------------
+
   this.getMyPlaces = () => {
     $http({
       url: `/users/${user._id}`,
@@ -215,6 +217,18 @@ app.controller('MainController', ['$http', '$route', function($http, $route) {
    }).catch(err => console.log(err));
   };
   this.getMyPlaces();
+
+  // Add Modal:
+
+  this.openAdd = () => {
+    console.log('openAdd Firing');
+    this.addShow = true;
+  }
+
+  this.closeAdd = () => {
+    console.log('closeAdd firing');
+    this.addShow = false;
+  }
 
 }]);
 
