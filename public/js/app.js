@@ -30,7 +30,10 @@ app.controller('MainController', ['$http', '$route', function($http, $route) {
     url: '/sessions',
   }).then(response => {
     //console.log('sessionReq:', response.data.user);
-    if (response.data.user) { user = response.data.user}
+    if (response.data.user) {
+      user = response.data.user;
+      user.logged = true;
+    }
     console.log('userInfo:', user);
   }, error => {
     console.log('error:', error);
