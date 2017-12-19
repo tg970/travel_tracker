@@ -30,7 +30,7 @@ app.controller('MainController', ['$http', '$route', function($http, $route) {
     url: '/sessions',
   }).then(response => {
     //console.log('sessionReq:', response.data.user);
-    updateUser(response.data.user)
+    if (response.data.user) { user = response.data.user}
     console.log(user);
   }, error => {
     console.log('error:', error);
@@ -58,7 +58,7 @@ app.controller('MainController', ['$http', '$route', function($http, $route) {
       method: 'GET',
       url: '/places'
     }).then(response => {
-      console.table(response.data);
+      console.log(response.data);
       this.places = response.data;
     }, error => {
       console.error(error.message);
@@ -223,8 +223,8 @@ app.controller('MainController', ['$http', '$route', function($http, $route) {
         updateUser(response.data.user);
         this.beenToArr = response.data.myPlaces.beenTo
         this.wantToArr = response.data.myPlaces.wantTo
-        console.log('beenTo:', this.beenTo);
-        console.log('wantTo:', this.wantTo);
+        //console.log('beenTo:', this.beenTo);
+        //console.log('wantTo:', this.wantTo);
       }, ex => {
         console.log(ex.data.err, ex.statusText);
      }).catch(err => console.log(err));
