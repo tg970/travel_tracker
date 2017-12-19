@@ -2,42 +2,75 @@
   margin: 0 auto;
   max-width: 90%;
 }*/
-.userList {
-  padding: 0;
-  /*border: 1px solid red;*/
-  width: 250px;
+.allListFlex {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.listBoxBeen {
+  width: 400px;
   height: 500px;
   background: #e8f7fd;
-  /*background: #34adbf;*/
-  /*background: #ded6cd;*/
-  border-radius: 5px;
+  display: inline-block;
+  border-radius: 7px;
 }
-.listTitle {
+.listBoxWant {
+  width: 400px;
+  height: 500px;
+  background: #F0C7AF;
+  display: inline-block;
+  border-radius: 7px;
+}
+.userListFlex {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  padding: 0;
+  /*border-radius: 5px;*/
+  /*align-items: center;*/
+  box-sizing: content-box;
+  overflow-y: scroll;
+}
+.userListFlex::-webkit-scrollbar {
+    display: none;
+}
+.listTitleBeen {
+  text-align: center;
   margin: 0;
   padding: 3px 0 3px 0;
-  text-align: center;
   color: #FFFFFF;
   background: #34ADBF;
   border-bottom: 2px solid #FFFFFF;
   border-radius: 5px 5px 0 0;
 }
-.listTitle p {
+.listTitleWant {
+  text-align: center;
+  margin: 0;
+  padding: 3px 0 3px 0;
+  color: #FFFFFF;
+  background: #230500;
+  border-bottom: 2px solid #FFFFFF;
+  border-radius: 5px 5px 0 0;
+}
+.listTitleBeen p {
+  margin: 0;
+}
+.listTitleWant p {
   margin: 0;
 }
 .listItem {
-  margin: 0 auto;
   top: 0px;
-  width: 250px;
-  height: 180px;
+  width: 200px;
+  height: 80px;
   text-align: center;
   position: relative;
-  /*background: rgba(100, 100, 100, .8);*/
+  overflow: hidden;
+  border-bottom: 2px solid #FFFFFF;
 }
 .listItem img {
-  margin:8px auto;
-  max-width: 230px;
-  max-height: 150px;
-  /*background: rgba(100, 100, 100, .8);*/
+  max-width: 200px;
+  max-height: 200px;
 }
 .userShowh2 {
   position: absolute;
