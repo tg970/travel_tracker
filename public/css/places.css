@@ -103,7 +103,8 @@ body {
   top: 0;
   left: 0;
   z-index: 3000;
-  background: #230500;
+  /*background: #230500;*/
+  background: rgba(35, 5, 0, 0.9);
   color: #ded6cd;
 }
 
@@ -113,6 +114,19 @@ body {
   max-height: 100%;
 }
 
+
+.closeBtn {
+  color: white;
+  background-color: #34adbf;
+  border: 1px solid white;
+  margin: 3% 45%;
+  }
+
+ .closeBtn:hover, .closeBtn:focus  {
+    color: #34adbf;
+    background-color: white;
+    border-color: #34adbf;
+  }
 
 #closeModal {
   text-align: right;
@@ -163,6 +177,20 @@ body {
   background: #34adbf;
   border-radius: 4px;
 }
+
+.closeEditBtn {
+  color: white;
+  background-color: #b5683e;
+  border: 1px solid white;
+  margin-top: 3%;
+  margin-left: 80%;
+  }
+
+ .closeEditBtn:hover, .closeEditBtn:focus  {
+    color: #b5683e;
+    background-color: white;
+    border-color: #b5683e;
+  }
 
 .submitBtn:focus, .submitBtn:hover  {
   color: #b5683e;
@@ -257,20 +285,6 @@ textarea {
 #quoteP {
   padding-top: 5%;
 }
-
-
-.closeBtn {
-  color: white;
-  background-color: #34adbf;
-  border: 1px solid white;
-  margin: 3% 45%;
-  }
-
- .closeBtn:hover, .closeBtn:focus  {
-    color: #34adbf;
-    background-color: white;
-    border-color: #34adbf;
-  }
 
 
 
