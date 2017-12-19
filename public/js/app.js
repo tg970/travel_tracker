@@ -197,6 +197,23 @@ app.controller('MainController', ['$http', '$route', function($http, $route) {
     }).catch(err => this.loginError = 'Something went wrong' );
   };
 
+  this.getMyPlaces = () => {
+    $http({
+      url: `/users/${user._id}`,
+      method: 'get'
+    }).then(response => {
+      console.log(response.data.myPlaces);
+      updateUser(response.data.user);
+      this.beenToArr = response.data.myPlaces.beenTo
+      this.wantToArr = response.data.myPlaces.wantTo
+      console.log('beenTo:', this.beenTo);
+      console.log('wantTo:', this.wantTo);
+    }, ex => {
+      console.log(ex.data.err, ex.statusText);
+   }).catch(err => console.log(err));
+  };
+  this.getMyPlaces();
+
 }]);
 
 app.controller('UserController', ['$http', '$route', function($http, $route) {
@@ -260,52 +277,6 @@ app.controller('UserController', ['$http', '$route', function($http, $route) {
 }]);
 
 app.controller('MyTrackerController', ['$http', '$route', function($http, $route) {
-  this.test = "MyTrackerController"
-  this.user = user
-  this.beenToArr = [];
-  this.wantToArr = [];
-  this.showModal = false;
-  this.edit = false;
-
-  this.getMyPlaces = () => {
-    $http({
-      url: `/users/${user._id}`,
-      method: 'get'
-    }).then(response => {
-      console.log(response.data.myPlaces);
-      updateUser(response.data.user);
-      this.beenToArr = response.data.myPlaces.beenTo
-      this.wantToArr = response.data.myPlaces.wantTo
-      console.log('beenTo:', this.beenTo);
-      console.log('wantTo:', this.wantTo);
-    }, ex => {
-      console.log(ex.data.err, ex.statusText);
-   }).catch(err => console.log(err));
-  };
-  this.getMyPlaces();
-
-
-  //Open place show modal
-  this.openShow = (place) => {
-    if (user.logged) {
-      //console.log('this.user: true');
-      this.wantTo = user.placesWant.includes(place._id)
-      this.beenTo = user.placesBeen.includes(place._id)
-      console.log('wantTo:',this.wantTo);
-      console.log('beenTo:',this.beenTo);
-      this.user = true;
-    }
-    this.showModal = true;
-    //console.log(this.showModal);
-    this.place = place;
-    //console.log(this.place);
-  }
-
-  this.closeShow = () => {
-    this.showModal = false;
-    this.edit = false;
-    this.place = {};
-  };
 
 }]);
 
@@ -327,7 +298,7 @@ app.config(['$routeProvider','$locationProvider', function($routeProvider,$locat
 
   $routeProvider.when('/myTracker', {  // when http://localhost:3000/pets/:id
     templateUrl: 'partials/userShow.html',
-    controller: 'MyTrackerController as ctrl',
+    controller: 'MainController as ctrl',
     controllerAs: 'ctrl'
   });
 
