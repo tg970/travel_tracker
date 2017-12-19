@@ -5,7 +5,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background: rgba(0, 0, 0, .8);
+  background: rgba(0, 0, 0, 1);
   /*background: rgba(255, 255, 255, .8);*/
   /*text-align: center;*/
   /*border-radius: 5px;*/
@@ -92,19 +92,19 @@
 
 .orange:hover {
   /*background: #b5683e;*/
-  color: #FFFFFF;
+  /*color: #FFFFFF;*/
 }
 .lightBlue:hover {
   /*background: #e8f7fd;*/
-  color: #FFFFFF;
+  /*color: #FFFFFF;*/
 }
 .blue:hover {
   /*background: #34adbf;*/
-  color: #FFFFFF;
+  /*color: #FFFFFF;*/
 }
 .brown:hover {
   /*background: #230500;*/
-  color: #FFFFFF;
+  /*color: #FFFFFF;*/
 }
 .creme:hover {
   /*background: #ded6cd;*/
