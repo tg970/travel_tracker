@@ -262,8 +262,8 @@ app.controller('UserController', ['$http', '$route', function($http, $route) {
 app.controller('MyTrackerController', ['$http', '$route', function($http, $route) {
   this.test = "MyTrackerController"
   this.user = user
-  this.beenTo = [];
-  this.wantTo = [];
+  this.beenToArr = [];
+  this.wantToArr = [];
   this.showModal = false;
   this.edit = false;
 
@@ -274,8 +274,8 @@ app.controller('MyTrackerController', ['$http', '$route', function($http, $route
     }).then(response => {
       console.log(response.data.myPlaces);
       updateUser(response.data.user);
-      this.beenTo = response.data.myPlaces.beenTo
-      this.wantTo = response.data.myPlaces.wantTo
+      this.beenToArr = response.data.myPlaces.beenTo
+      this.wantToArr = response.data.myPlaces.wantTo
       console.log('beenTo:', this.beenTo);
       console.log('wantTo:', this.wantTo);
     }, ex => {
@@ -305,8 +305,6 @@ app.controller('MyTrackerController', ['$http', '$route', function($http, $route
     this.showModal = false;
     this.edit = false;
     this.place = {};
-    this.wantTo = null;
-    this.beenTo = null;
   };
 
 }]);
