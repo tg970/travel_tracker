@@ -6,7 +6,7 @@
       <p>Where You've Been</p>
     </div>
 
-    <div class="listItem" ng-repeat="place in ctrl.beenTo">
+    <div class="listItem" ng-repeat="place in ctrl.beenToArr">
 
       <img ng-click="ctrl.openShow(place)" ng-src="{{place.img}}" alt="">
       <h2 class="userShowh2">{{place.place}}</h2>
