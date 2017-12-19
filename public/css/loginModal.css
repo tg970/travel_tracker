@@ -1,0 +1,69 @@
+.loginModal {
+  position: fixed;
+  overflow: auto;
+  width: 70%;
+  height: 70%;
+  top: 15%;
+  left: 15%;
+  z-index: 30005;
+  background: rgba(255,255,255,.85);
+  /*background: rgba(52, 173, 191, .8);*/
+  border: 2px solid #34adbf;
+  border-radius: 4px;
+  color: #230500;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.loginContainer {
+  width: 65%;
+  margin: auto;
+  display: flex;
+  flex-direction: row;
+}
+
+.login, .register {
+  display: flex;
+  flex-direction: column;
+  margin: 1%;
+}
+
+.login {
+  padding-right: 2%;
+  border-right: 2px solid #34adbf;
+}
+
+.loginForm {
+  display: flex;
+  flex-direction: column;
+}
+
+.loginForm > input {
+  margin: 5px;
+}
+
+#closeLogin {
+  margin: 1%;
+}
+
+/*=========================================
+        MEDIA QUERIES
+=========================================*/
+
+@media(max-width: 600px) {
+  .loginContainer{
+    width: 70%;
+    flex-direction: column;
+  }
+  .login, .register {
+    width: 100%;
+    padding: 20px 0;
+  }
+
+  .login {
+    border-right: none;
+    border-bottom: 3px solid #34adbf;
+    padding: 10px 0px;
+  }
+}
