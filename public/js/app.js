@@ -28,6 +28,7 @@ app.controller('MainController', ['$http', '$route', function($http, $route) {
 
   // Add a place
   this.addPlace = () => {
+    this.newForm.user = user._id
     $http({
       method: 'POST',
       url: '/places',
