@@ -41,14 +41,26 @@ app.controller('MainController', ['$http', '$route', function($http, $route) {
 
   // Add a place
   this.addPlace = () => {
-    this.newForm.user = user._id
+    this.newForm.user = user._id;
+    console.log('newForm:', this.newForm);
     $http({
       method: 'POST',
       url: '/places',
       data: this.newForm
     }).then(response => {
       this.places.push(response.data);
-      console.table(response.data);
+      console.log(response.data);
+      let temp = { _id: response.data._id }
+      if (this.newForm.beenOrWant == 'beenTo') {
+        //console.log('beenTo True');
+        this.addBeen(temp)
+        this.beenToArr.unshift(response.data)
+      } else {
+        //console.log('beenTo false');
+        this.addWant(temp)
+        this.wantToArr.unshift(response.data)
+      }
+      //this.getMyPlaces();
       this.newForm = {};
     }, error => {
       console.log(error);
@@ -217,6 +229,7 @@ app.controller('MainController', ['$http', '$route', function($http, $route) {
   // myTracker ---------------
 
   this.getMyPlaces = () => {
+    console.log('getMyPlaces Running');
     if (user.logged) {
       $http({
         url: `/users/${user._id}`,
