@@ -26,15 +26,18 @@ app.controller('MainController', ['$http', '$route', function($http, $route) {
 
   // Check Server for Session
   $http({
-    method: 'get',
-    url: '/sessions',
-  }).then(response => {
-    //console.log('sessionReq:', response.data.user);
-    updateUser(response.data.user)
-    console.log(user);
-  }, error => {
-    console.log('error:', error);
-  }).catch(err => console.error('Catch:', err))
+      method: 'get',
+      url: '/sessions',
+    }).then(response => {
+      //console.log('sessionReq:', response.data.user);
+      if (response.data.user) {
+        user = response.data.user;
+        user.logged = true;
+      }
+      console.log('userInfo:', user);
+    }, error => {
+      console.log('error:', error);
+    }).catch(err => console.error('Catch:', err))
 
   // Add a place
   this.addPlace = () => {
@@ -58,7 +61,7 @@ app.controller('MainController', ['$http', '$route', function($http, $route) {
       method: 'GET',
       url: '/places'
     }).then(response => {
-      console.table(response.data);
+      console.log('allPlaces',response.data);
       this.places = response.data;
     }, error => {
       console.error(error.message);
@@ -87,22 +90,22 @@ app.controller('MainController', ['$http', '$route', function($http, $route) {
 
   // Update Item
   this.updateModal = ( place ) => {
-    console.log('full edit running...', place);
+    //console.log('full edit running...', place);
     this.edit = true;
     this.currentEdit = angular.copy(place);
   }
 
   this.updatePlace = () => {
-    console.log('edit submit...', this.currentEdit);
+    //console.log('edit submit...', this.currentEdit);
     $http({
       method: 'PUT',
       url: '/places/' + this.currentEdit._id,
       data: this.currentEdit
     }).then(response => {
-      console.log('responce:', response.data);
+      //console.log('responce:', response.data);
       //console.table(this.places);
       const updateByIndex = this.places.findIndex(place => place._id === response.data._id)
-      console.log('update ind:', updateByIndex);
+      //console.log('update ind:', updateByIndex);
       // this.places.splice(updateByIndex , 1, response.data)
       this.places[updateByIndex] = response.data;
       this.openShow(this.places[updateByIndex]);
@@ -223,8 +226,8 @@ app.controller('MainController', ['$http', '$route', function($http, $route) {
         updateUser(response.data.user);
         this.beenToArr = response.data.myPlaces.beenTo
         this.wantToArr = response.data.myPlaces.wantTo
-        console.log('beenTo:', this.beenTo);
-        console.log('wantTo:', this.wantTo);
+        //console.log('beenTo:', this.beenTo);
+        //console.log('wantTo:', this.wantTo);
       }, ex => {
         console.log(ex.data.err, ex.statusText);
      }).catch(err => console.log(err));
