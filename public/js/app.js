@@ -249,9 +249,15 @@ app.controller('MainController', ['$http', '$route', function($http, $route) {
 
 }]);
 
-app.controller('UserController', ['$http', '$route', function($http, $route) {
+app.controller('NaviController', ['$http', function($http) {
   // User States:
   this.user = user
+  this.showLogin = false
+  if (this.user.logged) {
+    this.userName = this.user.username
+  } else {
+    this.userName = 'Hello...'
+  }
 
   // Register
   this.registerUser = () => {
@@ -266,6 +272,7 @@ app.controller('UserController', ['$http', '$route', function($http, $route) {
       this.user = user
       this.newUserForm = {};
       this.error = null;
+      this.showLogin = false;
     }, ex => {
       console.log(ex.data.err, ex.statusText);
       this.registerError = 'Hmm, maybe try a different username...';
@@ -283,9 +290,11 @@ app.controller('UserController', ['$http', '$route', function($http, $route) {
       console.log('LoginResponce:', response.data);
       //console.log('SessionClient:', req.session);
       updateUser(response.data);
-      this.user = user
+      this.user = user;
+      this.userName = this.user.username;
       this.loginForm = {};
       this.error = null;
+      this.showLogin = false;
     }, ex => {
        console.log('ex', ex.data.err);
        this.loginError = ex.statusText;
@@ -300,11 +309,16 @@ app.controller('UserController', ['$http', '$route', function($http, $route) {
        console.log(response.data);
        user = {};
        this.user = null;
+       this.userName = 'Hello..'
     }, ex => {
        console.log('ex', ex.data.err);
        this.loginError = ex.statusText;
     })
     .catch(err => this.loginError = 'Something went wrong' );
+  }
+
+  this.openLogin = () => {
+    this.showLogin = true
   }
 
 }]);
@@ -323,11 +337,11 @@ app.config(['$routeProvider','$locationProvider', function($routeProvider,$locat
     controllerAs: 'ctrl' // alias for ContactController (like ng-controller="ContactController as ctrl")
   });
 
-  $routeProvider.when('/signin', {
-    templateUrl: 'partials/userLogin.html',
-    controller: 'UserController as user',
-    controllerAs: 'user'
-  });
+  // $routeProvider.when('/signin', {
+  //   templateUrl: 'partials/userLogin.html',
+  //   controller: 'UserController as user',
+  //   controllerAs: 'user'
+  // });
 
   $routeProvider.when('/myTracker', {  // when http://localhost:3000/pets/:id
     templateUrl: 'partials/userShow.html',
