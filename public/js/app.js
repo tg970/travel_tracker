@@ -9,6 +9,8 @@ const updateUser = (data) => {
   return
 }
 
+
+
 app.controller('MainController', ['$http', '$route', function($http, $route) {
   // console.log('Hey');
   this.test = 'What!';
