@@ -32,6 +32,7 @@ body {
 
 .showBtn {
   border: 1px solid #34adbf;
+  margin: 1%;
 }
 
 .searchbox:hover, .searchbox:focus, button:focus, button:hover  {
@@ -256,6 +257,22 @@ textarea {
 #quoteP {
   padding-top: 5%;
 }
+
+
+.closeBtn {
+  color: white;
+  background-color: #34adbf;
+  border: 1px solid white;
+  margin: 3% 45%;
+  }
+
+ .closeBtn:hover, .closeBtn:focus  {
+    color: #34adbf;
+    background-color: white;
+    border-color: #34adbf;
+  }
+
+
 
 
 /*=========================================
