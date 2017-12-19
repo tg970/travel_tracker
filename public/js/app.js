@@ -144,6 +144,13 @@ app.controller('MainController', ['$http', '$route', function($http, $route) {
       this.user = true;
     }
     this.showModal = true;
+    if (place.user == user._id) {
+      console.log('show edit delete btns: True');
+      this.editDelete = true;
+    } else {
+      this.editDelete = false;
+      console.log('show edit delete btns: True');
+    }
     //console.log(this.showModal);
     this.place = place;
     //console.log(this.place);
