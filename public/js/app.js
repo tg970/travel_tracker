@@ -31,7 +31,7 @@ app.controller('MainController', ['$http', '$route', function($http, $route) {
   }).then(response => {
     //console.log('sessionReq:', response.data.user);
     if (response.data.user) { user = response.data.user}
-    console.log(user);
+    console.log('userInfo:', user);
   }, error => {
     console.log('error:', error);
   }).catch(err => console.error('Catch:', err))
@@ -87,22 +87,22 @@ app.controller('MainController', ['$http', '$route', function($http, $route) {
 
   // Update Item
   this.updateModal = ( place ) => {
-    console.log('full edit running...', place);
+    //console.log('full edit running...', place);
     this.edit = true;
     this.currentEdit = angular.copy(place);
   }
 
   this.updatePlace = () => {
-    console.log('edit submit...', this.currentEdit);
+    //console.log('edit submit...', this.currentEdit);
     $http({
       method: 'PUT',
       url: '/places/' + this.currentEdit._id,
       data: this.currentEdit
     }).then(response => {
-      console.log('responce:', response.data);
+      //console.log('responce:', response.data);
       //console.table(this.places);
       const updateByIndex = this.places.findIndex(place => place._id === response.data._id)
-      console.log('update ind:', updateByIndex);
+      //console.log('update ind:', updateByIndex);
       // this.places.splice(updateByIndex , 1, response.data)
       this.places[updateByIndex] = response.data;
       this.openShow(this.places[updateByIndex]);
