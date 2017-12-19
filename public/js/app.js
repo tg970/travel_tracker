@@ -93,6 +93,10 @@ app.controller('MainController', ['$http', '$route', function($http, $route) {
       const removeByIndex = this.places.findIndex(p => p._id === id)
       // console.log('I want to delete this one!', removeByIndex)
       this.places.splice(removeByIndex, 1);
+      const rmBeenToId = this.beenToArr.findIndex(p => p._id === id);
+      if ( rmBeenToId >= 0 ) this.beenToArr.splice(rmBeenToId, 1);
+      const rmWantToId = this.wantToArr.findIndex(p => p._id === id);
+      if ( rmWantToId >= 0 ) this.wantToArr.splice(rmWantToId, 1);
       this.showModal = false;
       this.edit = false;
     }, error => {

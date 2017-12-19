@@ -11,20 +11,31 @@ router.get('/', async (req, res) => {
 
 router.get('/:id', async (req, res) => {
   try {
-    const user = await User.findById(req.params.id);
+    let user = await User.findById(req.params.id);
     const myPlaces = { beenTo: [], wantTo: [] };
+    let saveUser = false;
     //console.log(user);
     for (let i = 0; i < user.placesBeen.length; i++ ) {
       let place = await Place.findById(user.placesBeen[i]);
-      myPlaces.beenTo.unshift(place)
+      if (place) {
+        myPlaces.beenTo.unshift(place)
+      } else {
+        user.placesBeen.splice(i,1)
+        saveUser = true;
+      }
     }
     for (let i = 0; i < user.placesWant.length; i++ ) {
       let place = await Place.findById(user.placesWant[i]);
-      myPlaces.wantTo.unshift(place)
+      if (place) {
+        myPlaces.wantTo.unshift(place)
+      } else {
+        user.placesBeen.splice(i,1)
+        saveUser = true
+      }
     }
-    // console.log('=================');
-    // console.log(myPlaces);
-    // console.log('=================');
+    if (saveUser) {
+      user = await User.findByIdAndUpdate(req.params.id, user, {new: true})
+    }
     res.status(200).json({ user, myPlaces });
   } catch (err) {
     console.log(err);
