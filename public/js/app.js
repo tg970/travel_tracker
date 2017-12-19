@@ -9,8 +9,6 @@ const updateUser = (data) => {
   return
 }
 
-
-
 app.controller('MainController', ['$http', '$route', function($http, $route) {
   // console.log('Hey');
   this.test = 'What!';
@@ -25,6 +23,18 @@ app.controller('MainController', ['$http', '$route', function($http, $route) {
   this.currentEdit = {};
 
   // Routes
+
+  // Check Server for Session
+  $http({
+    method: 'get',
+    url: '/sessions',
+  }).then(response => {
+    //console.log('sessionReq:', response.data.user);
+    updateUser(response.data.user)
+    console.log(user);
+  }, error => {
+    console.log('error:', error);
+  }).catch(err => console.error('Catch:', err))
 
   // Add a place
   this.addPlace = () => {
@@ -203,19 +213,21 @@ app.controller('MainController', ['$http', '$route', function($http, $route) {
   // myTracker ---------------
 
   this.getMyPlaces = () => {
-    $http({
-      url: `/users/${user._id}`,
-      method: 'get'
-    }).then(response => {
-      console.log(response.data.myPlaces);
-      updateUser(response.data.user);
-      this.beenToArr = response.data.myPlaces.beenTo
-      this.wantToArr = response.data.myPlaces.wantTo
-      console.log('beenTo:', this.beenTo);
-      console.log('wantTo:', this.wantTo);
-    }, ex => {
-      console.log(ex.data.err, ex.statusText);
-   }).catch(err => console.log(err));
+    if (user.logged) {
+      $http({
+        url: `/users/${user._id}`,
+        method: 'get'
+      }).then(response => {
+        console.log(response.data.myPlaces);
+        updateUser(response.data.user);
+        this.beenToArr = response.data.myPlaces.beenTo
+        this.wantToArr = response.data.myPlaces.wantTo
+        console.log('beenTo:', this.beenTo);
+        console.log('wantTo:', this.wantTo);
+      }, ex => {
+        console.log(ex.data.err, ex.statusText);
+     }).catch(err => console.log(err));
+   }
   };
   this.getMyPlaces();
 
