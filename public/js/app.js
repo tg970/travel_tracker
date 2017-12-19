@@ -26,18 +26,18 @@ app.controller('MainController', ['$http', '$route', function($http, $route) {
 
   // Check Server for Session
   $http({
-    method: 'get',
-    url: '/sessions',
-  }).then(response => {
-    //console.log('sessionReq:', response.data.user);
-    if (response.data.user) {
-      user = response.data.user;
-      user.logged = true;
-    }
-    console.log('userInfo:', user);
-  }, error => {
-    console.log('error:', error);
-  }).catch(err => console.error('Catch:', err))
+      method: 'get',
+      url: '/sessions',
+    }).then(response => {
+      //console.log('sessionReq:', response.data.user);
+      if (response.data.user) {
+        user = response.data.user;
+        user.logged = true;
+      }
+      console.log('userInfo:', user);
+    }, error => {
+      console.log('error:', error);
+    }).catch(err => console.error('Catch:', err))
 
   // Add a place
   this.addPlace = () => {
@@ -61,7 +61,7 @@ app.controller('MainController', ['$http', '$route', function($http, $route) {
       method: 'GET',
       url: '/places'
     }).then(response => {
-      console.log(response.data);
+      console.log('allPlaces',response.data);
       this.places = response.data;
     }, error => {
       console.error(error.message);
