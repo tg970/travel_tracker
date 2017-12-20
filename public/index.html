@@ -30,10 +30,9 @@
   </head>
   <body ng-app='traveler_tracker_App' ng-controller='NaviController as ctrl'>
     <!-- <header> -->
-      <!-- <nav ng-include="'partials/header.html'"></nav> -->
+
       <nav>
         <div class="menu" >
-
           <div class="titleBox">
             <a href="/"><h2><span class="orange">X</span><span class="blue">C</span>ursion</h2></a>
           </div>
@@ -51,7 +50,6 @@
 
           <!-- End Moblie View -->
 
-          <!-- <div class="menuSide1"> -->
             <div class="menuContents">
               <a class="menuItem menuLink" href="/">Home</a>
               <a ng-if="ctrl.user.logged" class="menuItem menuLink" href="/myTracker">My Places</a>
@@ -73,7 +71,8 @@
           <div ng-include="'partials/userLogin.html'"></div>
         </div>
 
-        <div class="mobileLinks">
+        <!-- Mobile Links -->
+        <div class="mobileLinks mobileLink">
           <a class="menuItem menuLink" href="/">Home</a>
           <a ng-if="ctrl.user.logged" class="menuItem menuLink" href="/myTracker">My Places</a>
           <a class="menuItem menuLink" href="/about">About</a>
@@ -83,6 +82,7 @@
             <i class="material-icons">clear</i>
           </div>
         </div>
+        <!-- End Mobile Links -->
       </nav>
 
 
