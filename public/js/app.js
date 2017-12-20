@@ -273,14 +273,12 @@ app.controller('MainController', ['$http', '$route', function($http, $route) {
 
 }]);
 
-app.controller('NaviController', ['$http', function($http) {
+app.controller('NaviController', ['$http', '$rootScope', '$location', function($http, $rootScope, $location) {
   // User States:
   this.user = user
   this.showLogin = false
-  if (this.user.logged) {
+  if (user.logged) {
     this.userName = this.user.username
-  } else {
-    this.userName = 'Hello...'
   }
 
   // Register
@@ -293,7 +291,8 @@ app.controller('NaviController', ['$http', function($http) {
     }).then(response => {
       console.log('RegisterResponce:', response.data);
       updateUser(response.data);
-      this.user = user
+      $rootScope.user = user;
+      this.user = user;
       this.newUserForm = {};
       this.error = null;
       this.showLogin = false;
@@ -314,8 +313,9 @@ app.controller('NaviController', ['$http', function($http) {
       console.log('LoginResponce:', response.data);
       //console.log('SessionClient:', req.session);
       updateUser(response.data);
+      $rootScope.user = user;
       this.user = user;
-      this.userName = this.user.username;
+      this.userName = $rootScope.user.username;
       this.loginForm = {};
       this.error = null;
       this.showLogin = false;
@@ -332,8 +332,9 @@ app.controller('NaviController', ['$http', function($http) {
     .then((response) => {
        console.log(response.data);
        user = {};
+       $rootScope.user = null;
        this.user = null;
-       this.userName = 'Hello..'
+       $location.path('/');
     }, ex => {
        console.log('ex', ex.data.err);
        this.loginError = ex.statusText;
