@@ -81,6 +81,9 @@
   width: 20%;
   margin-right: 10px;
 }
+.menuUserName p {
+  margin: 0;
+}
 
 .profPic {
   display: inline-block;
