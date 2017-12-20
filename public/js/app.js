@@ -9,7 +9,7 @@ const updateUser = (data) => {
   return
 }
 
-app.controller('MainController', ['$http', '$route', function($http, $route) {
+app.controller('MainController', ['$http', '$route', '$scope', '$location', function($http, $route, $scope, $location) {
   // console.log('Hey');
   this.test = 'What!';
   this.showModal = false;
@@ -141,6 +141,7 @@ app.controller('MainController', ['$http', '$route', function($http, $route) {
 
   //Open place show modal
   this.openShow = (place) => {
+    console.log('openShow fire');
     if (user.logged) {
       //console.log('this.user: true');
       this.wantTo = user.placesWant.includes(place._id)
@@ -182,6 +183,7 @@ app.controller('MainController', ['$http', '$route', function($http, $route) {
       console.log('addWant:',user);
       this.wantTo = true;
       this.error = null;
+      if (this.beenTo) this.removeBeen(place)
     }, ex => {
         console.log('ex', ex.data.err);
         this.loginError = ex.statusText;
@@ -199,6 +201,7 @@ app.controller('MainController', ['$http', '$route', function($http, $route) {
       console.log('addBeen:',user);
       this.beenTo = true;
       this.error = null;
+      if (this.wantTo) this.removeWant(place)
     }, ex => {
         console.log('ex', ex.data.err);
         this.loginError = ex.statusText;
@@ -273,12 +276,31 @@ app.controller('MainController', ['$http', '$route', function($http, $route) {
     this.addShow = false;
   }
 
+  this.openLogin = () => {
+    //console.log('openLogin');
+    //this.showLogin = true
+    $scope.$parent.ctrl.showLogin = true;
+    //console.log($scope);
+  }
+
+  this.closeLogin = () => {
+    console.log('closeLogin');
+    // $rootScope.showLogin = false;
+    this.showLogin = false;
+  }
+
+  $scope.$on('updateAuth', (data) => {
+    console.log('after:',data);
+    this.user = data
+  })
+
 }]);
 
-app.controller('NaviController', ['$http', '$rootScope', '$location', function($http, $rootScope, $location) {
+app.controller('NaviController', ['$http', '$scope','$rootScope', '$location', function($http, $scope, $rootScope, $location) {
   // User States:
   this.user = user;
-  this.showLogin = false;
+  //$rootScope.showLogin = false;
+  //this.showLogin = $rootScope.showLogin;
   if (user.logged) {
     this.userName = this.user.username;
   }
@@ -321,6 +343,9 @@ app.controller('NaviController', ['$http', '$rootScope', '$location', function($
       this.loginForm = {};
       this.error = null;
       this.showLogin = false;
+      //console.log($scope.$$childHead);
+      console.log('before:', this.user);
+      $scope.$broadcast('updateAuth', { data: this.user })
     }, ex => {
        console.log('ex', ex.data.err);
        this.loginError = ex.statusText;
@@ -346,10 +371,14 @@ app.controller('NaviController', ['$http', '$rootScope', '$location', function($
   }
 
   this.openLogin = () => {
-    this.showLogin = true;
+    console.log('openLogin');
+    $rootScope.showLogin = true;
+    this.showLogin = true
   }
 
   this.closeLogin = () => {
+    console.log('closeLogin');
+    $rootScope.showLogin = false;
     this.showLogin = false;
   }
 
@@ -371,8 +400,8 @@ app.config(['$routeProvider','$locationProvider', function($routeProvider,$locat
 
   // $routeProvider.when('/signin', {
   //   templateUrl: 'partials/userLogin.html',
-  //   controller: 'UserController as user',
-  //   controllerAs: 'user'
+  //   controller: 'NaviController as ctrl',
+  //   controllerAs: 'ctrl'
   // });
 
   $routeProvider.when('/myTracker', {  // when http://localhost:3000/pets/:id

@@ -14,7 +14,7 @@
           <button ng-if="ctrl.beenTo" class="showBtn addRmvBtn" ng-click='ctrl.removeBeen(ctrl.place)'><i class="fa fa-minus" aria-hidden="true"></i> My "Been To"</button>
         </div>
         <div ng-if="!ctrl.user" class="">
-          <button class="showBtn addRmvBtn">Login to add to your lists</button>
+          <button class="showBtn addRmvBtn" ng-click="ctrl.openLogin()">Login to add to your lists</button>
         </div>
         <button ng-if="ctrl.editDelete" class="showBtn" ng-click='ctrl.updateModal(ctrl.place)'><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
         <button ng-if="ctrl.editDelete" class="showBtn" ng-click="ctrl.deletePlace(ctrl.place._id)"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
@@ -37,4 +37,7 @@
       </div>
     </div>
   </div>
+</div>
+<div ng-include="'partials/userLogin.html'">
+
 </div>
