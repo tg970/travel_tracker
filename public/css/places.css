@@ -22,7 +22,7 @@ body {
   color: #34adbf;
   text-align: center;
   letter-spacing: .1rem;
-  text-transform: uppercase;
+  /*text-transform: uppercase;*/
   text-decoration: none;
   background-color: transparent;
   border-radius: 4px;
@@ -254,7 +254,7 @@ body {
   color: #34adbf;
   text-align: center;
   letter-spacing: .1rem;
-  text-transform: uppercase;
+  /*text-transform: uppercase;*/
   text-decoration: none;
   background-color: transparent;
   border-radius: 4px;
