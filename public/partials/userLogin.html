@@ -1,6 +1,6 @@
 <div ng-if='!ctrl.user.logged' class="loginModal">
   <!-- ng-if='!user.user' -->
-    <p id="closeModal"><i class="fa fa-window-close" aria-hidden="true"></i></p>
+    <p id="closeModal"><i ng-click="ctrl.closeLogin()" class="fa fa-window-close" aria-hidden="true"></i></p>
   <div class="loginContainer">
     <div class="login">
       <small>Log in</small>

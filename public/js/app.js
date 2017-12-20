@@ -277,10 +277,10 @@ app.controller('MainController', ['$http', '$route', function($http, $route) {
 
 app.controller('NaviController', ['$http', '$rootScope', '$location', function($http, $rootScope, $location) {
   // User States:
-  this.user = user
-  this.showLogin = false
+  this.user = user;
+  this.showLogin = false;
   if (user.logged) {
-    this.userName = this.user.username
+    this.userName = this.user.username;
   }
 
   // Register
@@ -346,7 +346,11 @@ app.controller('NaviController', ['$http', '$rootScope', '$location', function($
   }
 
   this.openLogin = () => {
-    this.showLogin = true
+    this.showLogin = true;
+  }
+
+  this.closeLogin = () => {
+    this.showLogin = false;
   }
 
 }]);
