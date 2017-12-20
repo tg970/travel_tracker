@@ -284,9 +284,11 @@ app.controller('MainController', ['$http', '$route', '$scope', function($http, $
     console.log('listener');
     this.user = user;
     this.user.logged = true;
-    this.showModal = false;
-    this.edit = false;
-    this.openShow(this.place)
+    if (this.showModal) {
+      this.showModal = false;
+      this.edit = false;
+      this.openShow(this.place)
+    }
   })
 
 }]);
