@@ -94,6 +94,9 @@
   max-width: 200px;
   max-height: 200px;
 }
+.listItem:hover {
+  cursor: pointer;
+}
 .userShowh2 {
   position: absolute;
   top:  25%;
