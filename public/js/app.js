@@ -9,7 +9,7 @@ const updateUser = (data) => {
   return
 }
 
-app.controller('MainController', ['$http', '$route', function($http, $route) {
+app.controller('MainController', ['$http', '$route', '$scope', function($http, $route, $scope) {
   // console.log('Hey');
   this.test = 'What!';
   this.showModal = false;
@@ -273,9 +273,23 @@ app.controller('MainController', ['$http', '$route', function($http, $route) {
     this.addShow = false;
   }
 
+  // Open Login from show page
+  this.openLogin = () => {
+    $scope.$parent.ctrl.showLogin = true;
+  }
+  //Listen for login
+  $scope.$on('updateAuth', (data) => {
+    console.log('listener');
+    this.user = user;
+    this.user.logged = true;
+    this.showModal = false;
+    this.edit = false;
+    this.openShow(this.place)
+  })
+
 }]);
 
-app.controller('NaviController', ['$http', '$rootScope', '$location', function($http, $rootScope, $location) {
+app.controller('NaviController', ['$http', '$scope', '$location', function($http, $scope, $location) {
   // User States:
   this.user = user;
   this.showLogin = false;
@@ -293,11 +307,12 @@ app.controller('NaviController', ['$http', '$rootScope', '$location', function($
     }).then(response => {
       console.log('RegisterResponce:', response.data);
       updateUser(response.data);
-      $rootScope.user = user;
+      //$rootScope.user = user;
       this.user = user;
       this.newUserForm = {};
       this.error = null;
       this.showLogin = false;
+      $scope.$broadcast('updateAuth', { data: this.user })
     }, ex => {
       console.log(ex.data.err, ex.statusText);
       this.registerError = 'Hmm, maybe try a different username...';
@@ -315,12 +330,13 @@ app.controller('NaviController', ['$http', '$rootScope', '$location', function($
       console.log('LoginResponce:', response.data);
       //console.log('SessionClient:', req.session);
       updateUser(response.data);
-      $rootScope.user = user;
+      //$rootScope.user = user;
       this.user = user;
-      this.userName = $rootScope.user.username;
+      this.userName = response.data.username;
       this.loginForm = {};
       this.error = null;
       this.showLogin = false;
+      $scope.$broadcast('updateAuth', { data: this.user })
     }, ex => {
        console.log('ex', ex.data.err);
        this.loginError = ex.statusText;
@@ -334,7 +350,7 @@ app.controller('NaviController', ['$http', '$rootScope', '$location', function($
     .then((response) => {
        console.log(response.data);
        user = {};
-       $rootScope.user = null;
+       //$rootScope.user = null;
        this.user = null;
        this.userName = null;
        $location.path('/');
