@@ -1,0 +1,42 @@
+
+      <!--INCLUDE THIS IN THE USER SHOW <div class="showModal" ng-include="'partials/addPlace.html'"></div> -->
+
+<div class="showModal" ng-if="ctrl.addShow">
+  <button class="closeBtn center" ng-click="ctrl.closeAdd()">close</button>
+  <div class="showColumns">
+      <div class="createRowOne">
+        <div class="rowItem" id="VR">
+          <form class="editForm" ng-submit="ctrl.addPlace()">
+            <label for="place">Place:</label>
+            <input  class="create" id="place" type="text" ng-model="ctrl.newForm.place"/>
+            <label for="img">Image URL:</label>
+            <input class="create" type="text" ng-model="ctrl.newForm.img"/>
+            <label for="beenThere">Which list to add it to:</label>
+            <div class="" ng-init="ctrl.newForm.beenOrWant=wantTo">
+              <input class="create" id="beenThere" type="radio" ng-model="ctrl.newForm.beenOrWant" value="wantTo"/> <label>Want to Go</label> <br />
+              <input class="create" id="beenThere" type="radio" ng-model="ctrl.newForm.beenOrWant" value="beenTo"/> <label>Been There</label> <br />
+            </div>
+            <label for="public">Public:</label>
+            <input class="create" id="public" type="checkbox" ng-model="ctrl.newForm.public"/>
+            <label for="desc">Description:</label>
+            <textarea class="create" id="desc" ng-model="ctrl.newForm.description"></textarea>
+            <button class="showBtn" type="submit">Add Place</button>
+          </form>
+        </div>
+
+
+        <div class="rowItem" id="quoteP">
+          <p class="quote"><span class="openQuote">"</span>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.<span class="closeQuote">"</span></p>
+          <p><b>- Person who said it</b></p>
+        </div>
+      </div>
+  </div>
+</div>
+<div ng-if="!ctrl.addShow" class="addPlaceBtn center">
+  <button class="showBtn" ng-click="ctrl.openAdd()">Add Place</button>
+</div>
+<!-- <script>
+    function MainController($scope){
+        $scope.newForm.beenOrWant='wantTo';
+    }
+</script> -->

@@ -1,0 +1,109 @@
+/*.showContainer {
+  margin: 0 auto;
+  max-width: 90%;
+}*/
+.center {
+  margin: 0 auto;
+  text-align: center;
+}
+.allListFlex {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+/*.listBoxBeen {
+  width: 400px;
+  height: 500px;
+  background: #e8f7fd;
+  display: inline-block;
+  border-radius: 7px;
+}
+.listBoxWant {
+  width: 400px;
+  height: 500px;
+  background: #F0C7AF;
+  display: inline-block;
+  border-radius: 7px;
+}*/
+.holdsWidthBeen, .holdsWidthWant {
+  height: 500px;
+  width: 400px;
+  margin: 0 5px 0 5px;
+  border-radius: 0px 0px 7px 7px;
+}
+.userListFlexBeen, .userListFlexWant {
+  display: flex;
+  flex-direction: row;
+  /*justify-content: flex-start;*/
+  flex-wrap: wrap;
+  /*overflow: hidden;*/
+  overflow-y: scroll;
+  padding: 0;
+  max-height: 472px;
+  width: 400px;
+  margin: 0;
+  /*display: inline-block;*/
+  border-radius: 0px 0px 7px 7px;
+}
+.holdsWidthBeen {
+  background: #e8f7fd;
+}
+.holdsWidthWant {
+  background: #F0C7AF;
+}
+.userListFlexBeen::-webkit-scrollbar {
+    display: none;
+}
+.userListFlexWant::-webkit-scrollbar {
+    display: none;
+}
+.listTitleBeen {
+  text-align: center;
+  margin: 0;
+  padding: 3px 0 3px 0;
+  color: #FFFFFF;
+  background: #34ADBF;
+  border-bottom: 2px solid #FFFFFF;
+  border-radius: 5px 5px 0 0;
+}
+.listTitleWant {
+  text-align: center;
+  margin: 0;
+  padding: 3px 0 3px 0;
+  color: #FFFFFF;
+  background: #230500;
+  border-bottom: 2px solid #FFFFFF;
+  border-radius: 5px 5px 0 0;
+}
+.listTitleBeen p {
+  margin: 0;
+}
+.listTitleWant p {
+  margin: 0;
+}
+.listItem {
+  /*top: 0px;*/
+  width: 200px;
+  height: 80px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  border-bottom: 2px solid #FFFFFF;
+}
+.listItem img {
+  max-width: 200px;
+  max-height: 200px;
+}
+.listItem:hover {
+  cursor: pointer;
+}
+.userShowh2 {
+  position: absolute;
+  top:  25%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  text-align: center;
+  border-radius: 3px;
+  text-shadow: 2px 2px rgba(0,0,0, .9);
+}

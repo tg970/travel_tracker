@@ -3,6 +3,16 @@ const router  = express.Router();
 
 const User = require('../models/users.js');
 
+router.get('/', (req, res) => {
+  //console.log('req.session firing')
+  try {
+    console.log(req.session);
+    res.status(200).json({user: req.session.user});
+  } catch (err) {
+    res.status(400).json({ seshErr: err.message });
+  }
+});
+
 router.post('/login', async (req, res) => {
    try {
      const user = await User.findOne({ username: req.body.username });
