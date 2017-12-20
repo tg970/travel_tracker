@@ -1,11 +1,6 @@
-<h1>user page</h1>
-
-
 <div ng-if='!ctrl.user.logged' class="loginModal">
   <!-- ng-if='!user.user' -->
-  <div>
-    <button class="closeEditBtn" id="closeLogin">X</button>
-  </div>
+    <p id="closeModal"><i ng-click="ctrl.closeLogin()" class="fa fa-window-close" aria-hidden="true"></i></p>
   <div class="loginContainer">
     <div class="login">
       <small>Log in</small>

@@ -10,7 +10,7 @@
 
 <div class="imagesContainer">
   <div ng-click="ctrl.openShow(place)" class="imageBox" ng-repeat="place in ctrl.places | orderBy:'-' | filter: searchBox">
-    <img class="indexImg" ng-src={{place.img}} alt="{{place.place}}" style="max-width:100%;">
+    <img ng-src={{place.img}} alt="{{place.place}}">
     <h2 class="indexh2">{{place.place}}</h2>
   </div>
 </div>
