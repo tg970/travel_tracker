@@ -5,7 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <title>Travel Tracker</title>
     <link rel="icon" type="image/png" href="/favicon-32x32.png">
+    <script
+      src="https://code.jquery.com/jquery-3.2.1.min.js"
+      integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+      crossorigin="anonymous">
+    </script>
     <script src="https://use.fontawesome.com/a71821b06b.js"></script> <!--  favicon font cdn -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="/css/main.css">
     <link rel="stylesheet" href="/css/form.css">
     <link rel="stylesheet" href="/css/header.css">
@@ -15,9 +21,11 @@
     <link rel="stylesheet" href="/css/loginRegister.css">
     <link rel="stylesheet" href="/css/userShow.css">
     <link rel="stylesheet" href="/css/loginModal.css">
+    <link rel="stylesheet" href="/css/about.css">
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js" charset="utf-8"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-route.min.js" charset="utf-8"></script>
     <script type="text/javascript" src="/js/app.js"></script>
+    <script type="text/javascript" src="/js/header.js"></script>
     <base href="/" target="_blank">
   </head>
   <body ng-app='traveler_tracker_App' ng-controller='NaviController as ctrl'>
@@ -30,34 +38,54 @@
             <a href="/"><h2><span class="orange">X</span><span class="blue">C</span>ursion</h2></a>
           </div>
 
+          <!-- Moblie View -->
+          <div class="titleBoxLogo">
+            <a href="/"><h2><span class="orange">X</span><span class="blue">C</span></h2></a>
+            <div class="burger">
+              <i class="material-icons">view_headline</i>
+            </div>
+          </div>
+
+
+
+
+          <!-- End Moblie View -->
+
           <!-- <div class="menuSide1"> -->
             <div class="menuContents">
               <a class="menuItem menuLink" href="/">Home</a>
               <a ng-if="ctrl.user.logged" class="menuItem menuLink" href="/myTracker">My Places</a>
+              <a class="menuItem menuLink" href="/about">About</a>
               <a ng-if="!ctrl.user.logged" ng-click="ctrl.openLogin()" class="menuItem menuLink" href="#">Login</a>
               <a ng-if="ctrl.user.logged" ng-click="ctrl.logout()" class="menuItem menuLink" href="#">Logout</a>
             </div>
 
+
             <div class="menuUserName">
-              <a class="menuLink orange" href="#">{{ctrl.userName}}</a>
+              <div class="profPic" ng-if="ctrl.user.logged">
+                <img ng-src="{{ctrl.user.pic}}" alt="">
+              </div>
+              <p class="orange" href="#">{{ctrl.userName}}</>
             </div>
           <!-- </div> -->
         </div>
         <div ng-if="ctrl.showLogin">
           <div ng-include="'partials/userLogin.html'"></div>
         </div>
+
+        <div class="mobileLinks">
+          <a class="menuItem menuLink" href="/">Home</a>
+          <a ng-if="ctrl.user.logged" class="menuItem menuLink" href="/myTracker">My Places</a>
+          <a class="menuItem menuLink" href="/about">About</a>
+          <a ng-if="!ctrl.user.logged" ng-click="ctrl.openLogin()" class="menuItem menuLink" href="#">Login</a>
+          <a ng-if="ctrl.user.logged" ng-click="ctrl.logout()" class="menuItem menuLink" href="#">Logout</a>
+          <div class="closeheaderBtn">
+            <i class="material-icons">clear</i>
+          </div>
+        </div>
       </nav>
 
-    <!-- </header> -->
-    <!-- <div class="container" ng-controller='MainController as ctrl'>
-      <div ng-include="'partials/userLogin.html'"></div>
 
-
-      {{ctrl.test}}
-    </div> -->
-
-    <!-- <div class="placesIndex-Show" ng-include="'partials/places.html'">
-    </div> -->
     <div class="container">
       <main ng-view></main>
     </div>
@@ -70,6 +98,7 @@
       <div class="footer">
         <a class="menuItem menuLink" href="/">Home</a>
         <a ng-if="ctrl.user.logged" class="menuItem menuLink" href="/myTracker">My Places</a>
+        <a class="menuItem menuLink" href="/about">About</a>
         <a ng-if="!ctrl.user.logged" ng-click="ctrl.openLogin()" class="menuItem menuLink" href="#">Login</a>
         <a ng-if="ctrl.user.logged" ng-click="ctrl.logout()" class="menuItem menuLink" href="#">Logout</a>
         <hr>
