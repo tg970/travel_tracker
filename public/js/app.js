@@ -1,8 +1,6 @@
 const app = angular.module('traveler_tracker_App', ['ngRoute']);
 
-// Global Varibles?
 let user = {};
-
 const updateUser = (data) => {
   user = data;
   user.logged = true;
@@ -10,20 +8,16 @@ const updateUser = (data) => {
 }
 
 app.controller('MainController', ['$http', '$route', '$scope', '$location', function($http, $route, $scope, $location) {
-  // console.log('Hey');
   this.test = 'What!';
   this.showModal = false;
   this.place = {};
   this.wantTo = null;
   this.beenTo = null;
-
   this.newForm = {};
-  this.newUserForm = {};
+  //this.newUserForm = {};
   this.edit = false;
   this.currentEdit = {};
   this.addShow = false;
-
-  // Routes
 
   // Check Server for Session
   $http({
@@ -138,8 +132,6 @@ app.controller('MainController', ['$http', '$route', '$scope', '$location', func
   }
 
   // Show Modal Logic ---------------
-
-  //Open place show modal
   this.openShow = (place) => {
     console.log('openShow fire');
     if (user.logged) {
@@ -243,7 +235,6 @@ app.controller('MainController', ['$http', '$route', '$scope', '$location', func
   };
 
   // myTracker ---------------
-
   this.getMyPlaces = () => {
     console.log('getMyPlaces Running');
     if (user.logged) {
@@ -265,7 +256,6 @@ app.controller('MainController', ['$http', '$route', '$scope', '$location', func
   this.getMyPlaces();
 
   // Add Modal:
-
   this.openAdd = () => {
     console.log('openAdd Firing');
     this.addShow = true;
@@ -276,19 +266,16 @@ app.controller('MainController', ['$http', '$route', '$scope', '$location', func
     this.addShow = false;
   }
 
+  // Close/Open Login from showPage
   this.openLogin = () => {
-    //console.log('openLogin');
-    //this.showLogin = true
     $scope.$parent.ctrl.showLogin = true;
-    //console.log($scope);
   }
 
   this.closeLogin = () => {
-    console.log('closeLogin');
-    // $rootScope.showLogin = false;
-    this.showLogin = false;
+    $scope.$parent.ctrl.showLogin = false;
   }
 
+  // Receive info from successful login
   $scope.$on('updateAuth', (data) => {
     console.log('after:',data);
     this.user = data
@@ -307,7 +294,6 @@ app.controller('NaviController', ['$http', '$scope','$rootScope', '$location', f
 
   // Register
   this.registerUser = () => {
-    //console.log('register: ', this.newUserForm);
     $http({
       url: '/users',
       method: 'post',
@@ -317,6 +303,7 @@ app.controller('NaviController', ['$http', '$scope','$rootScope', '$location', f
       updateUser(response.data);
       $rootScope.user = user;
       this.user = user;
+      this.userName = response.data.username
       this.newUserForm = {};
       this.error = null;
       this.showLogin = false;
@@ -335,15 +322,13 @@ app.controller('NaviController', ['$http', '$scope','$rootScope', '$location', f
       data: this.loginForm
     }).then(response =>  {
       console.log('LoginResponce:', response.data);
-      //console.log('SessionClient:', req.session);
       updateUser(response.data);
       $rootScope.user = user;
       this.user = user;
-      this.userName = $rootScope.user.username;
+      this.userName = response.data.username;
       this.loginForm = {};
       this.error = null;
       this.showLogin = false;
-      //console.log($scope.$$childHead);
       console.log('before:', this.user);
       $scope.$broadcast('updateAuth', { data: this.user })
     }, ex => {
@@ -384,10 +369,6 @@ app.controller('NaviController', ['$http', '$scope','$rootScope', '$location', f
 
 }]);
 
-app.controller('MyTrackerController', ['$http', '$route', function($http, $route) {
-
-}]);
-
 app.config(['$routeProvider','$locationProvider', function($routeProvider,$locationProvider) {
   // Enables Push State
   $locationProvider.html5Mode({ enabled: true });
@@ -398,11 +379,9 @@ app.config(['$routeProvider','$locationProvider', function($routeProvider,$locat
     controllerAs: 'ctrl' // alias for ContactController (like ng-controller="ContactController as ctrl")
   });
 
-  // $routeProvider.when('/signin', {
-  //   templateUrl: 'partials/userLogin.html',
-  //   controller: 'NaviController as ctrl',
-  //   controllerAs: 'ctrl'
-  // });
+  $routeProvider.when('/about', {
+    templateUrl: 'partials/about.html',
+  });
 
   $routeProvider.when('/myTracker', {  // when http://localhost:3000/pets/:id
     templateUrl: 'partials/userShow.html',
@@ -410,25 +389,6 @@ app.config(['$routeProvider','$locationProvider', function($routeProvider,$locat
     controllerAs: 'ctrl'
   });
 
-  // $routeProvider.when('/pricing', {
-  //   templateUrl: 'pricing.html',
-  //   controller: 'PricingController',
-  //   controllerAs: 'ctrl',
-  //   price: '$1 trillion dollars'
-  // });
-  //
-  // $routeProvider.when('/joke', {
-  //   templateUrl: 'joke.html',
-  //   controller: 'JokeController',
-  //   controllerAs: 'ctrl'
-  // });
-  //
-  // $routeProvider.when('/all', {
-  //   templateUrl: 'all.html',
-  //   controller: 'AllController',
-  //   controllerAs: 'ctrl'
-  // });
-  //
   $routeProvider.otherwise({
     redirectTo: '/'
   });

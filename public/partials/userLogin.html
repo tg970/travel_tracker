@@ -1,12 +1,11 @@
 <div ng-if="ctrl.showLogin" class="loginModal">
-  <!-- ng-if='!user.user' -->
-    <p id="closeModal"><i ng-click="ctrl.closeLogin()" class="fa fa-window-close" aria-hidden="true"></i></p>
+  <p id="closeModal"><i ng-click="ctrl.closeLogin()" class="fa fa-window-close" aria-hidden="true"></i></p>
   <div class="loginContainer">
     <div class="login">
       <small>Log in</small>
       <form class="loginForm" ng-submit='ctrl.loginUser()'>
-         <input class="searchbox" type="text" placeholder="username" autocomplete="username" ng-model="ctrl.loginForm.username" />
-         <input class="searchbox" type="password" autocomplete="current-password" placeholder="password" ng-model="ctrl.loginForm.password" />
+         <input class="searchbox" type="text" placeholder="username" autocomplete="username" ng-model="ctrl.loginForm.username" required/>
+         <input class="searchbox" type="password" autocomplete="current-password" placeholder="password" ng-model="ctrl.loginForm.password" required/>
          <input class="searchbox closeBtn" type="submit" />
       </form>
       <p>{{ user.loginError }}</p>
