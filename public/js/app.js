@@ -180,6 +180,7 @@ app.controller('MainController', ['$http', '$route', '$scope', function($http, $
       //console.log('SessionClient:', req.session);
       updateUser(response.data);
       console.log('addWant:',user);
+      if (this.beenTo) this.removeBeen(place)
       this.wantTo = true;
       this.error = null;
     }, ex => {
@@ -197,6 +198,7 @@ app.controller('MainController', ['$http', '$route', '$scope', function($http, $
       //console.log('SessionClient:', req.session);
       updateUser(response.data);
       console.log('addBeen:',user);
+      if (this.wantTo) this.removeWant(place)
       this.beenTo = true;
       this.error = null;
     }, ex => {
@@ -385,11 +387,9 @@ app.config(['$routeProvider','$locationProvider', function($routeProvider,$locat
     controllerAs: 'ctrl' // alias for ContactController (like ng-controller="ContactController as ctrl")
   });
 
-  // $routeProvider.when('/signin', {
-  //   templateUrl: 'partials/userLogin.html',
-  //   controller: 'UserController as user',
-  //   controllerAs: 'user'
-  // });
+  $routeProvider.when('/about', {
+    templateUrl: 'partials/about.html',
+  });
 
   $routeProvider.when('/myTracker', {  // when http://localhost:3000/pets/:id
     templateUrl: 'partials/userShow.html',
@@ -397,25 +397,6 @@ app.config(['$routeProvider','$locationProvider', function($routeProvider,$locat
     controllerAs: 'ctrl'
   });
 
-  // $routeProvider.when('/pricing', {
-  //   templateUrl: 'pricing.html',
-  //   controller: 'PricingController',
-  //   controllerAs: 'ctrl',
-  //   price: '$1 trillion dollars'
-  // });
-  //
-  // $routeProvider.when('/joke', {
-  //   templateUrl: 'joke.html',
-  //   controller: 'JokeController',
-  //   controllerAs: 'ctrl'
-  // });
-  //
-  // $routeProvider.when('/all', {
-  //   templateUrl: 'all.html',
-  //   controller: 'AllController',
-  //   controllerAs: 'ctrl'
-  // });
-  //
   $routeProvider.otherwise({
     redirectTo: '/'
   });
