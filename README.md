@@ -6,7 +6,7 @@ XCursion is a web application that allows you to track the places you've been to
 
 ## Getting Started
 
-Start by registering your account. To view an example user's pages and workouts, use the login information below.
+Start by registering your account. To view an example user's account and features, use the login information below.
 ```
 username: spaceghost
 password: spaceghost
