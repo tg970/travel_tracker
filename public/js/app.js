@@ -69,7 +69,6 @@ app.controller('MainController', ['$http', '$route', '$scope', '$location', func
       method: 'GET',
       url: '/places'
     }).then(response => {
-      console.log('allPlaces',response.data);
       this.places = response.data;
     }, error => {
       console.error(error.message);
@@ -133,26 +132,21 @@ app.controller('MainController', ['$http', '$route', '$scope', '$location', func
 
   // Show Modal Logic ---------------
   this.openShow = (place) => {
-    console.log('openShow fire');
     if (user.logged) {
       //console.log('this.user: true');
       this.wantTo = user.placesWant.includes(place._id)
       this.beenTo = user.placesBeen.includes(place._id)
-      console.log('wantTo:',this.wantTo);
-      console.log('beenTo:',this.beenTo);
+      //console.log('wantTo:',this.wantTo);
+      //console.log('beenTo:',this.beenTo);
       this.user = true;
     }
     this.showModal = true;
     if (place.user == user._id) {
-      console.log('show edit delete btns: True');
       this.editDelete = true;
     } else {
       this.editDelete = false;
-      console.log('show edit delete btns: True');
     }
-    //console.log(this.showModal);
     this.place = place;
-    //console.log(this.place);
   }
 
   this.closeShow = () => {
@@ -236,13 +230,12 @@ app.controller('MainController', ['$http', '$route', '$scope', '$location', func
 
   // myTracker ---------------
   this.getMyPlaces = () => {
-    console.log('getMyPlaces Running');
     if (user.logged) {
       $http({
         url: `/users/${user._id}`,
         method: 'get'
       }).then(response => {
-        console.log(response.data.myPlaces);
+        console.log(response.data);
         updateUser(response.data.user);
         this.beenToArr = response.data.myPlaces.beenTo
         this.wantToArr = response.data.myPlaces.wantTo
@@ -277,8 +270,9 @@ app.controller('MainController', ['$http', '$route', '$scope', '$location', func
 
   // Receive info from successful login
   $scope.$on('updateAuth', (data) => {
-    console.log('after:',data);
+    //console.log('after:', data);
     this.user = data
+    //console.log('afterSave', this.user);
   })
 
 }]);
@@ -299,7 +293,7 @@ app.controller('NaviController', ['$http', '$scope','$rootScope', '$location', f
       method: 'post',
       data: this.newUserForm
     }).then(response => {
-      console.log('RegisterResponce:', response.data);
+      //console.log('RegisterResponce:', response.data);
       updateUser(response.data);
       $rootScope.user = user;
       this.user = user;
@@ -321,7 +315,7 @@ app.controller('NaviController', ['$http', '$scope','$rootScope', '$location', f
       method: 'post',
       data: this.loginForm
     }).then(response =>  {
-      console.log('LoginResponce:', response.data);
+      //console.log('LoginResponce:', response.data);
       updateUser(response.data);
       $rootScope.user = user;
       this.user = user;
@@ -329,7 +323,7 @@ app.controller('NaviController', ['$http', '$scope','$rootScope', '$location', f
       this.loginForm = {};
       this.error = null;
       this.showLogin = false;
-      console.log('before:', this.user);
+      // console.log('before:', this.user);
       $scope.$broadcast('updateAuth', { data: this.user })
     }, ex => {
        console.log('ex', ex.data.err);
@@ -356,14 +350,12 @@ app.controller('NaviController', ['$http', '$scope','$rootScope', '$location', f
   }
 
   this.openLogin = () => {
-    console.log('openLogin');
-    $rootScope.showLogin = true;
+    //console.log('openLogin');
     this.showLogin = true
   }
 
   this.closeLogin = () => {
-    console.log('closeLogin');
-    $rootScope.showLogin = false;
+    //console.log('closeLogin');
     this.showLogin = false;
   }
 
