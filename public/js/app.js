@@ -334,6 +334,7 @@ app.controller('NaviController', ['$http', '$rootScope', '$location', function($
        user = {};
        $rootScope.user = null;
        this.user = null;
+       this.userName = null;
        $location.path('/');
     }, ex => {
        console.log('ex', ex.data.err);
