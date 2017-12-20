@@ -70,6 +70,12 @@
   color: #34adbf;
 }
 
+input {
+-webkit-appearance: none;
+-moz-appearance: none;
+appearance: none;
+}
+
 /*=========================================
         MEDIA QUERIES
 =========================================*/

@@ -1,0 +1,120 @@
+.aboutContainer {
+  display: flex;
+  flex-direction: column;
+}
+
+
+.textContainer {
+  width: 50%;
+  margin: auto;
+  border-left: 2px solid #34adbf;
+  padding: 2%;
+}
+
+.icons > p {
+  font-size: 30px;
+}
+
+.icons >p > i {
+  color: #b5683e;
+  padding: 3%;
+}
+
+.icons > p > span {
+  color: #34adbf;
+  vertical-align: 15%;
+  font-size: 20px;
+}
+
+.row {
+  width: auto;
+  margin: 5% auto;
+  display: flex;
+  flex-direction: row;
+}
+
+.team {
+  display: flex;
+  flex-direction: column;
+  width: 33%;
+  margin: 1%;
+  padding: 2%;
+  background: rgba(35, 5, 0, 0.75);
+  border-radius: 4px;
+}
+
+
+.teamThumbnail {
+  height: 150px;
+  width: 150px;
+  padding-top: 3%;
+  border-radius: 180px;
+  display: inline-block;
+  margin: auto;
+}
+
+.team > p {
+  color: white;
+  text-align: left;
+  margin: 5px;
+}
+
+.team > h3 {
+  color: white;
+  text-align: center;
+}
+
+.title {
+  color: #b5683e;
+}
+
+
+/*=========================================
+        MEDIA QUERIES
+=========================================*/
+@media (max-width: 990px) {
+  .icons >p {
+    font-size: 20px;
+  }
+
+  .icons > p > span {
+    font-size: 10px;
+  }
+}
+
+@media(max-width: 850px) {
+  .row {
+    flex-direction: column;
+  }
+
+  .team {
+    width: 60%;
+    margin: 3% auto;
+  }
+}
+
+@media(max-width: 700px)  {
+  .textContainer{
+    width: 70%;
+  }
+}
+
+@media (max-width: 465px) {
+  .icons >p {
+    font-size: 18px;
+  }
+
+  .icons > p > span {
+    font-size: 9px;
+  }
+}
+
+@media (max-width: 400px) {
+  .icons >p {
+    font-size: 15px;
+  }
+
+  .icons > p > span {
+    font-size: 7px;
+  }
+}
