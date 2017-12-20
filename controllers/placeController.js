@@ -19,7 +19,7 @@ const User = require('../models/users.js');
 //ALL PUBLIC PLACES (Dupl route, needs new URI)
 router.get('/', async (req, res) => {
   try {
-    const publicPlaces = await Place.find({public: true}).populate('user');
+    const publicPlaces = await Place.find({public: true}) //.populate('user');
     res.status(200).json(publicPlaces);
   } catch (e) {
     console.log(e);
