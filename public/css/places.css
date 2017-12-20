@@ -22,7 +22,7 @@ body {
   color: #34adbf;
   text-align: center;
   letter-spacing: .1rem;
-  text-transform: uppercase;
+  /*text-transform: uppercase;*/
   text-decoration: none;
   background-color: transparent;
   border-radius: 4px;
@@ -132,19 +132,6 @@ body {
     border-color: #34adbf;
   }
 
-#closeModal {
-  text-align: right;
-  color: #e8f7fd;
-  font-size: 20px;
-  margin: 5%;
-  cursor: pointer;
-}
-
-#closeModal:hover {
-  color: #34adbf;
-}
-
-
 .showColumns {
   display: flex;
   flex-direction: column;
@@ -167,10 +154,6 @@ body {
 
 .fa-trash-o, .fa-pencil-square-o{
   font-size: 15px;
-}
-
-.fa-window-close {
-  font-size: 22px;
 }
 
 .addRmvBtn {
@@ -271,7 +254,7 @@ body {
   color: #34adbf;
   text-align: center;
   letter-spacing: .1rem;
-  text-transform: uppercase;
+  /*text-transform: uppercase;*/
   text-decoration: none;
   background-color: transparent;
   border-radius: 4px;
