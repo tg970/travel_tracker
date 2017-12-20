@@ -313,6 +313,7 @@ app.controller('NaviController', ['$http', '$scope', '$location', function($http
       updateUser(response.data);
       //$rootScope.user = user;
       this.user = user;
+      this.userName = response.data.username;
       this.newUserForm = {};
       this.error = null;
       this.showLogin = false;
