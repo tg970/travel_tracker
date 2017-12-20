@@ -21,6 +21,7 @@ app.controller('MainController', ['$http', '$route', function($http, $route) {
   this.newUserForm = {};
   this.edit = false;
   this.currentEdit = {};
+  this.addShow = false;
 
   // Routes
 
@@ -62,6 +63,7 @@ app.controller('MainController', ['$http', '$route', function($http, $route) {
       }
       //this.getMyPlaces();
       this.newForm = {};
+      this.addShow = false;
     }, error => {
       console.log(error);
     }).catch(err => console.error('Catch', err))
