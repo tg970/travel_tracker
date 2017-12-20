@@ -2,12 +2,16 @@
   margin: 0 auto;
   max-width: 90%;
 }*/
+.center {
+  margin: 0 auto;
+  text-align: center;
+}
 .allListFlex {
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: center;
 }
-.listBoxBeen {
+/*.listBoxBeen {
   width: 400px;
   height: 500px;
   background: #e8f7fd;
@@ -20,19 +24,37 @@
   background: #F0C7AF;
   display: inline-block;
   border-radius: 7px;
+}*/
+.holdsWidthBeen, .holdsWidthWant {
+  height: 500px;
+  width: 400px;
+  margin: 0 5px 0 5px;
+  border-radius: 0px 0px 7px 7px;
 }
-.userListFlex {
+.userListFlexBeen, .userListFlexWant {
   display: flex;
   flex-direction: row;
-  justify-content: flex-start;
+  /*justify-content: flex-start;*/
   flex-wrap: wrap;
-  padding: 0;
-  /*border-radius: 5px;*/
-  /*align-items: center;*/
-  box-sizing: content-box;
+  /*overflow: hidden;*/
   overflow-y: scroll;
+  padding: 0;
+  max-height: 472px;
+  width: 400px;
+  margin: 0;
+  /*display: inline-block;*/
+  border-radius: 0px 0px 7px 7px;
 }
-.userListFlex::-webkit-scrollbar {
+.holdsWidthBeen {
+  background: #e8f7fd;
+}
+.holdsWidthWant {
+  background: #F0C7AF;
+}
+.userListFlexBeen::-webkit-scrollbar {
+    display: none;
+}
+.userListFlexWant::-webkit-scrollbar {
     display: none;
 }
 .listTitleBeen {
@@ -60,7 +82,7 @@
   margin: 0;
 }
 .listItem {
-  top: 0px;
+  /*top: 0px;*/
   width: 200px;
   height: 80px;
   text-align: center;

@@ -2,7 +2,7 @@
       <!--INCLUDE THIS IN THE USER SHOW <div class="showModal" ng-include="'partials/addPlace.html'"></div> -->
 
 <div class="showModal" ng-if="ctrl.addShow">
-  <button class="closeBtn" ng-click="ctrl.closeAdd()">close</button>
+  <button class="closeBtn center" ng-click="ctrl.closeAdd()">close</button>
   <div class="showColumns">
       <div class="createRowOne">
         <div class="rowItem" id="VR">
@@ -32,7 +32,7 @@
       </div>
   </div>
 </div>
-<div ng-if="!ctrl.addShow" class="addPlaceBtn">
+<div ng-if="!ctrl.addShow" class="addPlaceBtn center">
   <button class="showBtn" ng-click="ctrl.openAdd()">Add Place</button>
 </div>
 <!-- <script>
