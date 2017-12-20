@@ -16,8 +16,16 @@
   flex-direction: column;
 }
 
+/*.login,.register {
+  border: 1px solid gold;
+}*/
+
+/*.loginContainer {
+  border: 1px solid red;
+}*/
+
 .loginContainer {
-  width: 65%;
+  width: auto;
   margin: auto;
   display: flex;
   flex-direction: row;
@@ -26,12 +34,15 @@
 .login, .register {
   display: flex;
   flex-direction: column;
-  margin: 1%;
 }
 
 .login {
   padding-right: 2%;
   border-right: 2px solid #34adbf;
+}
+
+.register {
+  padding-left: 1%;
 }
 
 .loginForm {
@@ -43,25 +54,51 @@
   margin: 5px;
 }
 
-#closeLogin {
+#closeModal {
+  text-align: left;
+  color: black;
+  font-size: 20px;
   margin: 1%;
+  cursor: pointer;
+}
+
+.fa-window-close {
+  font-size: 22px;
+}
+
+.fa-window-close:hover {
+  color: #34adbf;
 }
 
 /*=========================================
         MEDIA QUERIES
 =========================================*/
 
-@media(max-width: 600px) {
-  .loginContainer{
-    width: 70%;
+@media(max-width: 700px) {
+
+  .loginModal {
     flex-direction: column;
+    /*overflow: scroll;*/
   }
-  .login, .register {
+
+  .loginContainer{
+    max-width: 500px;
+    flex-direction: column;
+    height: auto;
+    overflow-y: scroll;
+    overflow-x: hidden;
+  }
+
+  .register {
     width: 100%;
+    height: 700px;
     padding: 20px 0;
   }
 
   .login {
+    width: 100%;
+    height: 500px;
+    padding: 20px 0;
     border-right: none;
     border-bottom: 3px solid #34adbf;
     padding: 10px 0px;
