@@ -47,6 +47,7 @@ app.use('/quote', quoteController);
 
 //app.get('/', (req, res) => res.send('Welcome to Travel_Tracker'));
 app.get('/:whatever', (req, res) => res.redirect('/'))
+app.get('/:whatever/:whatever', (req, res) => res.redirect('/'))
 
 app.listen(PORT, () => {
    console.log('Server OK: ' + PORT);

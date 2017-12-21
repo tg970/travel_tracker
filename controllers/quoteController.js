@@ -22,9 +22,10 @@ router.get('/', async (req, res) => {
       //console.log('error:', error);
       console.log('apiStatusCode:', response.statusCode);
       console.log('body:', body);
-      let json = JSON.parse(body)
+      let json = JSON.parse(body);
       res.status(200).send(json);
-    })
+      //const newQuote = await Quote.create(json);
+    });
   } catch (e) {
     console.log(e);
     res.status(400).json({err: e.message});
