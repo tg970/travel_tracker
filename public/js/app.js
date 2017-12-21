@@ -282,6 +282,7 @@ app.controller('MainController', ['$http', '$route', '$scope', '$location', func
     //console.log('closeAdd firing');
     this.addShow = false;
     this.quote = {};
+    this.newForm = {};
   }
 
   this.getQuote = () => {

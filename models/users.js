@@ -6,7 +6,7 @@ const userSchema = mongoose.Schema({
   password: { type: String, required: true },
   first: { type: String, required: true },
   last: { type: String },
-  pic: { type: String },
+  pic: { type: String, default: 'assets/default_user.png'},
   email: { type: String },
   placesWant : [{type: mongoose.Schema.Types.ObjectId, ref: 'Place'}],
   placesBeen : [{type: mongoose.Schema.Types.ObjectId, ref: 'Place'}]
