@@ -128,21 +128,18 @@ app.controller('MainController', ['$http', '$route', '$scope', function($http, $
       //console.log('this.user: true');
       this.wantTo = user.placesWant.includes(place._id)
       this.beenTo = user.placesBeen.includes(place._id)
-      console.log('wantTo:',this.wantTo);
-      console.log('beenTo:',this.beenTo);
+      //console.log('wantTo:',this.wantTo);
+      //console.log('beenTo:',this.beenTo);
       this.user = true;
     }
     this.showModal = true;
     if (place.user == user._id) {
-      console.log('show edit delete btns: True');
       this.editDelete = true;
     } else {
       this.editDelete = false;
-      console.log('show edit delete btns: True');
     }
-    //console.log(this.showModal);
     this.place = place;
-    //console.log(this.place);
+    console.log(this.place);
   }
 
   this.closeShow = () => {
@@ -159,10 +156,8 @@ app.controller('MainController', ['$http', '$route', '$scope', function($http, $
       url: `/users/addWant/${user._id}/${place._id}`,
       method: 'get'
     }).then(response =>  {
-      //console.log('addWant Resp:', response.data);
-      //console.log('SessionClient:', req.session);
       updateUser(response.data);
-      console.log('addWant:',user);
+      //console.log('addWant:',user);
       if (this.beenTo) this.removeBeen(place)
       this.wantTo = true;
       this.error = null;
@@ -177,10 +172,8 @@ app.controller('MainController', ['$http', '$route', '$scope', function($http, $
       url: `/users/addBeen/${user._id}/${place._id}`,
       method: 'get'
     }).then(response =>  {
-      //console.log('addWant Resp:', response.data);
-      //console.log('SessionClient:', req.session);
       updateUser(response.data);
-      console.log('addBeen:',user);
+      //console.log('addBeen:',user);
       if (this.wantTo) this.removeWant(place)
       this.beenTo = true;
       this.error = null;
@@ -195,10 +188,8 @@ app.controller('MainController', ['$http', '$route', '$scope', function($http, $
       url: `/users/removeWant/${user._id}/${place._id}`,
       method: 'get'
     }).then(response =>  {
-      //console.log('removeWant Resp:', response.data);
-      //console.log('SessionClient:', req.session);
       updateUser(response.data);
-      console.log('removeWant:',user);
+      //console.log('removeWant:',user);
       this.wantTo = false;
       this.error = null;
     }, ex => {
@@ -227,7 +218,7 @@ app.controller('MainController', ['$http', '$route', '$scope', function($http, $
   // myTracker ---------------
 
   this.getMyPlaces = () => {
-    console.log('getMyPlaces Running');
+    // console.log('getMyPlaces Running');
     if (user.logged) {
       $http({
         url: `/users/${user._id}`,
@@ -376,7 +367,22 @@ app.controller('NaviController', ['$http', '$scope', '$location', function($http
 
 }]);
 
-app.controller('MyTrackerController', ['$http', '$route', function($http, $route) {
+app.controller('ViewController', ['$http', '$route', function($http, $route) {
+
+  // Get all places
+  this.getPlaces = () => {
+    $http({
+      method: 'GET',
+      url: '/places'
+    }).then(response => {
+      console.log('allPlaces',response.data);
+      this.places = response.data;
+    }, error => {
+      console.error(error.message);
+    }).catch(err => console.error('Catch', err));
+  }
+  // Load immediately on page load
+  this.getPlaces();
 
 }]);
 
@@ -394,8 +400,14 @@ app.config(['$routeProvider','$locationProvider', function($routeProvider,$locat
     templateUrl: 'partials/about.html',
   });
 
-  $routeProvider.when('/myTracker', {  
+  $routeProvider.when('/myTracker', {
     templateUrl: 'partials/userShow.html',
+    controller: 'MainController as ctrl',
+    controllerAs: 'ctrl'
+  });
+
+  $routeProvider.when('/viewAll', {
+    templateUrl: 'partials/places.html',
     controller: 'MainController as ctrl',
     controllerAs: 'ctrl'
   });
