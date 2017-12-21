@@ -69,7 +69,7 @@ module.exports = [
   },
   {
   	quoteText: "To Travel is to Live",
-  	quoteAuthor: "Hans Christian AndersenDare to live the life you’ve always wanted."
+  	quoteAuthor: "Hans Christian Andersen"
   },
   {
   	quoteText: "We live in a wonderful world that is full of beauty, charm, and adventure. There is no end to the adventures we can have if only we seek them with our eyes open.",
