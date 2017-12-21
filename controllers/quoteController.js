@@ -16,18 +16,19 @@ router.post('/', async (req, res) => {
   }
 });
 
-router.get('/seed', async (req, res) => {
-  try {
-    for (let quote of QuoteArr) {
-      const newQuote = await Quote.create(quote);
-    }
-    const allQuotes = await Quote.find();
-    res.status(200).json(allQuotes);
-  } catch (e) {
-    console.log(e);
-    res.status(400).json({err: e.message});
-  }
-});
+// Commented out for production
+// router.get('/seed', async (req, res) => {
+//   try {
+//     for (let quote of QuoteArr) {
+//       const newQuote = await Quote.create(quote);
+//     }
+//     const allQuotes = await Quote.find();
+//     res.status(200).json(allQuotes);
+//   } catch (e) {
+//     console.log(e);
+//     res.status(400).json({err: e.message});
+//   }
+// });
 
 // READ
 router.get('/', async (req, res) => {
