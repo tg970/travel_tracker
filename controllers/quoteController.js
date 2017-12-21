@@ -18,6 +18,20 @@ router.post('/', async (req, res) => {
 // READ
 router.get('/', async (req, res) => {
   try {
+    const allQuotes = await Quote.find();
+    let randNum = Math.floor(Math.random()*allQuotes.length)
+    let randQuote = allQuotes[randNum]
+    res.status(200).json(randQuote);
+  } catch (e) {
+    console.log(e);
+    res.status(400).json({err: e.message});
+  }
+});
+
+
+// Seed Route
+router.get('/seed', async (req, res) => {
+  try {
     request('https://api.forismatic.com/api/1.0/?method=getQuote&format=json&lang=en', (error, response, body) => {
       //console.log('error:', error);
       console.log('apiStatusCode:', response.statusCode);
