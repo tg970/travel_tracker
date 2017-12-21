@@ -23,23 +23,6 @@ app.controller('MainController', ['$http', '$route', '$scope', function($http, $
   this.currentEdit = {};
   this.addShow = false;
 
-  // Routes
-
-  // Check Server for Session
-  $http({
-      method: 'get',
-      url: '/sessions',
-    }).then(response => {
-      //console.log('sessionReq:', response.data.user);
-      if (response.data.user) {
-        user = response.data.user;
-        user.logged = true;
-      }
-      console.log('userInfo:', user);
-    }, error => {
-      console.log('error:', error);
-    }).catch(err => console.error('Catch:', err))
-
   // Add a place
   this.addPlace = () => {
     this.newForm.user = user._id;
@@ -301,6 +284,23 @@ app.controller('NaviController', ['$http', '$scope', '$location', function($http
     this.userName = this.user.username;
   }
 
+  // Check Server for Session
+  $http({
+      method: 'get',
+      url: '/sessions',
+    }).then(response => {
+      //console.log('sessionReq:', response.data.user);
+      if (response.data.user) {
+        user = response.data.user;
+        user.logged = true;
+        this.user = user
+        this.userName = user.username
+      }
+      console.log('userInfo:', user);
+    }, error => {
+      console.log('error:', error);
+    }).catch(err => console.error('Catch:', err))
+
   // Register
   this.registerUser = () => {
     //console.log('register: ', this.newUserForm);
@@ -385,16 +385,16 @@ app.config(['$routeProvider','$locationProvider', function($routeProvider,$locat
   $locationProvider.html5Mode({ enabled: true });
 
   $routeProvider.when('/', {
-    templateUrl: 'partials/places.html', // render http://localhost:3000/contact.html
-    controller: 'MainController as ctrl', // attach controller ContactController
-    controllerAs: 'ctrl' // alias for ContactController (like ng-controller="ContactController as ctrl")
+    templateUrl: 'partials/places.html',
+    controller: 'MainController as ctrl',
+    controllerAs: 'ctrl'
   });
 
   $routeProvider.when('/about', {
     templateUrl: 'partials/about.html',
   });
 
-  $routeProvider.when('/myTracker', {  // when http://localhost:3000/pets/:id
+  $routeProvider.when('/myTracker', {  
     templateUrl: 'partials/userShow.html',
     controller: 'MainController as ctrl',
     controllerAs: 'ctrl'
