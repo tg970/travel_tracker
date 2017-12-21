@@ -147,7 +147,8 @@
   line-height: 7px;
   color: #FFFFFF;
   display: inline-block;
-  margin-left: 10px;
+  margin-left: 5px;
+  margin-bottom: 2px;
 }
 .burger:hover {
   cursor: pointer;
