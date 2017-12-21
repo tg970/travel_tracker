@@ -40,11 +40,24 @@ router.get('/byUser', async (req, res) => {
 });
 
 //USER BEEN-TO PLACES
-router.get('/userBeen', async (req, res) => {
+router.get('/beenTo/:id', async (req, res) => {
   try {
-    const loggedUser = await User.find({username: req.session.username});
-    const userBeenToPlaces = await Place.find(  ); //{$and [ {user: loggedUser._id}, {beenTo: true} ] }
-    res.status(200).json(userBeenToPlaces);
+    const user = await User.findById(req.params.id);
+    console.log(user);
+    const beenToArr = { data: []}
+    for (let i = 0; i < user.placesBeen.length; i++ ) {
+      let place = await Place.findById(user.placesBeen[i]);
+      if (place) {
+        beenToArr.data.unshift(place)
+      } else {
+        user.placesBeen.splice(i,1)
+        saveUser = true;
+        console.log('user save');
+      }
+    }
+    //const userBeenToPlaces = await Place.find(  ); //{$and [ {user: loggedUser._id}, {beenTo: true} ] }
+    console.log(beenToArr);
+    res.status(200).json(beenToArr);
   } catch (e) {
     console.log(e);
     res.status(200).json({err: e.message});

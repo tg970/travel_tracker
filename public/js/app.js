@@ -9,7 +9,7 @@ const updateUser = (data) => {
   return
 }
 
-app.controller('MainController', ['$http', '$route', '$scope', function($http, $route, $scope) {
+app.controller('MainController', ['$http', '$route', '$scope', '$location', function($http, $route, $scope, $location) {
   // console.log('Hey');
   this.test = 'What!';
   this.showModal = false;
@@ -54,15 +54,31 @@ app.controller('MainController', ['$http', '$route', '$scope', function($http, $
 
   // Get all places
   this.getPlaces = () => {
-    $http({
-      method: 'GET',
-      url: '/places'
-    }).then(response => {
-      console.log('allPlaces',response.data);
-      this.places = response.data;
-    }, error => {
-      console.error(error.message);
-    }).catch(err => console.error('Catch', err));
+    let url = $location.url();
+    console.log(url);
+    if (url != '/viewAll') {
+      $http({
+          method: 'GET',
+          url: '/places'
+        }).then(response => {
+          console.log('allPlaces',response.data);
+          this.places = response.data;
+        }, error => {
+          console.error(error.message);
+        }).catch(err => console.error('Catch', err));
+    } else {
+      this.viewAll = true
+      $http({
+        method: 'GET',
+        url: `/places/beenTo/${user._id}`
+      }).then(response => {
+        console.log('beenToPlaces:',response.data);
+        this.places = response.data.data;
+        this.viewMes = 'have been to.'
+      }, error => {
+        console.error(error.message);
+      }).catch(err => console.error('Catch', err));
+    }
   }
   // Load immediately on page load
   this.getPlaces();
@@ -240,13 +256,25 @@ app.controller('MainController', ['$http', '$route', '$scope', function($http, $
   // Add Modal:
 
   this.openAdd = () => {
-    console.log('openAdd Firing');
+    //console.log('openAdd Firing');
     this.addShow = true;
   }
 
   this.closeAdd = () => {
-    console.log('closeAdd firing');
+    //console.log('closeAdd firing');
     this.addShow = false;
+  }
+
+  this.viewAllBeen = () => {
+    //this.places = this.beenToArr
+    //this.viewMes = 'have been to.'
+    $location.path('/viewAll');
+  }
+
+  this.viewAllWant = () => {
+    //this.places = this.wantToArr
+    this.viewMes = 'want to go to.'
+    $location.path('/viewAll');
   }
 
   // Open Login from show page
