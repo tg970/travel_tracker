@@ -416,25 +416,6 @@ app.controller('NaviController', ['$http', '$scope', '$location', function($http
 
 }]);
 
-app.controller('ViewController', ['$http', '$route', function($http, $route) {
-
-  // Get all places
-  this.getPlaces = () => {
-    $http({
-      method: 'GET',
-      url: '/places'
-    }).then(response => {
-      console.log('allPlaces',response.data);
-      this.places = response.data;
-    }, error => {
-      console.error(error.message);
-    }).catch(err => console.error('Catch', err));
-  }
-  // Load immediately on page load
-  this.getPlaces();
-
-}]);
-
 app.config(['$routeProvider','$locationProvider', function($routeProvider,$locationProvider) {
   // Enables Push State
   $locationProvider.html5Mode({ enabled: true });
