@@ -19,11 +19,11 @@ router.post('/', async (req, res) => {
 router.get('/', async (req, res) => {
   try {
     request('https://api.forismatic.com/api/1.0/?method=getQuote&format=json&lang=en', (error, response, body) => {
-      console.log('error:', error); 
-      console.log('statusCode:', response.statusCode);
+      //console.log('error:', error);
+      console.log('apiStatusCode:', response.statusCode);
       console.log('body:', body);
       let json = JSON.parse(body)
-      res.status(200).json(json);
+      res.status(200).send(json);
     })
   } catch (e) {
     console.log(e);

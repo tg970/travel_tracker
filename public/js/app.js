@@ -281,6 +281,7 @@ app.controller('MainController', ['$http', '$route', '$scope', '$location', func
   this.closeAdd = () => {
     //console.log('closeAdd firing');
     this.addShow = false;
+    this.quote = {};
   }
 
   this.getQuote = () => {
@@ -289,7 +290,9 @@ app.controller('MainController', ['$http', '$route', '$scope', '$location', func
       url: '/quote'
     }).then(response => {
       console.log(response.data);
-      this.quote = response.data
+      this.quote = {};
+      this.quote.quoteText = response.data.quoteText;
+      this.quote.quoteAuthor = response.data.quoteAuthor;
     }, ex => {
       console.log(ex);
    }).catch(err => console.log(err));
