@@ -289,7 +289,7 @@ app.controller('MainController', ['$http', '$route', '$scope', '$location', func
       method: 'get',
       url: '/quote'
     }).then(response => {
-      console.log(response.data);
+      //console.log(response.data);
       this.quote = {};
       this.quote.quoteText = response.data.quoteText;
       this.quote.quoteAuthor = response.data.quoteAuthor;
