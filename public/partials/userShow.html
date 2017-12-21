@@ -9,7 +9,7 @@
       </div>
         <div class="userListFlexBeen">
           <div class="listItem" ng-click="ctrl.openShow(place)" ng-repeat="place in ctrl.beenToArr">
-            <img ng-src="{{place.img}}" alt="">
+            <img ng-src="{{place.img}}" alt="{{place.place}}">
             <h2 class="userShowh2">{{place.place}}</h2>
           </div>
         </div>
@@ -19,7 +19,7 @@
         <p>View All</p>
       </div>
     </a>
-    
+
   </div>
 
 
@@ -30,7 +30,7 @@
       </div>
         <div class="userListFlexWant">
           <div class="listItem" ng-click="ctrl.openShow(place)" ng-repeat="place in ctrl.wantToArr">
-            <img ng-src="{{place.img}}" alt="">
+            <img ng-src="{{place.img}}" alt="{{place.place}}">
             <h2 class="userShowh2">{{place.place}}</h2>
           </div>
         </div>
