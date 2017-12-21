@@ -11,7 +11,6 @@ Start by registering your account. To view an example user's account and feature
 username: spaceghost
 password: spaceghost
 ```
-<!-- ![Login/Register](https://i.imgur.com/fFBjtfp.png) -->
 
 ### Pre-Requisites, Installation and Tests
 
@@ -41,10 +40,21 @@ We utilized the Heroku cloud platform to deploy our application model. To view i
 
 ## Planning and Wireframes
 
+![Home - Wireframe](https://i.imgur.com/0C8nrR9m.png) ![Home](https://i.imgur.com/1iTezIEm.png)
+![Login/Register - Wireframe](https://i.imgur.com/cFQCBLZm.png) ![Login/Register](https://i.imgur.com/KYlm3cum.png)
+![My Places - Wireframe](https://i.imgur.com/sxILvXTm.png) ![My Places](https://i.imgur.com/Vel3IbJm.png)
+![Show page - Wireframe](https://i.imgur.com/8XRKbv1m.png) ![Show page](https://i.imgur.com/MuKNi3Tm.png)
+![Add place - Wireframe](https://i.imgur.com/J9Www6Rm.png) ![Add place](https://i.imgur.com/nylTdSPm.png)
+
+
 
 
 ## Updates and Future Goals
-Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+In the week we had to create this app, we were able to implement a lot of our initial plans and stretch goals, though with more time there are a few more things we'd like to add.
+
+* **Like button functionality** - *At the moment, the like button is displayed, but it has not functionality. We'd like to allow users to like other people's posts once, or be able to unlike them.*
+* **User Profile** - *The app has a social media aspect since you can see other user's posts and copy them, and in the future like them. We would like to add more to that social media aspect by creating user profiles. This would also give users the ability to update their information.*
+* **Forgot Password** - *A really useful functionality we would like to add in the future is an option to email users a new temporary password or implementing some other option that allows them to log in if they've forgotten their password.*
 
 ## Contributing
 
@@ -62,3 +72,4 @@ At this moment, contributing will not be considered, but feedback is welcomed.
 
 * StackOverflow ....
 * Dan, da man! Our awesome blossom TA who knows it all.
+* Our helpful instructors who helped with bugs
