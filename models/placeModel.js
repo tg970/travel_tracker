@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const placeSchema = mongoose.Schema({
   place: {type: String, required: true},
-  img:  {type: String, default: "https://i.imgur.com/ngbdJZi.jpg"},
+  img:  {type: String, default: 'assets/default.jpg'},
   description:  String,
   beenThere: {type: Boolean, default: false},
   public: {type: Boolean, default: false},
