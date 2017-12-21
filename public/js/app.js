@@ -1,8 +1,6 @@
 const app = angular.module('traveler_tracker_App', ['ngRoute']);
 
-// Global Varibles?
 let user = {};
-
 const updateUser = (data) => {
   user = data;
   user.logged = true;
@@ -77,7 +75,7 @@ app.controller('MainController', ['$http', '$route', '$scope', '$location', func
         }).then(response => {
           console.log('beenToPlaces:',response.data);
           this.viewPlaces = response.data.arr;
-          this.viewMes = 'have been to.'
+          this.viewMes = `You've Been`
         }, error => {
           console.error(error.message);
         }).catch(err => console.error('Catch', err));
@@ -91,7 +89,7 @@ app.controller('MainController', ['$http', '$route', '$scope', '$location', func
         }).then(response => {
           console.log('beenToPlaces:',response.data);
           this.viewPlaces = response.data.arr;
-          this.viewMes = 'want to go to.'
+          this.viewMes = `You Want to Go`
         }, error => {
           console.error(error.message);
         }).catch(err => console.error('Catch', err));
@@ -275,24 +273,28 @@ app.controller('MainController', ['$http', '$route', '$scope', '$location', func
   this.openAdd = () => {
     //console.log('openAdd Firing');
     this.addShow = true;
+    this.getQuote();
   }
 
   this.closeAdd = () => {
     //console.log('closeAdd firing');
     this.addShow = false;
+    this.quote = {};
   }
 
-  // this.viewAllBeen = () => {
-  //   //this.places = this.beenToArr
-  //   //this.viewMes = 'have been to.'
-  //   $location.path('/beenTo');
-  // }
-
-  // this.viewAllWant = () => {
-  //   //this.places = this.wantToArr
-  //   this.viewMes = 'want to go to.'
-  //   $location.path('/wantTo');
-  // }
+  this.getQuote = () => {
+    $http({
+      method: 'get',
+      url: '/quote'
+    }).then(response => {
+      //console.log(response.data);
+      this.quote = {};
+      this.quote.quoteText = response.data.quoteText;
+      this.quote.quoteAuthor = response.data.quoteAuthor;
+    }, ex => {
+      console.log(ex);
+   }).catch(err => console.log(err));
+  }
 
   // Open Login from show page
   this.openLogin = () => {
@@ -409,25 +411,6 @@ app.controller('NaviController', ['$http', '$scope', '$location', function($http
   this.closeLogin = () => {
     this.showLogin = false;
   }
-
-}]);
-
-app.controller('ViewController', ['$http', '$route', function($http, $route) {
-
-  // Get all places
-  this.getPlaces = () => {
-    $http({
-      method: 'GET',
-      url: '/places'
-    }).then(response => {
-      console.log('allPlaces',response.data);
-      this.places = response.data;
-    }, error => {
-      console.error(error.message);
-    }).catch(err => console.error('Catch', err));
-  }
-  // Load immediately on page load
-  this.getPlaces();
 
 }]);
 
