@@ -15,23 +15,13 @@ router.post('/', async (req, res) => {
   }
 });
 
-router.get('/rand', (req, res) => {
-  request('https://api.forismatic.com/api/1.0/?method=getQuote&format=json&lang=en', (error, response, body) => {
-    console.log('error:', error); // Print the error if one occurred
-    console.log('statusCode:', response.statusCode); // Print the response status code if a response was received
-    console.log('body:', body); // Print the HTML for the Google homepage.
-    let json = JSON.parse(body)
-    res.send(json)
-  })
-});
-
 // READ
 router.get('/', async (req, res) => {
   try {
     request('https://api.forismatic.com/api/1.0/?method=getQuote&format=json&lang=en', (error, response, body) => {
-      console.log('error:', error); // Print the error if one occurred
-      console.log('statusCode:', response.statusCode); // Print the response status code if a response was received
-      console.log('body:', body); // Print the HTML for the Google homepage.
+      console.log('error:', error); 
+      console.log('statusCode:', response.statusCode);
+      console.log('body:', body);
       let json = JSON.parse(body)
       res.status(200).json(json);
     })
