@@ -1,5 +1,6 @@
 <div ng-if="ctrl.viewAll">
-  <h1 class="center">Where {{ctrl.viewMes}}</h1>
+  <h1 ng-if="ctrl.viewBeenWant" class="center"><span class="blue">Where {{ctrl.viewMes}}</span></h1>
+  <h1 ng-if="!ctrl.viewBeenWant" class="center"><span class="brown">Where {{ctrl.viewMes}}</span></h1>
 </div>
 
 <div class="searchContainer">
