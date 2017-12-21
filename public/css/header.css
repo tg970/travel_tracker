@@ -40,6 +40,9 @@
 .titleBox a {
   color: #FFFFFF;
 }
+.titleBox img {
+  max-width: 100px;
+}
 .titleBox h2{
   margin: 0;
 }
@@ -119,8 +122,12 @@
 
 .titleBoxLogo {
   text-align: left;
-  margin-left: 10px;
+  margin-left: 6px;
+  margin-top: 4px;
   display: none;
+}
+.titleBoxLogo img {
+  max-height: 20px;
 }
 .mobileLinks {
   position: fixed;
