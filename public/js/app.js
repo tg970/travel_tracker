@@ -56,7 +56,8 @@ app.controller('MainController', ['$http', '$route', '$scope', '$location', func
   this.getPlaces = () => {
     let url = $location.url();
     console.log(url);
-    if (url != '/viewAll') {
+    if (url === '/') {
+      console.log("======== url home ========");
       $http({
           method: 'GET',
           url: '/places'
@@ -66,14 +67,30 @@ app.controller('MainController', ['$http', '$route', '$scope', '$location', func
         }, error => {
           console.error(error.message);
         }).catch(err => console.error('Catch', err));
-    } else {
+    }
+    if (url == '/beenTo') {
+      console.log("======== beenTo home ========");
       this.viewAll = true
       $http({
         method: 'GET',
         url: `/places/beenTo/${user._id}`
       }).then(response => {
         console.log('beenToPlaces:',response.data);
-        this.places = response.data.data;
+        this.places = response.data.arr;
+        this.viewMes = 'have been to.'
+      }, error => {
+        console.error(error.message);
+      }).catch(err => console.error('Catch', err));
+    }
+    if (url == '/wantTo') {
+      console.log("======== want To home ========");
+      this.viewAll = true
+      $http({
+        method: 'GET',
+        url: `/places/wantTo/${user._id}`
+      }).then(response => {
+        console.log('beenToPlaces:',response.data);
+        this.places = response.data.arr;
         this.viewMes = 'have been to.'
       }, error => {
         console.error(error.message);
@@ -268,13 +285,13 @@ app.controller('MainController', ['$http', '$route', '$scope', '$location', func
   this.viewAllBeen = () => {
     //this.places = this.beenToArr
     //this.viewMes = 'have been to.'
-    $location.path('/viewAll');
+    $location.path('/beenTo');
   }
 
   this.viewAllWant = () => {
     //this.places = this.wantToArr
     this.viewMes = 'want to go to.'
-    $location.path('/viewAll');
+    $location.path('/wantTo');
   }
 
   // Open Login from show page

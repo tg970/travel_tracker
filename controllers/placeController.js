@@ -44,7 +44,7 @@ router.get('/beenTo/:id', async (req, res) => {
   try {
     const user = await User.findById(req.params.id);
     console.log(user);
-    const beenToArr = { data: []}
+    const beenToArr = { arr: []}
     for (let i = 0; i < user.placesBeen.length; i++ ) {
       let place = await Place.findById(user.placesBeen[i]);
       if (place) {
@@ -64,12 +64,26 @@ router.get('/beenTo/:id', async (req, res) => {
   }
 });
 
-//USER NOT BEEN-TO PLACES
-router.get('/userNotBeen', async (req, res) => {
+//USER NOT Want-TO PLACES
+router.get('/wantTo', async (req, res) => {
   try {
-    const loggedUser = await User.find({username: req.session.username});
-    const userBeenToPlaces = await Place.find( ); // {$and [ {user: loggedUser._id}, {beenTo: false} ] }
-    res.status(200).json(userBeenToPlaces);
+    // const loggedUser = await User.find({username: req.session.username});
+    // const userBeenToPlaces = await Place.find( ); // {$and [ {user: loggedUser._id}, {beenTo: false} ] }
+    const user = await User.findById(req.params.id);
+    console.log(user);
+    const wantToArr = { arr: []}
+    for (let i = 0; i < user.placesWant.length; i++ ) {
+      let place = await Place.findById(user.placesWant[i]);
+      if (place) {
+        beenToArr.data.unshift(place)
+      } else {
+        user.placesBeen.splice(i,1)
+        saveUser = true;
+        console.log('user save');
+      }
+    }
+    console.log(wantToArr);
+    res.status(200).json(wantToArr);
   } catch (e) {
     console.log(e);
     res.status(200).json({err: e.message});
