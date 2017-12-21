@@ -6,7 +6,7 @@ const $headerBtn = $('.burger')
 const $closeheaderBtn = $('.closeheaderBtn');
 const $mobileLink = $('.mobileLink');
 
-// Add Recipes Model -------------------------------------
+// Burger Modal  - - - - - - - -  
   $headerBtn.on('click', () => {
     $('.mobileLinks').css('display', 'flex');
     $('.burger').css('display', 'none');

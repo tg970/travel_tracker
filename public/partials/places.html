@@ -13,11 +13,11 @@
 
 <div class="imagesContainer">
   <div ng-if="!ctrl.viewAll" ng-click="ctrl.openShow(place)" class="imageBox" ng-repeat="place in ctrl.places | orderBy:'-' | filter: searchBox">
-    <img ng-src={{place.img}} alt="{{place.place}}">
+    <img ng-src={{place.img}} alt="{{place.place}}" fallback-src="/assets/default.jpg">
     <h2 class="indexh2">{{place.place}}</h2>
   </div>
   <div ng-if="ctrl.viewAll" ng-click="ctrl.openShow(place)" class="imageBox" ng-repeat="place in ctrl.viewPlaces | orderBy:'-' | filter: searchBox">
-    <img ng-src={{place.img}} alt="{{place.place}}">
+    <img ng-src={{place.img}} alt="{{place.place}}" fallback-src="/assets/default.jpg">
     <h2 class="indexh2">{{place.place}}</h2>
   </div>
 </div>
