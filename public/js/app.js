@@ -275,6 +275,7 @@ app.controller('MainController', ['$http', '$route', '$scope', '$location', func
   this.openAdd = () => {
     //console.log('openAdd Firing');
     this.addShow = true;
+    this.getQuote();
   }
 
   this.closeAdd = () => {
@@ -282,17 +283,18 @@ app.controller('MainController', ['$http', '$route', '$scope', '$location', func
     this.addShow = false;
   }
 
-  // this.viewAllBeen = () => {
-  //   //this.places = this.beenToArr
-  //   //this.viewMes = 'have been to.'
-  //   $location.path('/beenTo');
-  // }
-
-  // this.viewAllWant = () => {
-  //   //this.places = this.wantToArr
-  //   this.viewMes = 'want to go to.'
-  //   $location.path('/wantTo');
-  // }
+  this.getQuote = () => {
+   //  http://api.forismatic.com/api/1.0/?method=getQuote&format=json&lang=en
+   //  $http({
+   //    method: 'JSONP',
+   //    url: $sce.getTrustedResourceUrl(`https://api.forismatic.com/api/1.0/?method=getQuote&format=json&lang=en`)
+   //  }).then(response => {
+   //    console.log(response);
+   //    this.quote = responce
+   //  }, ex => {
+   //    console.log(ex);
+   // }).catch(err => console.log(err));
+  }
 
   // Open Login from show page
   this.openLogin = () => {
