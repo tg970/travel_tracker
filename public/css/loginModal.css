@@ -87,6 +87,10 @@ appearance: none;
     /*overflow: scroll;*/
   }
 
+  .loginForm > input {
+    margin: 2px;
+  }
+
   .loginContainer{
     max-width: 500px;
     flex-direction: column;
