@@ -89,9 +89,6 @@
 
 
     <footer >
-      <div ng-if="ctrl.showLogin">
-        <div ng-include="'partials/userLogin.html'"></div>
-      </div>
       <div class="footer">
         <a class="menuItem menuLink" href="/">Home</a>
         <a ng-if="ctrl.user.logged" class="menuItem menuLink" href="/myTracker">My Places</a>
@@ -99,10 +96,10 @@
         <a ng-if="!ctrl.user.logged" ng-click="ctrl.openLogin()" class="menuItem menuLink" href="#">Login</a>
         <a ng-if="ctrl.user.logged" ng-click="ctrl.logout()" class="menuItem menuLink" href="#">Logout</a>
         <hr>
-        <div class="signiture">
+        <a href="/about/#devs"><div class="signiture">
           <p><span class="orange">K</span>ick <span class="blue">A</span>ss Devs</p>
           <p>Tyler Goodman - Josefina Mancilla - Sean Byrne</p>
-        </div>
+        </div></a>
       </div>
     </footer>
   </body>
