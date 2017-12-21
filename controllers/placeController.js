@@ -74,13 +74,13 @@ router.get('/wantTo/:id', async (req, res) => {
     const wantToArr = { arr: []}
     for (let i = 0; i < user.placesWant.length; i++ ) {
       let place = await Place.findById(user.placesWant[i]);
-      if (place) {
+      //if (place) {
         wantToArr.arr.unshift(place)
-      } else {
-        user.placesBeen.splice(i,1)
-        saveUser = true;
-        console.log('user save');
-      }
+      //} else {
+      //   user.placesBeen.splice(i,1)
+      //   saveUser = true;
+      //   console.log('user save');
+      // }
     }
     console.log(wantToArr);
     res.status(200).json(wantToArr);
