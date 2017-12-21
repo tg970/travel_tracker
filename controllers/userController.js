@@ -69,7 +69,7 @@ router.put('/:id', async (req, res) => {
 router.delete('/:id', async (req, res) => {
   try {
     const user = await User.findByIdAndRemove(req.params.id);
-    await Place.remove({ user: user.id });
+    await Place.remove({ user: user._id });
     req.session.destroy()
     res.status(200).json({ message: 'User and Places Removed' });
   } catch (err) {
