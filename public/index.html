@@ -58,7 +58,7 @@
 
             <div class="menuUserName">
               <div class="profPic" ng-if="ctrl.user.logged">
-                <img ng-src="{{ctrl.user.pic}}" alt="">
+                <img ng-src="{{ctrl.user.pic}}" alt="" fallback-src="/assets/default_user.png">
               </div>
               <p class="orange" href="#">{{ctrl.userName}}</>
             </div>
