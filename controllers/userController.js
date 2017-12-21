@@ -29,14 +29,14 @@ router.get('/:id', async (req, res) => {
       if (place) {
         myPlaces.wantTo.unshift(place)
       } else {
-        user.placesBeen.splice(i,1)
+        user.placesWant.splice(i,1)
         saveUser = true
       }
     }
     if (saveUser) {
       user = await User.findByIdAndUpdate(req.params.id, user, {new: true})
     }
-    console.log({ user, myPlaces });
+    //console.log({ user, myPlaces });
     res.status(200).json({ user, myPlaces });
   } catch (err) {
     console.log(err);
