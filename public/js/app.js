@@ -284,16 +284,15 @@ app.controller('MainController', ['$http', '$route', '$scope', '$location', func
   }
 
   this.getQuote = () => {
-   //  http://api.forismatic.com/api/1.0/?method=getQuote&format=json&lang=en
-   //  $http({
-   //    method: 'JSONP',
-   //    url: $sce.getTrustedResourceUrl(`https://api.forismatic.com/api/1.0/?method=getQuote&format=json&lang=en`)
-   //  }).then(response => {
-   //    console.log(response);
-   //    this.quote = responce
-   //  }, ex => {
-   //    console.log(ex);
-   // }).catch(err => console.log(err));
+    $http({
+      method: 'get',
+      url: '/quote'
+    }).then(response => {
+      console.log(response.data);
+      this.quote = response.data
+    }, ex => {
+      console.log(ex);
+   }).catch(err => console.log(err));
   }
 
   // Open Login from show page

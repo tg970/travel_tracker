@@ -27,6 +27,7 @@ mongoose.Promise = global.Promise;
 const placeController = require( './controllers/placeController' );
 const userController = require( './controllers/userController' );
 const sessionController = require( './controllers/sessionController' );
+const quoteController = require( './controllers/quoteController' );
 
 // Middleware
 app.use(express.urlencoded({ extended: false }));
@@ -42,6 +43,7 @@ app.use(session({
 app.use('/places', placeController );
 app.use('/users', userController );
 app.use('/sessions', sessionController);
+app.use('/quote', quoteController);
 
 //app.get('/', (req, res) => res.send('Welcome to Travel_Tracker'));
 app.get('/:whatever', (req, res) => res.redirect('/'))
