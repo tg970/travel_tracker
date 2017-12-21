@@ -24,9 +24,10 @@
           <button class="closeEditBtn" id="closeEdit" ng-click="ctrl.dontUpdate()">close</button>
           <form class="editForm" ng-submit="ctrl.updatePlace()">
             <label for="place">Place:</label>
-            <input class="editInput" id="place" type="text" ng-model="ctrl.currentEdit.place"/>
+            <input class="editInput" id="place" type="text" ng-model="ctrl.currentEdit.place" required/>
             <label for="img">Image URL:</label>
             <input class="editInput" type="text" ng-model="ctrl.currentEdit.img"/>
+            <br/>
             <label for="public">Public:</label>
             <input class="editInput" id="public" type="checkbox" ng-model="ctrl.currentEdit.public"/>
             <label for="desc">Description:</label>
