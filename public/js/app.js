@@ -32,8 +32,8 @@ app.controller('MainController', ['$http', '$route', '$scope', '$location', func
       url: '/places',
       data: this.newForm
     }).then(response => {
-      this.places.push(response.data);
       console.log(response.data);
+      this.places.push(response.data);
       let temp = { _id: response.data._id }
       if (this.newForm.beenOrWant == 'beenTo') {
         //console.log('beenTo True');
@@ -56,8 +56,8 @@ app.controller('MainController', ['$http', '$route', '$scope', '$location', func
   this.getPlaces = () => {
     let url = $location.url();
     console.log(url);
-    if (url === '/') {
-      console.log("======== url home ========");
+    //if (url === '/') {
+      //console.log("======== url home ========");
       $http({
           method: 'GET',
           url: '/places'
@@ -67,7 +67,7 @@ app.controller('MainController', ['$http', '$route', '$scope', '$location', func
         }, error => {
           console.error(error.message);
         }).catch(err => console.error('Catch', err));
-    }
+    //}
     if (url == '/viewAll/beenTo') {
       console.log("======== beenTo ========");
       this.viewAll = true
@@ -76,7 +76,7 @@ app.controller('MainController', ['$http', '$route', '$scope', '$location', func
         url: `/places/beenTo/${user._id}`
         }).then(response => {
           console.log('beenToPlaces:',response.data);
-          this.places = response.data.arr;
+          this.viewPlaces = response.data.arr;
           this.viewMes = 'have been to.'
         }, error => {
           console.error(error.message);
@@ -90,7 +90,7 @@ app.controller('MainController', ['$http', '$route', '$scope', '$location', func
           url: `/places/wantTo/${user._id}`
         }).then(response => {
           console.log('beenToPlaces:',response.data);
-          this.places = response.data.arr;
+          this.viewPlaces = response.data.arr;
           this.viewMes = 'want to go to.'
         }, error => {
           console.error(error.message);
@@ -107,9 +107,9 @@ app.controller('MainController', ['$http', '$route', '$scope', '$location', func
       method: 'DELETE',
       url: '/places/' + id
     }).then(response => {
-      // console.table(response.data)
+      console.log(response.data)
       const removeByIndex = this.places.findIndex(p => p._id === id)
-      // console.log('I want to delete this one!', removeByIndex)
+      console.log('rmInx:', removeByIndex)
       this.places.splice(removeByIndex, 1);
       const rmBeenToId = this.beenToArr.findIndex(p => p._id === id);
       if ( rmBeenToId >= 0 ) this.beenToArr.splice(rmBeenToId, 1);
@@ -257,7 +257,7 @@ app.controller('MainController', ['$http', '$route', '$scope', '$location', func
         url: `/users/${user._id}`,
         method: 'get'
       }).then(response => {
-        console.log(response.data.myPlaces);
+        console.log('myPlaces', response.data.myPlaces);
         updateUser(response.data.user);
         this.beenToArr = response.data.myPlaces.beenTo
         this.wantToArr = response.data.myPlaces.wantTo
