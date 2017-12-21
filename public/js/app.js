@@ -1,8 +1,6 @@
 const app = angular.module('traveler_tracker_App', ['ngRoute']);
 
-// Global Varibles?
 let user = {};
-
 const updateUser = (data) => {
   user = data;
   user.logged = true;
