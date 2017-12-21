@@ -9,7 +9,7 @@ const updateUser = (data) => {
   return
 }
 
-app.controller('MainController', ['$http', '$route', '$scope', function($http, $route, $scope) {
+app.controller('MainController', ['$http', '$route', '$scope', '$location', function($http, $route, $scope, $location) {
   // console.log('Hey');
   this.test = 'What!';
   this.showModal = false;
@@ -22,23 +22,6 @@ app.controller('MainController', ['$http', '$route', '$scope', function($http, $
   this.edit = false;
   this.currentEdit = {};
   this.addShow = false;
-
-  // Routes
-
-  // Check Server for Session
-  $http({
-      method: 'get',
-      url: '/sessions',
-    }).then(response => {
-      //console.log('sessionReq:', response.data.user);
-      if (response.data.user) {
-        user = response.data.user;
-        user.logged = true;
-      }
-      console.log('userInfo:', user);
-    }, error => {
-      console.log('error:', error);
-    }).catch(err => console.error('Catch:', err))
 
   // Add a place
   this.addPlace = () => {
@@ -71,15 +54,48 @@ app.controller('MainController', ['$http', '$route', '$scope', function($http, $
 
   // Get all places
   this.getPlaces = () => {
-    $http({
-      method: 'GET',
-      url: '/places'
-    }).then(response => {
-      console.log('allPlaces',response.data);
-      this.places = response.data;
-    }, error => {
-      console.error(error.message);
-    }).catch(err => console.error('Catch', err));
+    let url = $location.url();
+    console.log(url);
+    if (url === '/') {
+      console.log("======== url home ========");
+      $http({
+          method: 'GET',
+          url: '/places'
+        }).then(response => {
+          console.log('allPlaces',response.data);
+          this.places = response.data;
+        }, error => {
+          console.error(error.message);
+        }).catch(err => console.error('Catch', err));
+    }
+    if (url == '/viewAll/beenTo') {
+      console.log("======== beenTo ========");
+      this.viewAll = true
+      $http({
+        method: 'GET',
+        url: `/places/beenTo/${user._id}`
+        }).then(response => {
+          console.log('beenToPlaces:',response.data);
+          this.places = response.data.arr;
+          this.viewMes = 'have been to.'
+        }, error => {
+          console.error(error.message);
+        }).catch(err => console.error('Catch', err));
+    }
+    if (url == '/viewAll/wantTo') {
+      console.log("======== want To ========");
+      this.viewAll = true
+      $http({
+          method: 'GET',
+          url: `/places/wantTo/${user._id}`
+        }).then(response => {
+          console.log('beenToPlaces:',response.data);
+          this.places = response.data.arr;
+          this.viewMes = 'want to go to.'
+        }, error => {
+          console.error(error.message);
+        }).catch(err => console.error('Catch', err));
+      }
   }
   // Load immediately on page load
   this.getPlaces();
@@ -145,21 +161,18 @@ app.controller('MainController', ['$http', '$route', '$scope', function($http, $
       //console.log('this.user: true');
       this.wantTo = user.placesWant.includes(place._id)
       this.beenTo = user.placesBeen.includes(place._id)
-      console.log('wantTo:',this.wantTo);
-      console.log('beenTo:',this.beenTo);
+      //console.log('wantTo:',this.wantTo);
+      //console.log('beenTo:',this.beenTo);
       this.user = true;
     }
     this.showModal = true;
     if (place.user == user._id) {
-      console.log('show edit delete btns: True');
       this.editDelete = true;
     } else {
       this.editDelete = false;
-      console.log('show edit delete btns: True');
     }
-    //console.log(this.showModal);
     this.place = place;
-    //console.log(this.place);
+    console.log(this.place);
   }
 
   this.closeShow = () => {
@@ -176,10 +189,8 @@ app.controller('MainController', ['$http', '$route', '$scope', function($http, $
       url: `/users/addWant/${user._id}/${place._id}`,
       method: 'get'
     }).then(response =>  {
-      //console.log('addWant Resp:', response.data);
-      //console.log('SessionClient:', req.session);
       updateUser(response.data);
-      console.log('addWant:',user);
+      //console.log('addWant:',user);
       if (this.beenTo) this.removeBeen(place)
       this.wantTo = true;
       this.error = null;
@@ -194,10 +205,8 @@ app.controller('MainController', ['$http', '$route', '$scope', function($http, $
       url: `/users/addBeen/${user._id}/${place._id}`,
       method: 'get'
     }).then(response =>  {
-      //console.log('addWant Resp:', response.data);
-      //console.log('SessionClient:', req.session);
       updateUser(response.data);
-      console.log('addBeen:',user);
+      //console.log('addBeen:',user);
       if (this.wantTo) this.removeWant(place)
       this.beenTo = true;
       this.error = null;
@@ -212,10 +221,8 @@ app.controller('MainController', ['$http', '$route', '$scope', function($http, $
       url: `/users/removeWant/${user._id}/${place._id}`,
       method: 'get'
     }).then(response =>  {
-      //console.log('removeWant Resp:', response.data);
-      //console.log('SessionClient:', req.session);
       updateUser(response.data);
-      console.log('removeWant:',user);
+      //console.log('removeWant:',user);
       this.wantTo = false;
       this.error = null;
     }, ex => {
@@ -244,7 +251,7 @@ app.controller('MainController', ['$http', '$route', '$scope', function($http, $
   // myTracker ---------------
 
   this.getMyPlaces = () => {
-    console.log('getMyPlaces Running');
+    // console.log('getMyPlaces Running');
     if (user.logged) {
       $http({
         url: `/users/${user._id}`,
@@ -266,14 +273,26 @@ app.controller('MainController', ['$http', '$route', '$scope', function($http, $
   // Add Modal:
 
   this.openAdd = () => {
-    console.log('openAdd Firing');
+    //console.log('openAdd Firing');
     this.addShow = true;
   }
 
   this.closeAdd = () => {
-    console.log('closeAdd firing');
+    //console.log('closeAdd firing');
     this.addShow = false;
   }
+
+  // this.viewAllBeen = () => {
+  //   //this.places = this.beenToArr
+  //   //this.viewMes = 'have been to.'
+  //   $location.path('/beenTo');
+  // }
+
+  // this.viewAllWant = () => {
+  //   //this.places = this.wantToArr
+  //   this.viewMes = 'want to go to.'
+  //   $location.path('/wantTo');
+  // }
 
   // Open Login from show page
   this.openLogin = () => {
@@ -300,6 +319,23 @@ app.controller('NaviController', ['$http', '$scope', '$location', function($http
   if (user.logged) {
     this.userName = this.user.username;
   }
+
+  // Check Server for Session
+  $http({
+      method: 'get',
+      url: '/sessions',
+    }).then(response => {
+      //console.log('sessionReq:', response.data.user);
+      if (response.data.user) {
+        user = response.data.user;
+        user.logged = true;
+        this.user = user
+        this.userName = user.username
+      }
+      console.log('userInfo:', user);
+    }, error => {
+      console.log('error:', error);
+    }).catch(err => console.error('Catch:', err))
 
   // Register
   this.registerUser = () => {
@@ -376,7 +412,22 @@ app.controller('NaviController', ['$http', '$scope', '$location', function($http
 
 }]);
 
-app.controller('MyTrackerController', ['$http', '$route', function($http, $route) {
+app.controller('ViewController', ['$http', '$route', function($http, $route) {
+
+  // Get all places
+  this.getPlaces = () => {
+    $http({
+      method: 'GET',
+      url: '/places'
+    }).then(response => {
+      console.log('allPlaces',response.data);
+      this.places = response.data;
+    }, error => {
+      console.error(error.message);
+    }).catch(err => console.error('Catch', err));
+  }
+  // Load immediately on page load
+  this.getPlaces();
 
 }]);
 
@@ -385,17 +436,29 @@ app.config(['$routeProvider','$locationProvider', function($routeProvider,$locat
   $locationProvider.html5Mode({ enabled: true });
 
   $routeProvider.when('/', {
-    templateUrl: 'partials/places.html', // render http://localhost:3000/contact.html
-    controller: 'MainController as ctrl', // attach controller ContactController
-    controllerAs: 'ctrl' // alias for ContactController (like ng-controller="ContactController as ctrl")
+    templateUrl: 'partials/places.html',
+    controller: 'MainController as ctrl',
+    controllerAs: 'ctrl'
   });
 
   $routeProvider.when('/about', {
     templateUrl: 'partials/about.html',
   });
 
-  $routeProvider.when('/myTracker', {  // when http://localhost:3000/pets/:id
+  $routeProvider.when('/myTracker', {
     templateUrl: 'partials/userShow.html',
+    controller: 'MainController as ctrl',
+    controllerAs: 'ctrl'
+  });
+
+  $routeProvider.when('/viewAll/wantTo', {
+    templateUrl: 'partials/places.html',
+    controller: 'MainController as ctrl',
+    controllerAs: 'ctrl'
+  });
+
+  $routeProvider.when('/viewAll/beenTo', {
+    templateUrl: 'partials/places.html',
     controller: 'MainController as ctrl',
     controllerAs: 'ctrl'
   });

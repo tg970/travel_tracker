@@ -40,23 +40,50 @@ router.get('/byUser', async (req, res) => {
 });
 
 //USER BEEN-TO PLACES
-router.get('/userBeen', async (req, res) => {
+router.get('/beenTo/:id', async (req, res) => {
   try {
-    const loggedUser = await User.find({username: req.session.username});
-    const userBeenToPlaces = await Place.find(  ); //{$and [ {user: loggedUser._id}, {beenTo: true} ] }
-    res.status(200).json(userBeenToPlaces);
+    const user = await User.findById(req.params.id);
+    console.log(user);
+    const beenToArr = { arr: []}
+    for (let i = 0; i < user.placesBeen.length; i++ ) {
+      let place = await Place.findById(user.placesBeen[i]);
+      if (place) {
+        beenToArr.arr.unshift(place)
+      } else {
+        user.placesBeen.splice(i,1)
+        saveUser = true;
+        console.log('user save');
+      }
+    }
+    //const userBeenToPlaces = await Place.find(  ); //{$and [ {user: loggedUser._id}, {beenTo: true} ] }
+    console.log(beenToArr);
+    res.status(200).json(beenToArr);
   } catch (e) {
     console.log(e);
     res.status(200).json({err: e.message});
   }
 });
 
-//USER NOT BEEN-TO PLACES
-router.get('/userNotBeen', async (req, res) => {
+//USER NOT Want-TO PLACES
+router.get('/wantTo/:id', async (req, res) => {
   try {
-    const loggedUser = await User.find({username: req.session.username});
-    const userBeenToPlaces = await Place.find( ); // {$and [ {user: loggedUser._id}, {beenTo: false} ] }
-    res.status(200).json(userBeenToPlaces);
+    // const loggedUser = await User.find({username: req.session.username});
+    // const userBeenToPlaces = await Place.find( ); // {$and [ {user: loggedUser._id}, {beenTo: false} ] }
+    const user = await User.findById(req.params.id);
+    console.log(user);
+    const wantToArr = { arr: []}
+    for (let i = 0; i < user.placesWant.length; i++ ) {
+      let place = await Place.findById(user.placesWant[i]);
+      if (place) {
+        wantToArr.arr.unshift(place)
+      } else {
+        user.placesBeen.splice(i,1)
+        saveUser = true;
+        console.log('user save');
+      }
+    }
+    console.log(wantToArr);
+    res.status(200).json(wantToArr);
   } catch (e) {
     console.log(e);
     res.status(200).json({err: e.message});
