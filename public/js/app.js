@@ -282,18 +282,6 @@ app.controller('MainController', ['$http', '$route', '$scope', '$location', func
     this.addShow = false;
   }
 
-  // this.viewAllBeen = () => {
-  //   //this.places = this.beenToArr
-  //   //this.viewMes = 'have been to.'
-  //   $location.path('/beenTo');
-  // }
-
-  // this.viewAllWant = () => {
-  //   //this.places = this.wantToArr
-  //   this.viewMes = 'want to go to.'
-  //   $location.path('/wantTo');
-  // }
-
   // Open Login from show page
   this.openLogin = () => {
     $scope.$parent.ctrl.showLogin = true;
@@ -409,25 +397,6 @@ app.controller('NaviController', ['$http', '$scope', '$location', function($http
   this.closeLogin = () => {
     this.showLogin = false;
   }
-
-}]);
-
-app.controller('ViewController', ['$http', '$route', function($http, $route) {
-
-  // Get all places
-  this.getPlaces = () => {
-    $http({
-      method: 'GET',
-      url: '/places'
-    }).then(response => {
-      console.log('allPlaces',response.data);
-      this.places = response.data;
-    }, error => {
-      console.error(error.message);
-    }).catch(err => console.error('Catch', err));
-  }
-  // Load immediately on page load
-  this.getPlaces();
 
 }]);
 

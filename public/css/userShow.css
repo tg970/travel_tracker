@@ -152,7 +152,7 @@
 
 /* Media Queries */
 
-@media (min-width: 1440px) {
+/* @media (min-width: 1440px) {
   .userListFlexBeen, .userListFlexWant {
     justify-content: center;
   }
@@ -165,7 +165,7 @@
     max-width: 370px;
     max-height: 370px;
   }
-}
+} */
 
 @media (max-width: 850px) {
   .userListFlexBeen, .userListFlexWant {
