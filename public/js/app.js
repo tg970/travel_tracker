@@ -132,6 +132,7 @@ app.controller('MainController', ['$http', '$route', '$scope', '$location', func
     }, error => {
       console.error(error.message)
     }).catch(err => console.error('Catch', err));
+    this.getPlaces();
   }
 
   // Update Item
