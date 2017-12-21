@@ -76,6 +76,7 @@ app.controller('MainController', ['$http', '$route', '$scope', '$location', func
           console.log('beenToPlaces:',response.data);
           this.viewPlaces = response.data.arr;
           this.viewMes = `You've Been`
+          this.viewBeenWant = true;
         }, error => {
           console.error(error.message);
         }).catch(err => console.error('Catch', err));
@@ -90,6 +91,7 @@ app.controller('MainController', ['$http', '$route', '$scope', '$location', func
           console.log('beenToPlaces:',response.data);
           this.viewPlaces = response.data.arr;
           this.viewMes = `You Want to Go`
+          this.viewBeenWant = false;
         }, error => {
           console.error(error.message);
         }).catch(err => console.error('Catch', err));

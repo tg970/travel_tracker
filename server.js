@@ -11,6 +11,7 @@ require('pretty-error').start();
 // CONFIG
 const PORT       = process.env.PORT || 3000;
 const mongoURI   = process.env.MONGODB_URI || 'mongodb://localhost/travel_tracker'
+const kickass    = process.env.KICKASS || 'kickass'
 
 // Connect to Mongo
 mongoose.connect ( mongoURI , { useMongoClient: true});
@@ -36,7 +37,7 @@ app.use(express.static( 'public' ));
 app.use(morgan('dev'));
 app.use(cors());
 app.use(session({
-	 secret: "kickass",
+	 secret: kickass,
 	 resave: false,
 	 saveUninitialized: false
 }));
