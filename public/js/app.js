@@ -68,34 +68,34 @@ app.controller('MainController', ['$http', '$route', '$scope', '$location', func
           console.error(error.message);
         }).catch(err => console.error('Catch', err));
     }
-    if (url == '/beenTo') {
-      console.log("======== beenTo home ========");
+    if (url == '/viewAll/beenTo') {
+      console.log("======== beenTo ========");
       this.viewAll = true
       $http({
         method: 'GET',
         url: `/places/beenTo/${user._id}`
-      }).then(response => {
-        console.log('beenToPlaces:',response.data);
-        this.places = response.data.arr;
-        this.viewMes = 'have been to.'
-      }, error => {
-        console.error(error.message);
-      }).catch(err => console.error('Catch', err));
+        }).then(response => {
+          console.log('beenToPlaces:',response.data);
+          this.places = response.data.arr;
+          this.viewMes = 'have been to.'
+        }, error => {
+          console.error(error.message);
+        }).catch(err => console.error('Catch', err));
     }
-    if (url == '/wantTo') {
-      console.log("======== want To home ========");
+    if (url == '/viewAll/wantTo') {
+      console.log("======== want To ========");
       this.viewAll = true
       $http({
-        method: 'GET',
-        url: `/places/wantTo/${user._id}`
-      }).then(response => {
-        console.log('beenToPlaces:',response.data);
-        this.places = response.data.arr;
-        this.viewMes = 'have been to.'
-      }, error => {
-        console.error(error.message);
-      }).catch(err => console.error('Catch', err));
-    }
+          method: 'GET',
+          url: `/places/wantTo/${user._id}`
+        }).then(response => {
+          console.log('beenToPlaces:',response.data);
+          this.places = response.data.arr;
+          this.viewMes = 'want to go to.'
+        }, error => {
+          console.error(error.message);
+        }).catch(err => console.error('Catch', err));
+      }
   }
   // Load immediately on page load
   this.getPlaces();
@@ -282,17 +282,17 @@ app.controller('MainController', ['$http', '$route', '$scope', '$location', func
     this.addShow = false;
   }
 
-  this.viewAllBeen = () => {
-    //this.places = this.beenToArr
-    //this.viewMes = 'have been to.'
-    $location.path('/beenTo');
-  }
+  // this.viewAllBeen = () => {
+  //   //this.places = this.beenToArr
+  //   //this.viewMes = 'have been to.'
+  //   $location.path('/beenTo');
+  // }
 
-  this.viewAllWant = () => {
-    //this.places = this.wantToArr
-    this.viewMes = 'want to go to.'
-    $location.path('/wantTo');
-  }
+  // this.viewAllWant = () => {
+  //   //this.places = this.wantToArr
+  //   this.viewMes = 'want to go to.'
+  //   $location.path('/wantTo');
+  // }
 
   // Open Login from show page
   this.openLogin = () => {
@@ -451,7 +451,13 @@ app.config(['$routeProvider','$locationProvider', function($routeProvider,$locat
     controllerAs: 'ctrl'
   });
 
-  $routeProvider.when('/viewAll', {
+  $routeProvider.when('/viewAll/wantTo', {
+    templateUrl: 'partials/places.html',
+    controller: 'MainController as ctrl',
+    controllerAs: 'ctrl'
+  });
+
+  $routeProvider.when('/viewAll/beenTo', {
     templateUrl: 'partials/places.html',
     controller: 'MainController as ctrl',
     controllerAs: 'ctrl'

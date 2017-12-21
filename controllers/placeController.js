@@ -48,7 +48,7 @@ router.get('/beenTo/:id', async (req, res) => {
     for (let i = 0; i < user.placesBeen.length; i++ ) {
       let place = await Place.findById(user.placesBeen[i]);
       if (place) {
-        beenToArr.data.unshift(place)
+        beenToArr.arr.unshift(place)
       } else {
         user.placesBeen.splice(i,1)
         saveUser = true;
@@ -65,7 +65,7 @@ router.get('/beenTo/:id', async (req, res) => {
 });
 
 //USER NOT Want-TO PLACES
-router.get('/wantTo', async (req, res) => {
+router.get('/wantTo/:id', async (req, res) => {
   try {
     // const loggedUser = await User.find({username: req.session.username});
     // const userBeenToPlaces = await Place.find( ); // {$and [ {user: loggedUser._id}, {beenTo: false} ] }
@@ -75,7 +75,7 @@ router.get('/wantTo', async (req, res) => {
     for (let i = 0; i < user.placesWant.length; i++ ) {
       let place = await Place.findById(user.placesWant[i]);
       if (place) {
-        beenToArr.data.unshift(place)
+        wantToArr.arr.unshift(place)
       } else {
         user.placesBeen.splice(i,1)
         saveUser = true;
