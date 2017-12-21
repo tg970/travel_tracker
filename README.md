@@ -70,6 +70,6 @@ At this moment, contributing will not be considered, but feedback is welcomed.
 
 ## Acknowledgments
 
-* StackOverflow ....
+* StackOverflow.
 * Dan, da man! Our awesome blossom TA who knows it all.
 * Our helpful instructors who helped with bugs
