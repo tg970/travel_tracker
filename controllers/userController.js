@@ -4,11 +4,11 @@ const router = express.Router();
 const User   = require('../models/users.js');
 const Place   = require('../models/placeModel.js');
 
-// Comment out for deployment...need to keep for additional dev
-// router.get('/', async (req, res) => {
-//   const users = await User.find();
-//   res.status(200).json(users);
-// });
+//Comment out for deployment...need to keep for additional dev
+router.get('/', async (req, res) => {
+  const users = await User.find();
+  res.status(200).json(users);
+});
 
 router.get('/:id', async (req, res) => {
   try {
@@ -56,27 +56,31 @@ router.post('/', async (req, res) => {
 
 router.put('/:id', async (req, res) => {
   try {
-    const User = await User.findById(req.params.id);
-    if (User.auth(req.body.password)) {
+    const updatingUser = await User.findById(req.params.id);
+    if (updatingUser.auth(req.body.password)) {
       const updatedUser = await User.findByIdAndUpdate(req.params.id, req.body, {new: true});
       req.session.user = user;
       res.status(200).json(updatedUser);
-    }
+    } else {
+      res.status(403).json({ err: 'forbiden'})
+    };
   } catch (e) {
     console.log(e);
     res.status(400).json({err: e.message});
   }
-})
+});
 
 router.delete('/:id', async (req, res) => {
   try {
-    const User = await User.findById(req.params.id);
-    if (User.auth(req.body.password)) {
+    const updatingUser = await User.findById(req.params.id);
+    if (updatingUser.auth(req.body.password)) {
       const deletedUser = await User.findByIdAndRemove(req.params.id);
       await Place.remove({ user: deletedUser._id });
       req.session.destroy()
       res.status(200).json({ message: 'User and Places Removed' });
-    }
+    } else {
+      res.status(403).json({ err: 'forbiden'})
+    };
   } catch (err) {
     console.log(err);
     res.status(400).json({ err: err.message });
