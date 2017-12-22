@@ -143,6 +143,21 @@ router.get('/removeBeen/:userId/:placeId', async (req, res) => {
     console.log(e);
     res.status(400).json({err: e.message});
   }
-})
+});
+
+router.post('/addLike/:userId/:placeId', async (req, res) => {
+  try {
+    const updatingUser = await User.findById(req.params.userId);
+    const userPlacesLiked = updatingUser.likes;
+    userPlacesLiked.push(req.params.placeId);
+    const updatedUser = await User.findByIdAndUpdate(req.params.userId, {$set: {likes: userPlacesLiked}}, {new: true});
+    console.log('addlike:', updatedUser);
+    res.status(200).json(updatedUser);
+  } catch (e) {
+    console.log(e);
+    res.status(400).json({err: e.message});
+  }
+});
+
 
 module.exports = router;

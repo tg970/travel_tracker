@@ -199,6 +199,22 @@ app.controller('MainController', ['$http', '$route', '$scope', '$location', func
     this.getMyPlaces();
   };
 
+  this.addLike = () => {
+    console.log(this.place);
+    console.log(this.user);
+    $http({
+      url: `/users/addLike/${user._id}/${this.place._id}`,
+      method: 'post'
+    }).then(response =>  {
+      console.log('response:', response.data);
+      updateUser(response.data);
+      this.place.liked = true;
+    }, ex => {
+        console.log('ex', ex.data.err);
+        this.loginError = ex.statusText;
+    }).catch(err => this.loginError = 'Something went wrong' );
+  }
+
   this.addWant = (place) => {
     $http({
       url: `/users/addWant/${user._id}/${place._id}`,

@@ -9,7 +9,8 @@ const userSchema = mongoose.Schema({
   pic: { type: String, default: 'assets/default_user.png'},
   email: { type: String },
   placesWant : [{type: mongoose.Schema.Types.ObjectId, ref: 'Place'}],
-  placesBeen : [{type: mongoose.Schema.Types.ObjectId, ref: 'Place'}]
+  placesBeen : [{type: mongoose.Schema.Types.ObjectId, ref: 'Place'}],
+  likes: [{type: mongoose.Schema.Types.ObjectId, ref: 'Place'}]
 }, { timestamps: true });
 
 userSchema.pre('save', function(next) {
