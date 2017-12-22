@@ -20,7 +20,7 @@ app.directive('fallbackSrc', function () {
 // Thanks to StackOverflow: Rubens Mariuzzo, https://stackoverflow.com/questions/16349578/angular-directive-for-a-fallback-image
 
 app.controller('MainController', ['$http', '$route', '$scope', '$location', function($http, $route, $scope, $location) {
-  console.log('MainController');
+  //console.log('MainController');
   this.test = 'What!';
   this.showModal = false;
   this.place = {};
@@ -389,7 +389,7 @@ app.controller('MainController', ['$http', '$route', '$scope', '$location', func
 
 app.controller('NaviController', ['$http', '$scope', '$location', function($http, $scope, $location) {
   // User States:
-  console.log('new NaviController');
+  // console.log('new NaviController');
   this.user = user;
   this.showLogin = false;
   if (user.logged) {
