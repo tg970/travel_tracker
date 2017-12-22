@@ -36,13 +36,11 @@ app.controller('MainController', ['$http', '$route', '$scope', '$location', func
   // Add a place
   this.addPlace = () => {
     this.newForm.user = user._id;
-    console.log('newForm:', this.newForm);
     $http({
       method: 'POST',
       url: '/places',
       data: this.newForm
     }).then(response => {
-      console.log(response.data);
       this.places.push(response.data);
       let temp = { _id: response.data._id }
       if (this.newForm.beenOrWant == 'beenTo') {
@@ -65,9 +63,6 @@ app.controller('MainController', ['$http', '$route', '$scope', '$location', func
   // Get all places
   this.getPlaces = () => {
     let url = $location.url();
-    console.log(url);
-    //if (url === '/') {
-      //console.log("======== url home ========");
       $http({
           method: 'GET',
           url: '/places'
@@ -77,15 +72,12 @@ app.controller('MainController', ['$http', '$route', '$scope', '$location', func
         }, error => {
           console.error(error.message);
         }).catch(err => console.error('Catch', err));
-    //}
     if (url == '/viewAll/beenTo') {
-      console.log("======== beenTo ========");
       this.viewAll = true
       $http({
         method: 'GET',
         url: `/places/beenTo/${user._id}`
         }).then(response => {
-          console.log('beenToPlaces:',response.data);
           this.viewPlaces = response.data.arr;
           this.viewMes = `You've Been`
           this.viewBeenWant = true;
@@ -94,13 +86,11 @@ app.controller('MainController', ['$http', '$route', '$scope', '$location', func
         }).catch(err => console.error('Catch', err));
     }
     if (url == '/viewAll/wantTo') {
-      console.log("======== want To ========");
       this.viewAll = true
       $http({
           method: 'GET',
           url: `/places/wantTo/${user._id}`
         }).then(response => {
-          console.log('beenToPlaces:',response.data);
           this.viewPlaces = response.data.arr;
           this.viewMes = `You Want to Go`
           this.viewBeenWant = false;
@@ -114,14 +104,11 @@ app.controller('MainController', ['$http', '$route', '$scope', '$location', func
 
   // Delete Item
   this.deletePlace = (id) => {
-    //console.log('You will be deleted', id);
     $http({
       method: 'DELETE',
       url: '/places/' + id
     }).then(response => {
-      console.log(response.data)
       const removeByIndex = this.places.findIndex(p => p._id === id)
-      console.log('rmInx:', removeByIndex)
       this.places.splice(removeByIndex, 1);
       const rmBeenToId = this.beenToArr.findIndex(p => p._id === id);
       if ( rmBeenToId >= 0 ) this.beenToArr.splice(rmBeenToId, 1);
@@ -185,12 +172,7 @@ app.controller('MainController', ['$http', '$route', '$scope', '$location', func
     } else {
       this.editDelete = false;
     }
-    console.log('openShow ===========');
-    console.log('user liked:', this.place.liked);
-    console.log('Edit and Delete Btn:', this.editDelete);
-    console.log('this.place:', this.place);
-    console.log('++++this.user:' , this.user);
-  }
+  };
 
   this.closeShow = () => {
     this.showModal = false;
@@ -202,21 +184,14 @@ app.controller('MainController', ['$http', '$route', '$scope', '$location', func
   };
 
   this.addLike = () => {
-    console.log('==== add like ====');
-    console.log(this.place);
-    console.log(this.user);
-    //console.log(this.place);
-    //console.log(this.user);
     $http({
       url: `/users/addLike/${user._id}/${this.place._id}`,
       method: 'post'
     }).then(response =>  {
-      //console.log('response:', response.data);
       updateUser(response.data.user);
       this.place = response.data.place
       this.place.liked = true;
       this.showModal = false;
-      //this.edit = false;
       this.openShow(this.place)
     }, ex => {
         console.log('ex', ex.data.err);
@@ -225,9 +200,6 @@ app.controller('MainController', ['$http', '$route', '$scope', '$location', func
   }
 
   this.removeLike = () => {
-    console.log('==== remove like ====');
-    console.log(this.place);
-    console.log(this.user);
     $http({
       url: `/users/removeLike/${user._id}/${this.place._id}`,
       method: 'put'
