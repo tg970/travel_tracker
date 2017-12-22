@@ -16,7 +16,7 @@ router.post('/', async (req, res) => {
   }
 });
 
-// Commented out for production
+// Commented out for deployment
 // router.get('/seed', async (req, res) => {
 //   try {
 //     for (let quote of QuoteArr) {
@@ -44,7 +44,8 @@ router.get('/', async (req, res) => {
 });
 
 
-// Seed Route
+// API Route....JSON parse fails every 1 in 5ish
+// Maybe there's a better way to parse? Want to keep incase we need it on next project.
 // router.get('/seedApi', async (req, res) => {
 //   try {
 //     request('https://api.forismatic.com/api/1.0/?method=getQuote&format=json&lang=en', (error, response, body) => {
