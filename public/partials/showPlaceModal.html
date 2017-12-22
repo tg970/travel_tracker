@@ -6,14 +6,15 @@
         <h2>{{ctrl.place.place}}</h2>
         <img class="showImg" ng-src="{{ctrl.place.img}}" alt=" Creating User: Please update the image link to a vaild url">
         <p>{{ctrl.place.description}}</p>
+        <p>Created by: {{ctrl.place.user.username}}</p>
         <p><button class="showBtn"><i class="fa fa-heart" aria-hidden="true"></i></button>&nbsp; &nbsp; Likes: <i>{{ctrl.place.likes}}</i></p>
-        <div ng-if="ctrl.user" class="">
+        <div ng-if="ctrl.user.logged" class="">
           <button ng-if="!ctrl.wantTo" class="showBtn addRmvBtn" ng-click='ctrl.addWant(ctrl.place)'><i class="fa fa-plus" aria-hidden="true"></i> My "Want To"</button>
           <button ng-if="ctrl.wantTo" class="showBtn addRmvBtn" ng-click='ctrl.removeWant(ctrl.place)'><i class="fa fa-minus" aria-hidden="true"></i> My "Want To"</button>
           <button ng-if="!ctrl.beenTo" class="showBtn addRmvBtn" ng-click='ctrl.addBeen(ctrl.place)'><i class="fa fa-plus" aria-hidden="true"></i> My "Been To"</button>
           <button ng-if="ctrl.beenTo" class="showBtn addRmvBtn" ng-click='ctrl.removeBeen(ctrl.place)'><i class="fa fa-minus" aria-hidden="true"></i> My "Been To"</button>
         </div>
-        <div ng-if="!ctrl.user" class="">
+        <div ng-if="!ctrl.user.logged" class="">
           <button class="showBtn addRmvBtn" ng-click='ctrl.openLogin()'>Login to add to your lists</button>
         </div>
         <button ng-if="ctrl.editDelete" class="showBtn" ng-click='ctrl.updateModal(ctrl.place)'><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>

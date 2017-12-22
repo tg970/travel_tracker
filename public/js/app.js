@@ -20,13 +20,13 @@ app.directive('fallbackSrc', function () {
 // Thanks to StackOverflow: Rubens Mariuzzo, https://stackoverflow.com/questions/16349578/angular-directive-for-a-fallback-image
 
 app.controller('MainController', ['$http', '$route', '$scope', '$location', function($http, $route, $scope, $location) {
-  // console.log('Hey');
+  console.log('MainController');
   this.test = 'What!';
   this.showModal = false;
   this.place = {};
   this.wantTo = null;
   this.beenTo = null;
-
+  this.user = user
   this.newForm = {};
   this.newUserForm = {};
   this.edit = false;
@@ -176,7 +176,7 @@ app.controller('MainController', ['$http', '$route', '$scope', '$location', func
       this.beenTo = user.placesBeen.includes(place._id)
       //console.log('wantTo:',this.wantTo);
       //console.log('beenTo:',this.beenTo);
-      this.user = true;
+
     }
     this.showModal = true;
     if (place.user == user._id) {
@@ -185,7 +185,9 @@ app.controller('MainController', ['$http', '$route', '$scope', '$location', func
       this.editDelete = false;
     }
     this.place = place;
-    console.log(this.place);
+    console.log('openShow ===========');
+    console.log('this.place:', this.place);
+    console.log('++++this.user:' , this.user);
   }
 
   this.closeShow = () => {
@@ -328,10 +330,23 @@ app.controller('MainController', ['$http', '$route', '$scope', '$location', func
     }
   })
 
+  $scope.$on('logout', (data) => {
+    console.log('listener out');
+    this.user = false;
+    this.user.logged = false;
+    if (this.showModal) {
+      this.showModal = false;
+      this.edit = false;
+      this.user = false;
+      this.openShow(this.place)
+    }
+  })
+
 }]);
 
 app.controller('NaviController', ['$http', '$scope', '$location', function($http, $scope, $location) {
   // User States:
+  console.log('new NaviController');
   this.user = user;
   this.showLogin = false;
   if (user.logged) {
@@ -412,6 +427,7 @@ app.controller('NaviController', ['$http', '$scope', '$location', function($http
        //$rootScope.user = null;
        this.user = null;
        this.userName = null;
+       $scope.$broadcast('logout', { data: this.user })
        $location.path('/');
     }, ex => {
        console.log('ex', ex.data.err);

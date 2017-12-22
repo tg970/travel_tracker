@@ -16,7 +16,7 @@ router.get('/:id', async (req, res) => {
     let saveUser = false;
     //console.log(user);
     for (let i = 0; i < user.placesBeen.length; i++ ) {
-      let place = await Place.findById(user.placesBeen[i]);
+      let place = await Place.findById(user.placesBeen[i]).populate('user', 'username');;
       if (place) {
         myPlaces.beenTo.unshift(place)
       } else {
@@ -25,7 +25,7 @@ router.get('/:id', async (req, res) => {
       }
     }
     for (let i = 0; i < user.placesWant.length; i++ ) {
-      let place = await Place.findById(user.placesWant[i]);
+      let place = await Place.findById(user.placesWant[i]).populate('user', 'username');;
       if (place) {
         myPlaces.wantTo.unshift(place)
       } else {
