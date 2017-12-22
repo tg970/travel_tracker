@@ -4,9 +4,7 @@ const router  = express.Router();
 const User = require('../models/users.js');
 
 router.get('/', (req, res) => {
-  //console.log('req.session firing')
   try {
-    console.log(req.session);
     res.status(200).json({user: req.session.user});
   } catch (err) {
     res.status(400).json({ seshErr: err.message });
@@ -38,9 +36,7 @@ router.post('/login', async (req, res) => {
 });
 
 router.delete('/logout', (req, res) => {
-  console.log('session to destroy: ', req.session);
   req.session.destroy(() => {
-    console.log('session has been destroyed ... ');
     res.status(200).json({ message: 'Session destroyed'});
   });
 });

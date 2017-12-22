@@ -4,17 +4,17 @@ const router = express.Router();
 const User   = require('../models/users.js');
 const Place   = require('../models/placeModel.js');
 
-router.get('/', async (req, res) => {
-  const users = await User.find();
-  res.status(200).json(users);
-});
+// Comment out for deployment...need to keep for additional dev
+// router.get('/', async (req, res) => {
+//   const users = await User.find();
+//   res.status(200).json(users);
+// });
 
 router.get('/:id', async (req, res) => {
   try {
     let user = await User.findById(req.params.id);
     const myPlaces = { beenTo: [], wantTo: [] };
     let saveUser = false;
-    //console.log(user);
     for (let i = 0; i < user.placesBeen.length; i++ ) {
       let place = await Place.findById(user.placesBeen[i]).populate('user', 'username');;
       if (place) {
@@ -36,7 +36,6 @@ router.get('/:id', async (req, res) => {
     if (saveUser) {
       user = await User.findByIdAndUpdate(req.params.id, user, {new: true})
     }
-    //console.log({ user, myPlaces });
     res.status(200).json({ user, myPlaces });
   } catch (err) {
     console.log(err);
@@ -57,9 +56,12 @@ router.post('/', async (req, res) => {
 
 router.put('/:id', async (req, res) => {
   try {
-    const updatedUser = await User.findByIdAndUpdate(req.params.id, req.body, {new: true});
-    req.session.user = user;
-    res.status(200).json(updatedUser);
+    const User = await User.findById(req.params.id);
+    if (User.auth(req.body.password)) {
+      const updatedUser = await User.findByIdAndUpdate(req.params.id, req.body, {new: true});
+      req.session.user = user;
+      res.status(200).json(updatedUser);
+    }
   } catch (e) {
     console.log(e);
     res.status(400).json({err: e.message});
@@ -68,15 +70,17 @@ router.put('/:id', async (req, res) => {
 
 router.delete('/:id', async (req, res) => {
   try {
-    const user = await User.findByIdAndRemove(req.params.id);
-    await Place.remove({ user: user._id });
-    req.session.destroy()
-    res.status(200).json({ message: 'User and Places Removed' });
+    const User = await User.findById(req.params.id);
+    if (User.auth(req.body.password)) {
+      const deletedUser = await User.findByIdAndRemove(req.params.id);
+      await Place.remove({ user: deletedUser._id });
+      req.session.destroy()
+      res.status(200).json({ message: 'User and Places Removed' });
+    }
   } catch (err) {
     console.log(err);
     res.status(400).json({ err: err.message });
   }
-  //res.send('delete route running')
 });
 
 router.get('/addWant/:userId/:placeId', async (req, res) => {
@@ -110,13 +114,9 @@ router.get('/removeWant/:userId/:placeId', async (req, res) => {
     const updatingUser = await User.findById(req.params.userId);
     const userPlacesWant = updatingUser.placesWant
     const removeIndex = userPlacesWant.findIndex(i => i == req.params.placeId)
-    console.log('removeIndex Want:', removeIndex);
     if (removeIndex >= 0) {
       userPlacesWant.splice(removeIndex, 1)
-      console.log('splice true');
-    } else {
-      console.log('splice false');
-    };
+    }
     const updatedUser = await User.findByIdAndUpdate(req.params.userId, {$set: {placesWant: userPlacesWant}}, {new: true});
     res.status(200).json(updatedUser);
   } catch (e) {
@@ -152,7 +152,6 @@ router.post('/addLike/:userId/:placeId', async (req, res) => {
     userPlacesLiked.push(req.params.placeId);
     const updatedUser = await User.findByIdAndUpdate(req.params.userId, {$set: {likes: userPlacesLiked}}, {new: true});
     const updatePlace = await Place.findByIdAndUpdate(req.params.placeId, {$inc: {likes: +1}}, {new: true}).populate('user', 'username');
-    console.log('addlike:', updatedUser);
     res.status(200).json({ user: updatedUser, place: updatePlace});
   } catch (e) {
     console.log(e);
@@ -167,13 +166,9 @@ router.put('/removeLike/:userId/:placeId', async (req, res) => {
     const removeIndex = userPlacesLiked.findIndex(i => i == req.params.placeId)
     if (removeIndex >= 0) {
       userPlacesLiked.splice(removeIndex, 1)
-      console.log('splice true');
-    } else {
-      console.log('splice false');
-    };
+    }
     const updatedUser = await User.findByIdAndUpdate(req.params.userId, {$set: {likes: userPlacesLiked}}, {new: true});
     const updatePlace = await Place.findByIdAndUpdate(req.params.placeId, {$inc: {likes: -1}}, {new: true}).populate('user', 'username');
-    console.log('removelike:', updatedUser);
     res.status(200).json({ user: updatedUser, place: updatePlace});
   } catch (e) {
     console.log(e);
