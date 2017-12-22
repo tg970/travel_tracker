@@ -204,12 +204,10 @@ app.controller('MainController', ['$http', '$route', '$scope', '$location', func
       url: `/users/removeLike/${user._id}/${this.place._id}`,
       method: 'put'
     }).then(response =>  {
-      console.log('response:', response.data);
       updateUser(response.data.user);
       this.place = response.data.place
       this.place.liked = false;
       this.showModal = false;
-      //this.edit = false;
       this.openShow(this.place)
     }, ex => {
         console.log('ex', ex.data.err);
@@ -223,13 +221,11 @@ app.controller('MainController', ['$http', '$route', '$scope', '$location', func
       method: 'get'
     }).then(response =>  {
       updateUser(response.data);
-      //console.log('addWant:',user);
       if (this.beenTo) this.removeBeen(place)
       this.wantTo = true;
       this.error = null;
     }, ex => {
         console.log('ex', ex.data.err);
-        this.loginError = ex.statusText;
     }).catch(err => this.loginError = 'Something went wrong' );
   };
 
@@ -245,7 +241,6 @@ app.controller('MainController', ['$http', '$route', '$scope', '$location', func
       this.error = null;
     }, ex => {
         console.log('ex', ex.data.err);
-        this.loginError = ex.statusText;
     }).catch(err => this.loginError = 'Something went wrong' );
   };
 
@@ -260,7 +255,6 @@ app.controller('MainController', ['$http', '$route', '$scope', '$location', func
       this.error = null;
     }, ex => {
         console.log('ex', ex.data.err);
-        this.loginError = ex.statusText;
     }).catch(err => this.loginError = 'Something went wrong' );
   };
 
@@ -269,15 +263,11 @@ app.controller('MainController', ['$http', '$route', '$scope', '$location', func
       url: `/users/removeBeen/${user._id}/${place._id}`,
       method: 'get'
     }).then(response =>  {
-      //console.log('removeBeen Resp:', response.data);
-      //console.log('SessionClient:', req.session);
       updateUser(response.data);
-      console.log('removeBeen:',user);
       this.beenTo = false;
       this.error = null;
     }, ex => {
         console.log('ex', ex.data.err);
-        this.loginError = ex.statusText;
     }).catch(err => this.loginError = 'Something went wrong' );
   };
 
@@ -290,7 +280,6 @@ app.controller('MainController', ['$http', '$route', '$scope', '$location', func
         url: `/users/${user._id}`,
         method: 'get'
       }).then(response => {
-        console.log('myPlaces', response.data.myPlaces);
         updateUser(response.data.user);
         this.beenToArr = response.data.myPlaces.beenTo
         this.wantToArr = response.data.myPlaces.wantTo
@@ -306,13 +295,11 @@ app.controller('MainController', ['$http', '$route', '$scope', '$location', func
   // Add Modal:
 
   this.openAdd = () => {
-    //console.log('openAdd Firing');
     this.addShow = true;
     this.getQuote();
   }
 
   this.closeAdd = () => {
-    //console.log('closeAdd firing');
     this.addShow = false;
     this.quote = {};
     this.newForm = {};
@@ -323,7 +310,6 @@ app.controller('MainController', ['$http', '$route', '$scope', '$location', func
       method: 'get',
       url: '/quote'
     }).then(response => {
-      //console.log(response.data);
       this.quote = {};
       this.quote.quoteText = response.data.quoteText;
       this.quote.quoteAuthor = response.data.quoteAuthor;
@@ -338,7 +324,7 @@ app.controller('MainController', ['$http', '$route', '$scope', '$location', func
   }
   //Listen for login
   $scope.$on('updateAuth', (data) => {
-    console.log('listener');
+    // console.log('listener');
     this.user = user;
     this.user.logged = true;
     if (this.showModal) {
@@ -349,7 +335,7 @@ app.controller('MainController', ['$http', '$route', '$scope', '$location', func
   })
 
   $scope.$on('logout', (data) => {
-    console.log('listener out');
+    //console.log('listener out');
     this.user = false;
     this.user.logged = false;
     if (this.showModal) {
@@ -364,7 +350,6 @@ app.controller('MainController', ['$http', '$route', '$scope', '$location', func
 
 app.controller('NaviController', ['$http', '$scope', '$location', function($http, $scope, $location) {
   // User States:
-  // console.log('new NaviController');
   this.user = user;
   this.showLogin = false;
   if (user.logged) {
@@ -396,9 +381,7 @@ app.controller('NaviController', ['$http', '$scope', '$location', function($http
       method: 'post',
       data: this.newUserForm
     }).then(response => {
-      console.log('RegisterResponce:', response.data);
       updateUser(response.data);
-      //$rootScope.user = user;
       this.user = user;
       this.userName = response.data.username;
       this.newUserForm = {};
@@ -419,10 +402,7 @@ app.controller('NaviController', ['$http', '$scope', '$location', function($http
       method: 'post',
       data: this.loginForm
     }).then(response =>  {
-      console.log('LoginResponce:', response.data);
-      //console.log('SessionClient:', req.session);
       updateUser(response.data);
-      //$rootScope.user = user;
       this.user = user;
       this.userName = response.data.username;
       this.loginForm = {};
@@ -440,9 +420,7 @@ app.controller('NaviController', ['$http', '$scope', '$location', function($http
   this.logout = () => {
     $http({ url: '/sessions/logout', method: 'delete' })
     .then((response) => {
-       console.log(response.data);
        user = {};
-       //$rootScope.user = null;
        this.user = null;
        this.userName = null;
        $scope.$broadcast('logout', { data: this.user })
