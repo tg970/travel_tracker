@@ -159,5 +159,25 @@ router.post('/addLike/:userId/:placeId', async (req, res) => {
   }
 });
 
+router.put('/removeLike/:userId/:placeId', async (req, res) => {
+  try {
+    const updatingUser = await User.findById(req.params.userId);
+    const userPlacesLiked = updatingUser.likes;
+    const removeIndex = userPlacesLiked.findIndex(i => i == req.params.placeId)
+    if (removeIndex >= 0) {
+      userPlacesLiked.splice(removeIndex, 1)
+      console.log('splice true');
+    } else {
+      console.log('splice false');
+    };
+    const updatedUser = await User.findByIdAndUpdate(req.params.userId, {$set: {likes: userPlacesLiked}}, {new: true});
+    console.log('removelike:', updatedUser);
+    res.status(200).json(updatedUser);
+  } catch (e) {
+    console.log(e);
+    res.status(400).json({err: e.message});
+  }
+});
+
 
 module.exports = router;

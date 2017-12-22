@@ -170,13 +170,15 @@ app.controller('MainController', ['$http', '$route', '$scope', '$location', func
 
   //Open place show modal
   this.openShow = (place) => {
+    this.place = place;
     if (user.logged) {
       //console.log('this.user: true');
       this.wantTo = user.placesWant.includes(place._id)
       this.beenTo = user.placesBeen.includes(place._id)
       //console.log('wantTo:',this.wantTo);
       //console.log('beenTo:',this.beenTo);
-
+      this.place.liked = user.likes.includes(place._id)
+      console.log('user liked:', this.place.liked);
     }
     this.showModal = true;
     if (place.user == user._id) {
@@ -184,7 +186,6 @@ app.controller('MainController', ['$http', '$route', '$scope', '$location', func
     } else {
       this.editDelete = false;
     }
-    this.place = place;
     console.log('openShow ===========');
     console.log('this.place:', this.place);
     console.log('++++this.user:' , this.user);
@@ -200,15 +201,33 @@ app.controller('MainController', ['$http', '$route', '$scope', '$location', func
   };
 
   this.addLike = () => {
+    console.log('==== add like ====');
     console.log(this.place);
     console.log(this.user);
     $http({
       url: `/users/addLike/${user._id}/${this.place._id}`,
       method: 'post'
     }).then(response =>  {
-      console.log('response:', response.data);
+      //console.log('response:', response.data);
       updateUser(response.data);
       this.place.liked = true;
+    }, ex => {
+        console.log('ex', ex.data.err);
+        this.loginError = ex.statusText;
+    }).catch(err => this.loginError = 'Something went wrong' );
+  }
+
+  this.removeLike = () => {
+    console.log('==== remove like ====');
+    console.log(this.place);
+    console.log(this.user);
+    $http({
+      url: `/users/removeLike/${user._id}/${this.place._id}`,
+      method: 'put'
+    }).then(response =>  {
+      console.log('response:', response.data);
+      updateUser(response.data);
+      this.place.liked = false;
     }, ex => {
         console.log('ex', ex.data.err);
         this.loginError = ex.statusText;
