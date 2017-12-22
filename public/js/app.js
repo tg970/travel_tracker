@@ -20,13 +20,13 @@ app.directive('fallbackSrc', function () {
 // Thanks to StackOverflow: Rubens Mariuzzo, https://stackoverflow.com/questions/16349578/angular-directive-for-a-fallback-image
 
 app.controller('MainController', ['$http', '$route', '$scope', '$location', function($http, $route, $scope, $location) {
-  // console.log('Hey');
+  //console.log('MainController');
   this.test = 'What!';
   this.showModal = false;
   this.place = {};
   this.wantTo = null;
   this.beenTo = null;
-
+  this.user = user
   this.newForm = {};
   this.newUserForm = {};
   this.edit = false;
@@ -170,22 +170,26 @@ app.controller('MainController', ['$http', '$route', '$scope', '$location', func
 
   //Open place show modal
   this.openShow = (place) => {
+    this.place = place;
     if (user.logged) {
       //console.log('this.user: true');
       this.wantTo = user.placesWant.includes(place._id)
       this.beenTo = user.placesBeen.includes(place._id)
       //console.log('wantTo:',this.wantTo);
       //console.log('beenTo:',this.beenTo);
-      this.user = true;
+      this.place.liked = user.likes.includes(place._id)
     }
     this.showModal = true;
-    if (place.user == user._id) {
+    if (place.user._id == user._id) {
       this.editDelete = true;
     } else {
       this.editDelete = false;
     }
-    this.place = place;
-    console.log(this.place);
+    console.log('openShow ===========');
+    console.log('user liked:', this.place.liked);
+    console.log('Edit and Delete Btn:', this.editDelete);
+    console.log('this.place:', this.place);
+    console.log('++++this.user:' , this.user);
   }
 
   this.closeShow = () => {
@@ -196,6 +200,50 @@ app.controller('MainController', ['$http', '$route', '$scope', '$location', func
     this.beenTo = null;
     this.getMyPlaces();
   };
+
+  this.addLike = () => {
+    console.log('==== add like ====');
+    console.log(this.place);
+    console.log(this.user);
+    //console.log(this.place);
+    //console.log(this.user);
+    $http({
+      url: `/users/addLike/${user._id}/${this.place._id}`,
+      method: 'post'
+    }).then(response =>  {
+      //console.log('response:', response.data);
+      updateUser(response.data.user);
+      this.place = response.data.place
+      this.place.liked = true;
+      this.showModal = false;
+      //this.edit = false;
+      this.openShow(this.place)
+    }, ex => {
+        console.log('ex', ex.data.err);
+        this.loginError = ex.statusText;
+    }).catch(err => this.loginError = 'Something went wrong' );
+  }
+
+  this.removeLike = () => {
+    console.log('==== remove like ====');
+    console.log(this.place);
+    console.log(this.user);
+    $http({
+      url: `/users/removeLike/${user._id}/${this.place._id}`,
+      method: 'put'
+    }).then(response =>  {
+      console.log('response:', response.data);
+      updateUser(response.data.user);
+      this.place = response.data.place
+      this.place.liked = false;
+      this.showModal = false;
+      //this.edit = false;
+      this.openShow(this.place)
+    }, ex => {
+        console.log('ex', ex.data.err);
+        this.loginError = ex.statusText;
+    }).catch(err => this.loginError = 'Something went wrong' );
+  }
 
   this.addWant = (place) => {
     $http({
@@ -328,10 +376,23 @@ app.controller('MainController', ['$http', '$route', '$scope', '$location', func
     }
   })
 
+  $scope.$on('logout', (data) => {
+    console.log('listener out');
+    this.user = false;
+    this.user.logged = false;
+    if (this.showModal) {
+      this.showModal = false;
+      this.edit = false;
+      this.user = false;
+      this.openShow(this.place)
+    }
+  })
+
 }]);
 
 app.controller('NaviController', ['$http', '$scope', '$location', function($http, $scope, $location) {
   // User States:
+  // console.log('new NaviController');
   this.user = user;
   this.showLogin = false;
   if (user.logged) {
@@ -412,6 +473,7 @@ app.controller('NaviController', ['$http', '$scope', '$location', function($http
        //$rootScope.user = null;
        this.user = null;
        this.userName = null;
+       $scope.$broadcast('logout', { data: this.user })
        $location.path('/');
     }, ex => {
        console.log('ex', ex.data.err);
