@@ -178,15 +178,16 @@ app.controller('MainController', ['$http', '$route', '$scope', '$location', func
       //console.log('wantTo:',this.wantTo);
       //console.log('beenTo:',this.beenTo);
       this.place.liked = user.likes.includes(place._id)
-      console.log('user liked:', this.place.liked);
     }
     this.showModal = true;
-    if (place.user == user._id) {
+    if (place.user._id == user._id) {
       this.editDelete = true;
     } else {
       this.editDelete = false;
     }
     console.log('openShow ===========');
+    console.log('user liked:', this.place.liked);
+    console.log('Edit and Delete Btn:', this.editDelete);
     console.log('this.place:', this.place);
     console.log('++++this.user:' , this.user);
   }
@@ -202,6 +203,8 @@ app.controller('MainController', ['$http', '$route', '$scope', '$location', func
 
   this.addLike = () => {
     console.log('==== add like ====');
+    console.log(this.place);
+    console.log(this.user);
     //console.log(this.place);
     //console.log(this.user);
     $http({
@@ -213,7 +216,7 @@ app.controller('MainController', ['$http', '$route', '$scope', '$location', func
       this.place = response.data.place
       this.place.liked = true;
       this.showModal = false;
-      this.edit = false;
+      //this.edit = false;
       this.openShow(this.place)
     }, ex => {
         console.log('ex', ex.data.err);
@@ -230,11 +233,11 @@ app.controller('MainController', ['$http', '$route', '$scope', '$location', func
       method: 'put'
     }).then(response =>  {
       console.log('response:', response.data);
-      updateUser(response.data);
+      updateUser(response.data.user);
       this.place = response.data.place
       this.place.liked = false;
       this.showModal = false;
-      this.edit = false;
+      //this.edit = false;
       this.openShow(this.place)
     }, ex => {
         console.log('ex', ex.data.err);

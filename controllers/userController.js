@@ -151,7 +151,7 @@ router.post('/addLike/:userId/:placeId', async (req, res) => {
     const userPlacesLiked = updatingUser.likes;
     userPlacesLiked.push(req.params.placeId);
     const updatedUser = await User.findByIdAndUpdate(req.params.userId, {$set: {likes: userPlacesLiked}}, {new: true});
-    const updatePlace = await Place.findByIdAndUpdate(req.params.placeId, {$inc: {likes: +1}}, {new: true});
+    const updatePlace = await Place.findByIdAndUpdate(req.params.placeId, {$inc: {likes: +1}}, {new: true}).populate('user', 'username');
     console.log('addlike:', updatedUser);
     res.status(200).json({ user: updatedUser, place: updatePlace});
   } catch (e) {
@@ -172,7 +172,7 @@ router.put('/removeLike/:userId/:placeId', async (req, res) => {
       console.log('splice false');
     };
     const updatedUser = await User.findByIdAndUpdate(req.params.userId, {$set: {likes: userPlacesLiked}}, {new: true});
-    const updatePlace = await Place.findByIdAndUpdate(req.params.placeId, {$inc: {likes: -1}}, {new: true});
+    const updatePlace = await Place.findByIdAndUpdate(req.params.placeId, {$inc: {likes: -1}}, {new: true}).populate('user', 'username');
     console.log('removelike:', updatedUser);
     res.status(200).json({ user: updatedUser, place: updatePlace});
   } catch (e) {
