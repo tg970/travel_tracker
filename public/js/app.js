@@ -202,15 +202,19 @@ app.controller('MainController', ['$http', '$route', '$scope', '$location', func
 
   this.addLike = () => {
     console.log('==== add like ====');
-    console.log(this.place);
-    console.log(this.user);
+    //console.log(this.place);
+    //console.log(this.user);
     $http({
       url: `/users/addLike/${user._id}/${this.place._id}`,
       method: 'post'
     }).then(response =>  {
       //console.log('response:', response.data);
-      updateUser(response.data);
+      updateUser(response.data.user);
+      this.place = response.data.place
       this.place.liked = true;
+      this.showModal = false;
+      this.edit = false;
+      this.openShow(this.place)
     }, ex => {
         console.log('ex', ex.data.err);
         this.loginError = ex.statusText;
@@ -227,7 +231,11 @@ app.controller('MainController', ['$http', '$route', '$scope', '$location', func
     }).then(response =>  {
       console.log('response:', response.data);
       updateUser(response.data);
+      this.place = response.data.place
       this.place.liked = false;
+      this.showModal = false;
+      this.edit = false;
+      this.openShow(this.place)
     }, ex => {
         console.log('ex', ex.data.err);
         this.loginError = ex.statusText;
