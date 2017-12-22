@@ -411,7 +411,7 @@ app.controller('NaviController', ['$http', '$scope', '$location', function($http
       $scope.$broadcast('updateAuth', { data: this.user })
     }, ex => {
        console.log('ex', ex.data.err);
-       this.loginError = ex.statusText;
+       this.loginError = 'Something went wrong';
     })
     .catch(err => this.loginError = 'Something went wrong' );
   };
