@@ -29,3 +29,14 @@ h1, h2, h3, h4, h4 {
   align-items: center;
   justify-content: center;
 }
+
+#note {
+  margin: 5px 10px 5px 10px
+}
+
+@media (max-width: 600px) {
+  .incImg {
+    max-width: 200px;
+    /* max-height: 85px; */
+  }
+}
