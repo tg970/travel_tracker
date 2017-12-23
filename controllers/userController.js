@@ -162,7 +162,7 @@ router.post('/addLike/:userId/:placeId', async (req, res) => {
       res.status(400).json({ login: true });
     }
   } catch (e) {
-    console.log(e);
+    //console.log(e);
     res.status(400).json({err: e.message});
   }
 });

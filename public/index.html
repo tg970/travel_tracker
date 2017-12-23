@@ -48,9 +48,9 @@
           <!-- End Moblie View -->
 
             <div class="menuContents">
-              <a class="menuItem menuLink" href="/">Home</a>
+              <a class="menuItem menuLink" ng-click="ctrl.showLogin ? ctrl.closeLogin() : ''" href="/">Home</a>
               <a ng-if="ctrl.user.logged" class="menuItem menuLink" href="/myTracker">My Places</a>
-              <a class="menuItem menuLink" href="/about">About</a>
+              <a class="menuItem menuLink" ng-click="ctrl.showLogin ? ctrl.closeLogin() : ''" href="/about">About</a>
               <a ng-if="!ctrl.user.logged" ng-click="ctrl.openLogin()" class="menuItem menuLink" href="#">Login</a>
               <a ng-if="ctrl.user.logged" ng-click="ctrl.logout()" class="menuItem menuLink" href="#">Logout</a>
             </div>
@@ -90,16 +90,16 @@
 
     <footer >
       <div class="footer">
-        <a class="menuItem menuLink" href="/">Home</a>
+        <a class="menuItem menuLink" ng-click="ctrl.showLogin ? ctrl.closeLogin() : ''" href="/">Home</a>
         <a ng-if="ctrl.user.logged" class="menuItem menuLink" href="/myTracker">My Places</a>
-        <a class="menuItem menuLink" href="/about">About</a>
+        <a class="menuItem menuLink" ng-click="ctrl.showLogin ? ctrl.closeLogin() : ''" href="/about">About</a>
         <a ng-if="!ctrl.user.logged" ng-click="ctrl.openLogin()" class="menuItem menuLink" href="#">Login</a>
         <a ng-if="ctrl.user.logged" ng-click="ctrl.logout()" class="menuItem menuLink" href="#">Logout</a>
         <hr>
-        <a href="/about/#devs"><div class="signiture">
-          <p><span class="orange">K</span>ick <span class="blue">A</span>ss Devs</p>
-          <p>Tyler Goodman - Josefina Mancilla - Sean Byrne</p>
-        </div></a>
+        <div class="signiture">
+          <a class=" menuLink" href="/about/#devs"><p><span class="orange">K</span>ick <span class="blue">A</span>ss Devs</p></a>
+          <p><a class="menuItem menuLink" href="/about/#tyler">Tyler Goodman</a>   -   <a  class="menuItem menuLink" href="/about/#josefina">Josefina Mancilla</a>   -   <a class="menuItem menuLink" href="/about/#sean">Sean Byrne</a></p>
+        </div>
       </div>
     </footer>
   </body>

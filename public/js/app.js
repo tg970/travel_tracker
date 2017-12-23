@@ -307,8 +307,15 @@ app.controller('MainController', ['$http', '$route', '$scope', '$location', func
 
   // Open Login from show page
   this.openLogin = () => {
+    this.showLogin = true;
     $scope.$parent.ctrl.showLogin = true;
   }
+
+  this.closeLogin = () => {
+    this.showLogin = false;
+    $scope.$parent.ctrl.showLogin = false;
+  }
+
   //Listen for login
   $scope.$on('updateAuth', (data) => {
     // console.log('listener');
