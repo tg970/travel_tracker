@@ -16,11 +16,11 @@ app.directive('fallbackSrc', function () {
     }
    }
    return fallbackSrc;
-});
-// Thanks to StackOverflow: Rubens Mariuzzo, https://stackoverflow.com/questions/16349578/angular-directive-for-a-fallback-image
+}); // Thanks to StackOverflow: Rubens Mariuzzo Source: https://stackoverflow.com/questions/16349578/angular-directive-for-a-fallback-image
 
 app.controller('MainController', ['$http', '$route', '$scope', '$location', function($http, $route, $scope, $location) {
-  //console.log('MainController');
+  let CtrlUrl = $location.url();
+  console.log('MainController:', CtrlUrl);
   this.test = 'What!';
   this.showModal = false;
   this.place = {};
@@ -36,21 +36,17 @@ app.controller('MainController', ['$http', '$route', '$scope', '$location', func
   // Add a place
   this.addPlace = () => {
     this.newForm.user = user._id;
-    console.log('newForm:', this.newForm);
     $http({
       method: 'POST',
       url: '/places',
       data: this.newForm
     }).then(response => {
-      console.log(response.data);
       this.places.push(response.data);
       let temp = { _id: response.data._id }
       if (this.newForm.beenOrWant == 'beenTo') {
-        //console.log('beenTo True');
         this.addBeen(temp)
         this.beenToArr.unshift(response.data)
       } else {
-        //console.log('beenTo false');
         this.addWant(temp)
         this.wantToArr.unshift(response.data)
       }
@@ -65,9 +61,6 @@ app.controller('MainController', ['$http', '$route', '$scope', '$location', func
   // Get all places
   this.getPlaces = () => {
     let url = $location.url();
-    console.log(url);
-    //if (url === '/') {
-      //console.log("======== url home ========");
       $http({
           method: 'GET',
           url: '/places'
@@ -77,15 +70,12 @@ app.controller('MainController', ['$http', '$route', '$scope', '$location', func
         }, error => {
           console.error(error.message);
         }).catch(err => console.error('Catch', err));
-    //}
     if (url == '/viewAll/beenTo') {
-      console.log("======== beenTo ========");
       this.viewAll = true
       $http({
         method: 'GET',
         url: `/places/beenTo/${user._id}`
         }).then(response => {
-          console.log('beenToPlaces:',response.data);
           this.viewPlaces = response.data.arr;
           this.viewMes = `You've Been`
           this.viewBeenWant = true;
@@ -94,13 +84,11 @@ app.controller('MainController', ['$http', '$route', '$scope', '$location', func
         }).catch(err => console.error('Catch', err));
     }
     if (url == '/viewAll/wantTo') {
-      console.log("======== want To ========");
       this.viewAll = true
       $http({
           method: 'GET',
           url: `/places/wantTo/${user._id}`
         }).then(response => {
-          console.log('beenToPlaces:',response.data);
           this.viewPlaces = response.data.arr;
           this.viewMes = `You Want to Go`
           this.viewBeenWant = false;
@@ -114,14 +102,11 @@ app.controller('MainController', ['$http', '$route', '$scope', '$location', func
 
   // Delete Item
   this.deletePlace = (id) => {
-    //console.log('You will be deleted', id);
     $http({
       method: 'DELETE',
       url: '/places/' + id
     }).then(response => {
-      console.log(response.data)
       const removeByIndex = this.places.findIndex(p => p._id === id)
-      console.log('rmInx:', removeByIndex)
       this.places.splice(removeByIndex, 1);
       const rmBeenToId = this.beenToArr.findIndex(p => p._id === id);
       if ( rmBeenToId >= 0 ) this.beenToArr.splice(rmBeenToId, 1);
@@ -137,25 +122,20 @@ app.controller('MainController', ['$http', '$route', '$scope', '$location', func
 
   // Update Item
   this.updateModal = ( place ) => {
-    //console.log('full edit running...', place);
     this.edit = true;
     this.currentEdit = angular.copy(place);
   }
 
   this.updatePlace = () => {
-    //console.log('edit submit...', this.currentEdit);
     $http({
       method: 'PUT',
       url: '/places/' + this.currentEdit._id,
       data: this.currentEdit
     }).then(response => {
-      //console.log('responce:', response.data);
-      //console.table(this.places);
       const updateByIndex = this.places.findIndex(place => place._id === response.data._id)
-      //console.log('update ind:', updateByIndex);
-      // this.places.splice(updateByIndex , 1, response.data)
-      this.places[updateByIndex] = response.data;
-      this.openShow(this.places[updateByIndex]);
+      this.places.splice(updateByIndex , 1, response.data)
+      this.place = response.data;
+      this.openShow(response.data);
     }).catch(err => console.error('Catch', err));
     this.edit = false;
     this.currentEdit = {};
@@ -175,8 +155,6 @@ app.controller('MainController', ['$http', '$route', '$scope', '$location', func
       //console.log('this.user: true');
       this.wantTo = user.placesWant.includes(place._id)
       this.beenTo = user.placesBeen.includes(place._id)
-      //console.log('wantTo:',this.wantTo);
-      //console.log('beenTo:',this.beenTo);
       this.place.liked = user.likes.includes(place._id)
     }
     this.showModal = true;
@@ -185,12 +163,7 @@ app.controller('MainController', ['$http', '$route', '$scope', '$location', func
     } else {
       this.editDelete = false;
     }
-    console.log('openShow ===========');
-    console.log('user liked:', this.place.liked);
-    console.log('Edit and Delete Btn:', this.editDelete);
-    console.log('this.place:', this.place);
-    console.log('++++this.user:' , this.user);
-  }
+  };
 
   this.closeShow = () => {
     this.showModal = false;
@@ -202,42 +175,30 @@ app.controller('MainController', ['$http', '$route', '$scope', '$location', func
   };
 
   this.addLike = () => {
-    console.log('==== add like ====');
-    console.log(this.place);
-    console.log(this.user);
-    //console.log(this.place);
-    //console.log(this.user);
     $http({
       url: `/users/addLike/${user._id}/${this.place._id}`,
       method: 'post'
     }).then(response =>  {
-      //console.log('response:', response.data);
       updateUser(response.data.user);
       this.place = response.data.place
       this.place.liked = true;
       this.showModal = false;
-      //this.edit = false;
       this.openShow(this.place)
     }, ex => {
-        console.log('ex', ex.data.err);
+        $scope.$parent.ctrl.showLogin = true;
         this.loginError = ex.statusText;
     }).catch(err => this.loginError = 'Something went wrong' );
   }
 
   this.removeLike = () => {
-    console.log('==== remove like ====');
-    console.log(this.place);
-    console.log(this.user);
     $http({
       url: `/users/removeLike/${user._id}/${this.place._id}`,
       method: 'put'
     }).then(response =>  {
-      console.log('response:', response.data);
       updateUser(response.data.user);
       this.place = response.data.place
       this.place.liked = false;
       this.showModal = false;
-      //this.edit = false;
       this.openShow(this.place)
     }, ex => {
         console.log('ex', ex.data.err);
@@ -251,13 +212,11 @@ app.controller('MainController', ['$http', '$route', '$scope', '$location', func
       method: 'get'
     }).then(response =>  {
       updateUser(response.data);
-      //console.log('addWant:',user);
       if (this.beenTo) this.removeBeen(place)
       this.wantTo = true;
       this.error = null;
     }, ex => {
         console.log('ex', ex.data.err);
-        this.loginError = ex.statusText;
     }).catch(err => this.loginError = 'Something went wrong' );
   };
 
@@ -267,13 +226,11 @@ app.controller('MainController', ['$http', '$route', '$scope', '$location', func
       method: 'get'
     }).then(response =>  {
       updateUser(response.data);
-      //console.log('addBeen:',user);
       if (this.wantTo) this.removeWant(place)
       this.beenTo = true;
       this.error = null;
     }, ex => {
         console.log('ex', ex.data.err);
-        this.loginError = ex.statusText;
     }).catch(err => this.loginError = 'Something went wrong' );
   };
 
@@ -283,12 +240,10 @@ app.controller('MainController', ['$http', '$route', '$scope', '$location', func
       method: 'get'
     }).then(response =>  {
       updateUser(response.data);
-      //console.log('removeWant:',user);
       this.wantTo = false;
       this.error = null;
     }, ex => {
         console.log('ex', ex.data.err);
-        this.loginError = ex.statusText;
     }).catch(err => this.loginError = 'Something went wrong' );
   };
 
@@ -297,15 +252,11 @@ app.controller('MainController', ['$http', '$route', '$scope', '$location', func
       url: `/users/removeBeen/${user._id}/${place._id}`,
       method: 'get'
     }).then(response =>  {
-      //console.log('removeBeen Resp:', response.data);
-      //console.log('SessionClient:', req.session);
       updateUser(response.data);
-      console.log('removeBeen:',user);
       this.beenTo = false;
       this.error = null;
     }, ex => {
         console.log('ex', ex.data.err);
-        this.loginError = ex.statusText;
     }).catch(err => this.loginError = 'Something went wrong' );
   };
 
@@ -318,12 +269,9 @@ app.controller('MainController', ['$http', '$route', '$scope', '$location', func
         url: `/users/${user._id}`,
         method: 'get'
       }).then(response => {
-        console.log('myPlaces', response.data.myPlaces);
         updateUser(response.data.user);
         this.beenToArr = response.data.myPlaces.beenTo
         this.wantToArr = response.data.myPlaces.wantTo
-        //console.log('beenTo:', this.beenTo);
-        //console.log('wantTo:', this.wantTo);
       }, ex => {
         console.log(ex.data.err, ex.statusText);
      }).catch(err => console.log(err));
@@ -334,13 +282,11 @@ app.controller('MainController', ['$http', '$route', '$scope', '$location', func
   // Add Modal:
 
   this.openAdd = () => {
-    //console.log('openAdd Firing');
     this.addShow = true;
     this.getQuote();
   }
 
   this.closeAdd = () => {
-    //console.log('closeAdd firing');
     this.addShow = false;
     this.quote = {};
     this.newForm = {};
@@ -351,7 +297,6 @@ app.controller('MainController', ['$http', '$route', '$scope', '$location', func
       method: 'get',
       url: '/quote'
     }).then(response => {
-      //console.log(response.data);
       this.quote = {};
       this.quote.quoteText = response.data.quoteText;
       this.quote.quoteAuthor = response.data.quoteAuthor;
@@ -362,11 +307,18 @@ app.controller('MainController', ['$http', '$route', '$scope', '$location', func
 
   // Open Login from show page
   this.openLogin = () => {
+    this.showLogin = true;
     $scope.$parent.ctrl.showLogin = true;
   }
+
+  this.closeLogin = () => {
+    this.showLogin = false;
+    $scope.$parent.ctrl.showLogin = false;
+  }
+
   //Listen for login
   $scope.$on('updateAuth', (data) => {
-    console.log('listener');
+    // console.log('listener');
     this.user = user;
     this.user.logged = true;
     if (this.showModal) {
@@ -377,7 +329,7 @@ app.controller('MainController', ['$http', '$route', '$scope', '$location', func
   })
 
   $scope.$on('logout', (data) => {
-    console.log('listener out');
+    //console.log('listener out');
     this.user = false;
     this.user.logged = false;
     if (this.showModal) {
@@ -392,7 +344,6 @@ app.controller('MainController', ['$http', '$route', '$scope', '$location', func
 
 app.controller('NaviController', ['$http', '$scope', '$location', function($http, $scope, $location) {
   // User States:
-  // console.log('new NaviController');
   this.user = user;
   this.showLogin = false;
   if (user.logged) {
@@ -424,9 +375,7 @@ app.controller('NaviController', ['$http', '$scope', '$location', function($http
       method: 'post',
       data: this.newUserForm
     }).then(response => {
-      console.log('RegisterResponce:', response.data);
       updateUser(response.data);
-      //$rootScope.user = user;
       this.user = user;
       this.userName = response.data.username;
       this.newUserForm = {};
@@ -447,30 +396,25 @@ app.controller('NaviController', ['$http', '$scope', '$location', function($http
       method: 'post',
       data: this.loginForm
     }).then(response =>  {
-      console.log('LoginResponce:', response.data);
-      //console.log('SessionClient:', req.session);
       updateUser(response.data);
-      //$rootScope.user = user;
       this.user = user;
       this.userName = response.data.username;
       this.loginForm = {};
       this.error = null;
       this.showLogin = false;
+      this.loginError = null;
       $scope.$broadcast('updateAuth', { data: this.user })
     }, ex => {
-       console.log('ex', ex.data.err);
-       this.loginError = ex.statusText;
+       this.loginError = `Hmm, we can't find a match...`;
     })
-    .catch(err => this.loginError = 'Something went wrong' );
+    .catch(err => this.loginError = `Hmm, we can't find a match...` );
   };
 
   // Logout
   this.logout = () => {
     $http({ url: '/sessions/logout', method: 'delete' })
     .then((response) => {
-       console.log(response.data);
        user = {};
-       //$rootScope.user = null;
        this.user = null;
        this.userName = null;
        $scope.$broadcast('logout', { data: this.user })

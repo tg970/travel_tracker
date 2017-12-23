@@ -4,6 +4,7 @@ const router = express.Router();
 const User   = require('../models/users.js');
 const Place   = require('../models/placeModel.js');
 
+//Comment out for deployment...need to keep for additional dev
 router.get('/', async (req, res) => {
   const users = await User.find();
   res.status(200).json(users);
@@ -14,7 +15,6 @@ router.get('/:id', async (req, res) => {
     let user = await User.findById(req.params.id);
     const myPlaces = { beenTo: [], wantTo: [] };
     let saveUser = false;
-    //console.log(user);
     for (let i = 0; i < user.placesBeen.length; i++ ) {
       let place = await Place.findById(user.placesBeen[i]).populate('user', 'username');;
       if (place) {
@@ -36,7 +36,6 @@ router.get('/:id', async (req, res) => {
     if (saveUser) {
       user = await User.findByIdAndUpdate(req.params.id, user, {new: true})
     }
-    //console.log({ user, myPlaces });
     res.status(200).json({ user, myPlaces });
   } catch (err) {
     console.log(err);
@@ -57,26 +56,35 @@ router.post('/', async (req, res) => {
 
 router.put('/:id', async (req, res) => {
   try {
-    const updatedUser = await User.findByIdAndUpdate(req.params.id, req.body, {new: true});
-    req.session.user = user;
-    res.status(200).json(updatedUser);
+    const updatingUser = await User.findById(req.params.id);
+    if (updatingUser.auth(req.body.password)) {
+      const updatedUser = await User.findByIdAndUpdate(req.params.id, req.body, {new: true});
+      req.session.user = user;
+      res.status(200).json(updatedUser);
+    } else {
+      res.status(403).json({ err: 'forbiden'})
+    };
   } catch (e) {
     console.log(e);
     res.status(400).json({err: e.message});
   }
-})
+});
 
 router.delete('/:id', async (req, res) => {
   try {
-    const user = await User.findByIdAndRemove(req.params.id);
-    await Place.remove({ user: user._id });
-    req.session.destroy()
-    res.status(200).json({ message: 'User and Places Removed' });
+    const updatingUser = await User.findById(req.params.id);
+    if (updatingUser.auth(req.body.password)) {
+      const deletedUser = await User.findByIdAndRemove(req.params.id);
+      await Place.remove({ user: deletedUser._id });
+      req.session.destroy()
+      res.status(200).json({ message: 'User and Places Removed' });
+    } else {
+      res.status(403).json({ err: 'forbiden'})
+    };
   } catch (err) {
     console.log(err);
     res.status(400).json({ err: err.message });
   }
-  //res.send('delete route running')
 });
 
 router.get('/addWant/:userId/:placeId', async (req, res) => {
@@ -110,13 +118,9 @@ router.get('/removeWant/:userId/:placeId', async (req, res) => {
     const updatingUser = await User.findById(req.params.userId);
     const userPlacesWant = updatingUser.placesWant
     const removeIndex = userPlacesWant.findIndex(i => i == req.params.placeId)
-    console.log('removeIndex Want:', removeIndex);
     if (removeIndex >= 0) {
       userPlacesWant.splice(removeIndex, 1)
-      console.log('splice true');
-    } else {
-      console.log('splice false');
-    };
+    }
     const updatedUser = await User.findByIdAndUpdate(req.params.userId, {$set: {placesWant: userPlacesWant}}, {new: true});
     res.status(200).json(updatedUser);
   } catch (e) {
@@ -148,14 +152,17 @@ router.get('/removeBeen/:userId/:placeId', async (req, res) => {
 router.post('/addLike/:userId/:placeId', async (req, res) => {
   try {
     const updatingUser = await User.findById(req.params.userId);
-    const userPlacesLiked = updatingUser.likes;
-    userPlacesLiked.push(req.params.placeId);
-    const updatedUser = await User.findByIdAndUpdate(req.params.userId, {$set: {likes: userPlacesLiked}}, {new: true});
-    const updatePlace = await Place.findByIdAndUpdate(req.params.placeId, {$inc: {likes: +1}}, {new: true}).populate('user', 'username');
-    console.log('addlike:', updatedUser);
-    res.status(200).json({ user: updatedUser, place: updatePlace});
+    if (updatingUser) {
+      const userPlacesLiked = updatingUser.likes;
+      userPlacesLiked.push(req.params.placeId);
+      const updatedUser = await User.findByIdAndUpdate(req.params.userId, {$set: {likes: userPlacesLiked}}, {new: true});
+      const updatePlace = await Place.findByIdAndUpdate(req.params.placeId, {$inc: {likes: +1}}, {new: true}).populate('user', 'username');
+      res.status(200).json({ user: updatedUser, place: updatePlace});
+    } else {
+      res.status(400).json({ login: true });
+    }
   } catch (e) {
-    console.log(e);
+    //console.log(e);
     res.status(400).json({err: e.message});
   }
 });
@@ -167,13 +174,9 @@ router.put('/removeLike/:userId/:placeId', async (req, res) => {
     const removeIndex = userPlacesLiked.findIndex(i => i == req.params.placeId)
     if (removeIndex >= 0) {
       userPlacesLiked.splice(removeIndex, 1)
-      console.log('splice true');
-    } else {
-      console.log('splice false');
-    };
+    }
     const updatedUser = await User.findByIdAndUpdate(req.params.userId, {$set: {likes: userPlacesLiked}}, {new: true});
     const updatePlace = await Place.findByIdAndUpdate(req.params.placeId, {$inc: {likes: -1}}, {new: true}).populate('user', 'username');
-    console.log('removelike:', updatedUser);
     res.status(200).json({ user: updatedUser, place: updatePlace});
   } catch (e) {
     console.log(e);

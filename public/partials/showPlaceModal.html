@@ -7,13 +7,13 @@
         <img class="showImg" ng-src="{{ctrl.place.img}}" alt=" Creating User: Please update the image link to a vaild url">
         <p>{{ctrl.place.description}}</p>
         <p>Created by: {{ctrl.place.user.username}}</p>
+        <div ng-if="!ctrl.place.liked">
+          <p><button class="showBtn" ng-click="ctrl.addLike()"><i class="fa fa-heart" aria-hidden="true"></i></button>&nbsp; &nbsp; Likes: <i>{{ctrl.place.likes}}</i></p>
+        </div>
+        <div ng-if="ctrl.place.liked">
+          <p><button ng-if="ctrl.place.liked" class="showBtn" ng-click="ctrl.removeLike()"><i class="fa fa-times" aria-hidden="true"></i></button>&nbsp; &nbsp; Likes: <i>{{ctrl.place.likes}}</i></p>
+        </div>
         <div ng-if="ctrl.user.logged" class="">
-          <div ng-if="!ctrl.place.liked">
-            <p><button class="showBtn" ng-click="ctrl.addLike()"><i class="fa fa-heart" aria-hidden="true"></i></button>&nbsp; &nbsp; Likes: <i>{{ctrl.place.likes}}</i></p>
-          </div>
-          <div ng-if="ctrl.place.liked">
-            <p><button ng-if="ctrl.place.liked" class="showBtn" ng-click="ctrl.removeLike()"><i class="fa fa-times" aria-hidden="true"></i></button>&nbsp; &nbsp; Likes: <i>{{ctrl.place.likes}}</i></p>
-          </div>
           <button ng-if="!ctrl.wantTo" class="showBtn addRmvBtn" ng-click='ctrl.addWant(ctrl.place)'><i class="fa fa-plus" aria-hidden="true"></i> My "Want To"</button>
           <button ng-if="ctrl.wantTo" class="showBtn addRmvBtn" ng-click='ctrl.removeWant(ctrl.place)'><i class="fa fa-minus" aria-hidden="true"></i> My "Want To"</button>
           <button ng-if="!ctrl.beenTo" class="showBtn addRmvBtn" ng-click='ctrl.addBeen(ctrl.place)'><i class="fa fa-plus" aria-hidden="true"></i> My "Been To"</button>

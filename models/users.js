@@ -14,7 +14,6 @@ const userSchema = mongoose.Schema({
 }, { timestamps: true });
 
 userSchema.pre('save', function(next) {
-   //console.log('what is "this" doc?', this);
    if (this.isModified('password')) {
       const hashedPass = bcrypt.hashSync(this.password, bcrypt.genSaltSync(10));
       this.password = hashedPass;
