@@ -81,9 +81,7 @@ router.post('/', async (req, res) => {
 //EDIT
 router.put('/:id', async (req, res) => {
   try {
-    if (req.body.img === '') {
-      req.body.img = 'assets/default.jpg'
-    }
+    if (req.body.img === '') req.body.img = 'assets/default.jpg'
     const updatedPlace = await Place.findByIdAndUpdate(req.params.id, req.body, {new: true}).populate('user', 'username');
     res.status(200).json(updatedPlace);
   } catch (e) {
