@@ -162,7 +162,7 @@
 }
 
 /* Media Queries */
-@media (min-width: 711px) {
+@media (min-width: 1031px) {
   .headerLink {
     font-size: 20px;
   }
@@ -171,7 +171,7 @@
 }
 }
 
-@media (max-width: 710px) {
+@media (max-width: 1030px) {
   .mobileLinks {
     top: 55px;
   }
