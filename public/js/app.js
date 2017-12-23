@@ -16,11 +16,11 @@ app.directive('fallbackSrc', function () {
     }
    }
    return fallbackSrc;
-}); // Thanks to StackOverflow: Rubens Mariuzzo Source: https://stackoverflow.com/questions/16349578/angular-directive-for-a-fallback-image
+}); // Thanks to StackOverflow: Rubens Mariuzzo - Source: https://stackoverflow.com/questions/16349578/angular-directive-for-a-fallback-image
 
 app.controller('MainController', ['$http', '$route', '$scope', '$location', function($http, $route, $scope, $location) {
-  let CtrlUrl = $location.url();
-  console.log('MainController:', CtrlUrl);
+  //let CtrlUrl = $location.url();
+  //console.log('MainController:', CtrlUrl);
   this.test = 'What!';
   this.showModal = false;
   this.place = {};
@@ -61,6 +61,7 @@ app.controller('MainController', ['$http', '$route', '$scope', '$location', func
   // Get all places
   this.getPlaces = () => {
     let url = $location.url();
+    if (url === '/') {
       $http({
           method: 'GET',
           url: '/places'
@@ -70,6 +71,7 @@ app.controller('MainController', ['$http', '$route', '$scope', '$location', func
         }, error => {
           console.error(error.message);
         }).catch(err => console.error('Catch', err));
+    }
     if (url == '/viewAll/beenTo') {
       this.viewAll = true
       $http({
