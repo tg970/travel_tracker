@@ -28,6 +28,7 @@
 
         <div class = "editModal" ng-if="ctrl.edit">
           <button class="closeEditBtn" id="closeEdit" ng-click="ctrl.dontUpdate()">close</button>
+          <a href="/instructions"><button class="closeEditBtn">Need&nbsp;Help?</button></a>
           <form class="editForm" ng-submit="ctrl.updatePlace()">
             <label for="place">Place:</label>
             <input class="editInput" id="place" type="text" ng-model="ctrl.currentEdit.place" required/>
