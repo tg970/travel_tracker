@@ -48,11 +48,11 @@
           <!-- End Moblie View -->
 
             <div class="menuContents">
-              <a class="menuItem menuLink" ng-click="ctrl.showLogin ? ctrl.closeLogin() : ''" href="/">Home</a>
-              <a ng-if="ctrl.user.logged" class="menuItem menuLink" href="/myTracker">My Places</a>
-              <a class="menuItem menuLink" ng-click="ctrl.showLogin ? ctrl.closeLogin() : ''" href="/about">About</a>
-              <a ng-if="!ctrl.user.logged" ng-click="ctrl.openLogin()" class="menuItem menuLink" href="#">Login</a>
-              <a ng-if="ctrl.user.logged" ng-click="ctrl.logout()" class="menuItem menuLink" href="#">Logout</a>
+              <a class="menuItem menuLink headerLink" ng-click="ctrl.showLogin ? ctrl.closeLogin() : ''" href="/">Home</a>
+              <a ng-if="ctrl.user.logged" class="menuItem menuLink headerLink" href="/myTracker">My Places</a>
+              <a class="menuItem menuLink headerLink" ng-click="ctrl.showLogin ? ctrl.closeLogin() : ''" href="/about">About</a>
+              <a ng-if="!ctrl.user.logged " ng-click="ctrl.openLogin()" class="menuItem menuLink headerLink" href="#">Login</a>
+              <a ng-if="ctrl.user.logged" ng-click="ctrl.logout()" class="menuItem menuLink headerLink" href="#">Logout</a>
             </div>
 
 
@@ -60,8 +60,9 @@
               <div class="profPic" ng-if="ctrl.user.logged">
                 <img ng-src="{{ctrl.user.pic}}" alt="" fallback-src="/assets/default_user.png">
               </div>
-              <p class="orange" href="#">{{ctrl.userName}}</>
+              <a href="/instructions"><p class="orange" href="#">{{ctrl.userName}}</p></a
             </div>
+
           <!-- </div> -->
         </div>
         <div ng-if="ctrl.showLogin">

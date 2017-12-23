@@ -16,11 +16,11 @@ app.directive('fallbackSrc', function () {
     }
    }
    return fallbackSrc;
-}); // Thanks to StackOverflow: Rubens Mariuzzo Source: https://stackoverflow.com/questions/16349578/angular-directive-for-a-fallback-image
+}); // Thanks to StackOverflow: Rubens Mariuzzo - Source: https://stackoverflow.com/questions/16349578/angular-directive-for-a-fallback-image
 
 app.controller('MainController', ['$http', '$route', '$scope', '$location', function($http, $route, $scope, $location) {
-  let CtrlUrl = $location.url();
-  console.log('MainController:', CtrlUrl);
+  //let CtrlUrl = $location.url();
+  //console.log('MainController:', CtrlUrl);
   this.test = 'What!';
   this.showModal = false;
   this.place = {};
@@ -41,7 +41,6 @@ app.controller('MainController', ['$http', '$route', '$scope', '$location', func
       url: '/places',
       data: this.newForm
     }).then(response => {
-      this.places.push(response.data);
       let temp = { _id: response.data._id }
       if (this.newForm.beenOrWant == 'beenTo') {
         this.addBeen(temp)
@@ -61,6 +60,7 @@ app.controller('MainController', ['$http', '$route', '$scope', '$location', func
   // Get all places
   this.getPlaces = () => {
     let url = $location.url();
+    if (url === '/') {
       $http({
           method: 'GET',
           url: '/places'
@@ -70,6 +70,7 @@ app.controller('MainController', ['$http', '$route', '$scope', '$location', func
         }, error => {
           console.error(error.message);
         }).catch(err => console.error('Catch', err));
+    }
     if (url == '/viewAll/beenTo') {
       this.viewAll = true
       $http({
@@ -106,12 +107,16 @@ app.controller('MainController', ['$http', '$route', '$scope', '$location', func
       method: 'DELETE',
       url: '/places/' + id
     }).then(response => {
-      const removeByIndex = this.places.findIndex(p => p._id === id)
-      this.places.splice(removeByIndex, 1);
-      const rmBeenToId = this.beenToArr.findIndex(p => p._id === id);
-      if ( rmBeenToId >= 0 ) this.beenToArr.splice(rmBeenToId, 1);
-      const rmWantToId = this.wantToArr.findIndex(p => p._id === id);
-      if ( rmWantToId >= 0 ) this.wantToArr.splice(rmWantToId, 1);
+      if (this.places) {
+        const removeByIndex = this.places.findIndex(p => p._id === id)
+        this.places.splice(removeByIndex, 1);
+      }
+      if (this.beenToArr) {
+        const rmBeenToId = this.beenToArr.findIndex(p => p._id === id);
+        if ( rmBeenToId >= 0 ) this.beenToArr.splice(rmBeenToId, 1);
+        const rmWantToId = this.wantToArr.findIndex(p => p._id === id);
+        if ( rmWantToId >= 0 ) this.wantToArr.splice(rmWantToId, 1);
+      }
       this.showModal = false;
       this.edit = false;
     }, error => {
@@ -132,8 +137,10 @@ app.controller('MainController', ['$http', '$route', '$scope', '$location', func
       url: '/places/' + this.currentEdit._id,
       data: this.currentEdit
     }).then(response => {
-      const updateByIndex = this.places.findIndex(place => place._id === response.data._id)
-      this.places.splice(updateByIndex , 1, response.data)
+      if ($location.url() === '/') {
+        const updateByIndex = this.places.findIndex(place => place._id === response.data._id)
+        this.places.splice(updateByIndex , 1, response.data)
+      }
       this.place = response.data;
       this.openShow(response.data);
     }).catch(err => console.error('Catch', err));
@@ -446,12 +453,18 @@ app.config(['$routeProvider','$locationProvider', function($routeProvider,$locat
     controllerAs: 'ctrl'
   });
 
+  $routeProvider.when('/myTracker', {
+    templateUrl: 'partials/userShow.html',
+    controller: 'MainController as ctrl',
+    controllerAs: 'ctrl'
+  });
+
   $routeProvider.when('/about', {
     templateUrl: 'partials/about.html',
   });
 
-  $routeProvider.when('/myTracker', {
-    templateUrl: 'partials/userShow.html',
+  $routeProvider.when('/instructions', {
+    templateUrl: 'partials/instructions.html',
     controller: 'MainController as ctrl',
     controllerAs: 'ctrl'
   });

@@ -7,6 +7,7 @@ a {
 }
 * {
   font-family: 'Oxygen', sans-serif;
+  /* border: .25px solid green */
 }
 h1, h2, h3, h4, h4 {
   font-family: 'Barlow', sans-serif;
@@ -15,4 +16,27 @@ h1, h2, h3, h4, h4 {
   margin: 100px auto;
   max-width: 90%;
   /*border: 1px solid red;*/
+}
+
+.incImg {
+  max-width: 340px;
+  /* max-height: 85px; */
+}
+
+.helpBtnWrap {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+#note {
+  margin: 5px 10px 5px 10px
+}
+
+@media (max-width: 600px) {
+  .incImg {
+    max-width: 200px;
+    /* max-height: 85px; */
+  }
 }

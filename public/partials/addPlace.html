@@ -7,7 +7,7 @@
       <div class="createRowOne">
         <div class="rowItem" id="VR">
           <form class="editForm" ng-submit="ctrl.addPlace()">
-            <label for="place">Place:</label>
+            <label for="place">Place * :</label>
             <input  class="create" id="place" type="text" ng-model="ctrl.newForm.place" required/>
             <label for="img">Image URL:</label>
             <input class="create" type="text" ng-model="ctrl.newForm.img"/>
@@ -17,11 +17,14 @@
               <input class="create" id="beenThere" type="radio" ng-model="ctrl.newForm.beenOrWant" value="beenTo"/> <label>Been There</label> <br />
             </div>
             <label for="public">Public:</label>
-            <input class="create" id="public" type="checkbox" ng-model="ctrl.newForm.public"/>
+            <input class="create" id="public" ng-init="ctrl.newForm.public=true" type="checkbox" ng-model="ctrl.newForm.public"/>
             <label for="desc">Description:</label>
             <textarea class="create" id="desc" ng-model="ctrl.newForm.description"></textarea>
             <button class="showBtn" type="submit">Add Place</button>
           </form>
+          <div class="helpBtnWrap">
+            <a href="/instructions"><button class="showBtn helpBtn">Need&nbsp;Help?</button></a>
+          </div>
         </div>
 
 
