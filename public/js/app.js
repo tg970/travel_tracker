@@ -185,7 +185,7 @@ app.controller('MainController', ['$http', '$route', '$scope', '$location', func
       this.showModal = false;
       this.openShow(this.place)
     }, ex => {
-        console.log('ex', ex.data.err);
+        $scope.$parent.ctrl.showLogin = true;
         this.loginError = ex.statusText;
     }).catch(err => this.loginError = 'Something went wrong' );
   }
