@@ -81,7 +81,7 @@ router.post('/', async (req, res) => {
 //EDIT
 router.put('/:id', async (req, res) => {
   try {
-    const updatedPlace = await Place.findByIdAndUpdate(req.params.id, req.body, {new: true}); // moved one paren
+    const updatedPlace = await Place.findByIdAndUpdate(req.params.id, req.body, {new: true}).populate('user', 'username');; // moved one paren
     res.status(200).json(updatedPlace);
   } catch (e) {
     console.log(e);

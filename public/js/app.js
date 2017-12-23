@@ -16,11 +16,11 @@ app.directive('fallbackSrc', function () {
     }
    }
    return fallbackSrc;
-});
-// Thanks to StackOverflow: Rubens Mariuzzo, https://stackoverflow.com/questions/16349578/angular-directive-for-a-fallback-image
+}); // Thanks to StackOverflow: Rubens Mariuzzo Source: https://stackoverflow.com/questions/16349578/angular-directive-for-a-fallback-image
 
 app.controller('MainController', ['$http', '$route', '$scope', '$location', function($http, $route, $scope, $location) {
-  //console.log('MainController');
+  let CtrlUrl = $location.url();
+  console.log('MainController:', CtrlUrl);
   this.test = 'What!';
   this.showModal = false;
   this.place = {};
@@ -44,11 +44,9 @@ app.controller('MainController', ['$http', '$route', '$scope', '$location', func
       this.places.push(response.data);
       let temp = { _id: response.data._id }
       if (this.newForm.beenOrWant == 'beenTo') {
-        //console.log('beenTo True');
         this.addBeen(temp)
         this.beenToArr.unshift(response.data)
       } else {
-        //console.log('beenTo false');
         this.addWant(temp)
         this.wantToArr.unshift(response.data)
       }
@@ -124,25 +122,20 @@ app.controller('MainController', ['$http', '$route', '$scope', '$location', func
 
   // Update Item
   this.updateModal = ( place ) => {
-    //console.log('full edit running...', place);
     this.edit = true;
     this.currentEdit = angular.copy(place);
   }
 
   this.updatePlace = () => {
-    //console.log('edit submit...', this.currentEdit);
     $http({
       method: 'PUT',
       url: '/places/' + this.currentEdit._id,
       data: this.currentEdit
     }).then(response => {
-      //console.log('responce:', response.data);
-      //console.table(this.places);
       const updateByIndex = this.places.findIndex(place => place._id === response.data._id)
-      //console.log('update ind:', updateByIndex);
-      // this.places.splice(updateByIndex , 1, response.data)
-      this.places[updateByIndex] = response.data;
-      this.openShow(this.places[updateByIndex]);
+      this.places.splice(updateByIndex , 1, response.data)
+      this.place = response.data;
+      this.openShow(response.data);
     }).catch(err => console.error('Catch', err));
     this.edit = false;
     this.currentEdit = {};
@@ -162,8 +155,6 @@ app.controller('MainController', ['$http', '$route', '$scope', '$location', func
       //console.log('this.user: true');
       this.wantTo = user.placesWant.includes(place._id)
       this.beenTo = user.placesBeen.includes(place._id)
-      //console.log('wantTo:',this.wantTo);
-      //console.log('beenTo:',this.beenTo);
       this.place.liked = user.likes.includes(place._id)
     }
     this.showModal = true;
@@ -235,7 +226,6 @@ app.controller('MainController', ['$http', '$route', '$scope', '$location', func
       method: 'get'
     }).then(response =>  {
       updateUser(response.data);
-      //console.log('addBeen:',user);
       if (this.wantTo) this.removeWant(place)
       this.beenTo = true;
       this.error = null;
@@ -250,7 +240,6 @@ app.controller('MainController', ['$http', '$route', '$scope', '$location', func
       method: 'get'
     }).then(response =>  {
       updateUser(response.data);
-      //console.log('removeWant:',user);
       this.wantTo = false;
       this.error = null;
     }, ex => {
@@ -283,8 +272,6 @@ app.controller('MainController', ['$http', '$route', '$scope', '$location', func
         updateUser(response.data.user);
         this.beenToArr = response.data.myPlaces.beenTo
         this.wantToArr = response.data.myPlaces.wantTo
-        //console.log('beenTo:', this.beenTo);
-        //console.log('wantTo:', this.wantTo);
       }, ex => {
         console.log(ex.data.err, ex.statusText);
      }).catch(err => console.log(err));
