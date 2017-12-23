@@ -7,6 +7,7 @@ a {
 }
 * {
   font-family: 'Oxygen', sans-serif;
+  border: .25px solid green
 }
 h1, h2, h3, h4, h4 {
   font-family: 'Barlow', sans-serif;
