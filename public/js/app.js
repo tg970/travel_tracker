@@ -395,12 +395,12 @@ app.controller('NaviController', ['$http', '$scope', '$location', function($http
       this.loginForm = {};
       this.error = null;
       this.showLogin = false;
+      this.loginError = null;
       $scope.$broadcast('updateAuth', { data: this.user })
     }, ex => {
-       console.log('ex', ex.data.err);
-       this.loginError = 'Something went wrong';
+       this.loginError = `Hmm, we can't find a match...`;
     })
-    .catch(err => this.loginError = 'Something went wrong' );
+    .catch(err => this.loginError = `Hmm, we can't find a match...` );
   };
 
   // Logout
