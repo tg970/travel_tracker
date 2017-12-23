@@ -34,7 +34,7 @@ router.get('/beenTo/:id', async (req, res) => {
     const user = await User.findById(req.params.id);
     const beenToArr = { arr: []}
     for (let i = 0; i < user.placesBeen.length; i++ ) {
-      let place = await Place.findById(user.placesBeen[i]);
+      let place = await Place.findById(user.placesBeen[i]).populate('user', 'username');
       if (place) {
         beenToArr.arr.unshift(place)
       } else {
@@ -56,7 +56,7 @@ router.get('/wantTo/:id', async (req, res) => {
     const user = await User.findById(req.params.id);
     const wantToArr = { arr: []}
     for (let i = 0; i < user.placesWant.length; i++ ) {
-      let place = await Place.findById(user.placesWant[i]);
+      let place = await Place.findById(user.placesWant[i]).populate('user', 'username');
       wantToArr.arr.unshift(place)
     }
     res.status(200).json(wantToArr);
