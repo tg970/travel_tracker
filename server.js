@@ -5,7 +5,6 @@ const mongoose   = require('mongoose');
 const morgan     = require('morgan');
 const cors 			 = require('cors');
 const app        = express();
-//const session    = require('express-session');
 require('pretty-error').start();
 
 // CONFIG
@@ -20,9 +19,6 @@ db.on( 'error', ( err ) => console.log( err.message + ' is Mongod not running?' 
 db.on( 'connected', () => console.log( 'Mongo OK: ', mongoURI ));
 db.on( 'disconnected', () => console.log( 'Mongo Disconnected' ));
 mongoose.Promise = global.Promise;
-
-// open the connection to mongo
-// db.on( 'open' , ()=>{});
 
 // Controllers
 const placeController = require( './controllers/placeController' );
