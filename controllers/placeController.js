@@ -5,21 +5,10 @@ const Place = require('../models/placeModel.js');
 const User = require('../models/users.js');
 
 
-//ALL PLACES
-// router.get('/', async (req, res) => {
-//   try {
-//     const allPlaces = await Place.find() //.populate('user');
-//     res.status(200).json(allPlaces);
-//   } catch (e) {
-//     console.log(e);
-//     res.status(400).json({err: e.message});
-//   }
-// });
-
 //ALL PUBLIC PLACES (Dupl route, needs new URI)
 router.get('/', async (req, res) => {
   try {
-    const publicPlaces = await Place.find({public: true}) //.populate('user');
+    const publicPlaces = await Place.find({public: true}).populate('user', 'username');
     res.status(200).json(publicPlaces);
   } catch (e) {
     console.log(e);
@@ -43,10 +32,9 @@ router.get('/byUser', async (req, res) => {
 router.get('/beenTo/:id', async (req, res) => {
   try {
     const user = await User.findById(req.params.id);
-    console.log(user);
     const beenToArr = { arr: []}
     for (let i = 0; i < user.placesBeen.length; i++ ) {
-      let place = await Place.findById(user.placesBeen[i]);
+      let place = await Place.findById(user.placesBeen[i]).populate('user', 'username');
       if (place) {
         beenToArr.arr.unshift(place)
       } else {
@@ -55,8 +43,6 @@ router.get('/beenTo/:id', async (req, res) => {
         console.log('user save');
       }
     }
-    //const userBeenToPlaces = await Place.find(  ); //{$and [ {user: loggedUser._id}, {beenTo: true} ] }
-    console.log(beenToArr);
     res.status(200).json(beenToArr);
   } catch (e) {
     console.log(e);
@@ -67,22 +53,12 @@ router.get('/beenTo/:id', async (req, res) => {
 //USER NOT Want-TO PLACES
 router.get('/wantTo/:id', async (req, res) => {
   try {
-    // const loggedUser = await User.find({username: req.session.username});
-    // const userBeenToPlaces = await Place.find( ); // {$and [ {user: loggedUser._id}, {beenTo: false} ] }
     const user = await User.findById(req.params.id);
-    console.log(user);
     const wantToArr = { arr: []}
     for (let i = 0; i < user.placesWant.length; i++ ) {
-      let place = await Place.findById(user.placesWant[i]);
-      //if (place) {
-        wantToArr.arr.unshift(place)
-      //} else {
-      //   user.placesBeen.splice(i,1)
-      //   saveUser = true;
-      //   console.log('user save');
-      // }
+      let place = await Place.findById(user.placesWant[i]).populate('user', 'username');
+      wantToArr.arr.unshift(place)
     }
-    console.log(wantToArr);
     res.status(200).json(wantToArr);
   } catch (e) {
     console.log(e);
@@ -105,7 +81,8 @@ router.post('/', async (req, res) => {
 //EDIT
 router.put('/:id', async (req, res) => {
   try {
-    const updatedPlace = await Place.findByIdAndUpdate(req.params.id, req.body, {new: true}); // moved one paren
+    if (req.body.img === '') req.body.img = 'assets/default.jpg'
+    const updatedPlace = await Place.findByIdAndUpdate(req.params.id, req.body, {new: true}).populate('user', 'username');
     res.status(200).json(updatedPlace);
   } catch (e) {
     console.log(e);

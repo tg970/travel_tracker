@@ -115,7 +115,7 @@ body {
   height: 100%;
   top: 0;
   left: 0;
-  z-index: 3000;
+  z-index: 1;
   /*background: #230500;*/
   background: rgba(35, 5, 0, 0.9);
   color: #ded6cd;
@@ -136,7 +136,7 @@ body {
   color: white;
   background-color: #34adbf;
   border: 1px solid white;
-  margin: 3% 45%;
+  margin: 80px 45% 20px 45%;
   }
 
  .closeBtn:hover, .closeBtn:focus  {
@@ -149,7 +149,7 @@ body {
   display: flex;
   flex-direction: column;
   width: 90%;
-  margin: 5% auto;
+  margin: 0% auto 55px auto;
 }
 
 .showRow {
@@ -157,12 +157,12 @@ body {
   flex-direction: column;
   width: 60%;
   margin: 2% auto;
-  padding: 2%;
+  /* padding: 2%; */
   border-left: 3px solid #34adbf;
 }
 
 .showContainer {
-  padding: 5px;
+  padding: 2%;
 }
 
 .fa-trash-o, .fa-pencil-square-o{
