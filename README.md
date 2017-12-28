@@ -52,7 +52,6 @@ We utilized the Heroku cloud platform to deploy our application model. To view i
 ## Updates and Future Goals
 In the week we had to create this app, we were able to implement a lot of our initial plans and stretch goals, though with more time there are a few more things we'd like to add.
 
-* **Like button functionality** - *At the moment, the like button is displayed, but it has not functionality. We'd like to allow users to like other people's posts once, or be able to unlike them.*
 * **User Profile** - *The app has a social media aspect since you can see other user's posts and copy them, and in the future like them. We would like to add more to that social media aspect by creating user profiles. This would also give users the ability to update their information.*
 * **Forgot Password** - *A really useful functionality we would like to add in the future is an option to email users a new temporary password or implementing some other option that allows them to log in if they've forgotten their password.*
 
@@ -72,4 +71,4 @@ At this moment, contributing will not be considered, but feedback is welcomed.
 
 * StackOverflow.
 * Dan, da man! Our awesome blossom TA who knows it all.
-* Our helpful instructors who helped with bugs
+* Our helpful instructors who assisted.
