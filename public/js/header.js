@@ -6,7 +6,7 @@ const $headerBtn = $('.burger')
 const $closeheaderBtn = $('.closeheaderBtn');
 const $mobileLink = $('.mobileLink');
 
-// Burger Modal  - - - - - - - -  
+// Burger Modal  - - - - - - - -
   $headerBtn.on('click', () => {
     $('.mobileLinks').css('display', 'flex');
     $('.burger').css('display', 'none');
