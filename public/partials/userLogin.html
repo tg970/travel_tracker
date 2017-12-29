@@ -5,22 +5,22 @@
     <div class="login">
       <small>Log in</small>
       <form class="loginForm" ng-submit='ctrl.loginUser()'>
-         <input class="searchbox" type="text" placeholder="username" autocomplete="username" ng-model="ctrl.loginForm.username" required/>
-         <input class="searchbox" type="password" autocomplete="current-password" placeholder="password" ng-model="ctrl.loginForm.password" required/>
-         <input class="searchbox closeBtn" type="submit" />
+         <input class="searchbox loginField" type="text" placeholder="username" autocomplete="username" ng-model="ctrl.loginForm.username" required/>
+         <input class="searchbox loginField" type="password" autocomplete="current-password" placeholder="password" ng-model="ctrl.loginForm.password" required/>
+         <input class="searchbox closeBtn loginField" type="submit" />
       </form>
       <p>{{ ctrl.loginError }}</p>
     </div>
     <div class="register">
       <small>Register</small>
       <form class="loginForm" ng-submit='ctrl.registerUser()'>
-         <input class="searchbox" type="text" placeholder="username*" autocomplete="username" ng-model="ctrl.newUserForm.username" required/>
-         <input class="searchbox" type="password" autocomplete="current-password" placeholder="password*" ng-model="ctrl.newUserForm.password" required/>
-         <input class="searchbox" type="text" placeholder="First Name*" ng-model="ctrl.newUserForm.first" required/>
-         <input class="searchbox" type="text" placeholder="Last Name" ng-model="ctrl.newUserForm.last" />
-         <input class="searchbox" type="text" placeholder="Profile Pic URL" ng-model="ctrl.newUserForm.pic" />
-         <input class="searchbox" type="text" placeholder="Email Address" ng-model="ctrl.newUserForm.email" />
-         <input class="searchbox closeBtn" type="submit" />
+         <input class="searchbox loginField" type="text" placeholder="username*" autocomplete="username" ng-model="ctrl.newUserForm.username" required/>
+         <input class="searchbox loginField" type="password" autocomplete="current-password" placeholder="password*" ng-model="ctrl.newUserForm.password" required/>
+         <input class="searchbox loginField" type="text" placeholder="First Name*" ng-model="ctrl.newUserForm.first" required/>
+         <input class="searchbox loginField" type="text" placeholder="Last Name" ng-model="ctrl.newUserForm.last" />
+         <input class="searchbox loginField" type="text" placeholder="Profile Pic URL" ng-model="ctrl.newUserForm.pic" />
+         <input class="searchbox loginField" type="text" placeholder="Email Address" ng-model="ctrl.newUserForm.email" />
+         <input class="searchbox closeBtn loginField" type="submit" />
       </form>
       <p>{{ ctrl.registerError }}</p>
     </div>
