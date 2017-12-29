@@ -7,7 +7,7 @@
   height: 53px;
   bottom: 0px;
   position: fixed;
-  z-index: 100;
+  z-index: 2;
 }
 .footer hr {
   border: 1px solid #34adbf;

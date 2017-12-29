@@ -6,7 +6,7 @@
   top: 15%;
   left: 15%;
   z-index: 3;
-  background: rgba(255,255,255,.85);
+  background: rgba(255,255,255,.95);
   /*background: rgba(52, 173, 191, .8);*/
   border: 2px solid #34adbf;
   border-radius: 4px;
@@ -50,6 +50,10 @@
   flex-direction: column;
 }
 
+.loginField {
+  min-height: 40px;
+}
+
 .loginForm > input {
   margin: 5px;
 }
@@ -80,11 +84,14 @@ appearance: none;
         MEDIA QUERIES
 =========================================*/
 
-@media(max-width: 700px) {
+@media(max-width: 600px) {
 
   .loginModal {
     flex-direction: column;
-    /*overflow: scroll;*/
+    width: 90%;
+    height: 90%;
+    top: 5%;
+    left: 5%;
   }
 
   .loginForm > input {
