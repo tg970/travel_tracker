@@ -13,7 +13,7 @@ const mongoURI   = process.env.MONGODB_URI || 'mongodb://localhost/travel_tracke
 const kickass    = process.env.KICKASS || 'kickass'
 
 // Connect to Mongo
-mongoose.connect ( mongoURI , { useMongoClient: true});
+mongoose.connect ( mongoURI );
 const db = mongoose.connection;
 db.on( 'error', ( err ) => console.log( err.message + ' is Mongod not running?' ));
 db.on( 'connected', () => console.log( 'Mongo OK: ', mongoURI ));
